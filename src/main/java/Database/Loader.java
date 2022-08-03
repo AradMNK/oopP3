@@ -1411,4 +1411,8 @@ public class Loader {
         finally {Connector.connector.disconnect();}
         return comments;
     }
+
+    public static int getNumberOfComments(int postID) {
+        return 0;
+    }
 }

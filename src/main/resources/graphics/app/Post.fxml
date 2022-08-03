@@ -46,7 +46,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Circle fx:id="picture" radius="40.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <Circle fx:id="pfp" radius="40.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
