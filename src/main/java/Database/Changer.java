@@ -29,12 +29,12 @@ public class Changer {
     }
 
     public static void editMessage(int messageID, String line) {
-        Connector.queryWithoutResult("UPDATE directmessages SET message = '" + line
+        Connector.queryWithoutResult("UPDATE directmessage SET message = '" + line
                                             + "' WHERE messageID = " + messageID + ";");
     }
 
     public static void deleteMessage(int handle) {
-        Connector.queryWithoutResult("DELETE FROM directmessages WHERE messageID = " + handle + ";");
+        Connector.queryWithoutResult("DELETE FROM directmessage WHERE messageID = " + handle + ";");
     }
 
     public static void editGroupMessage(int messageID, String line) {
@@ -43,7 +43,7 @@ public class Changer {
     }
 
     public static void deleteGroupMessage(int handle) {
-        Connector.queryWithoutResult("DELETE FROM directmessages WHERE messageID = " + handle + ";");
+        Connector.queryWithoutResult("DELETE FROM directmessage WHERE messageID = " + handle + ";");
     }
 
     public static void removeFromBlockList(String blocker, String blocked) {

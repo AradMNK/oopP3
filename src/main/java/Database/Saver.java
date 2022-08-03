@@ -109,7 +109,7 @@ public class Saver {
         DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = now.format(formatObj);
 
-        Connector.queryWithoutResult("INSERT INTO directmessages (sender, receiver, message, date"
+        Connector.queryWithoutResult("INSERT INTO directmessage (sender, receiver, message, date"
                 + ", replyMessageID, originalSender) VALUES '" + sender + "', '"
                 + receiver + "', '" + line + "', '" + formattedDate + "', "
                 + replyMsgID + ", '" + originalSender + "';");
