@@ -270,7 +270,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT * FROM directmessages WHERE (sender = '" + username1
+            resultSet = connection.prepareStatement("SELECT * FROM directmessage WHERE (sender = '" + username1
                                                         + "' AND receiver = '" + username2 + "') OR (sender = '"
                                                         + username2 + "' AND receiver = '" + username1
                                                         + "');").executeQuery();
@@ -292,7 +292,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT message FROM directmessages WHERE messageID = "
+            resultSet = connection.prepareStatement("SELECT message FROM directmessage WHERE messageID = "
                                                         + handle + ";").executeQuery();
 
             //checks if the resultSet isn't empty
@@ -920,7 +920,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM directmessages WHERE ((sender = '"
+            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM directmessage WHERE ((sender = '"
                                                         + username1 + "' AND receiver = '" + username2 + "') OR (sender = '"
                                                         + username2 + "' AND receiver = '" + username1
                                                         + "')) AND message LIKE '%" + pattern + "%';").executeQuery();
@@ -935,7 +935,7 @@ public class Loader {
                     messageIDs = new int[numberOfResults];
 
                     //adds the IDs to the array
-                    resultSet = connection.prepareStatement("SELECT messageID FROM directmessages WHERE ((sender = '"
+                    resultSet = connection.prepareStatement("SELECT messageID FROM directmessage WHERE ((sender = '"
                                                                 + username1 + "' AND receiver = '" + username2
                                                                 + "') OR (sender = '" + username2 + "' AND receiver = '"
                                                                 + username1 + "')) AND message LIKE '%" + pattern
@@ -1007,7 +1007,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM directmessages WHERE (sender ='"
+            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM directmessage WHERE (sender ='"
                                                         + username + "' OR receiver = '" + username
                                                         + "') AND message LIKE '%" + pattern + "%';").executeQuery();
 
@@ -1021,7 +1021,7 @@ public class Loader {
                     messageIDs = new int[numberOfResults];
 
                     //adds the IDs to the array
-                    resultSet = connection.prepareStatement("SELECT messageID FROM directmessages WHERE (sender ='"
+                    resultSet = connection.prepareStatement("SELECT messageID FROM directmessage WHERE (sender ='"
                                                                 + username + "' OR receiver = '" + username
                                                                 + "') AND message LIKE '%" + pattern + "%';").executeQuery();
 
@@ -1233,7 +1233,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT messageID FROM directmessages WHERE (sender = '"
+            resultSet = connection.prepareStatement("SELECT messageID FROM directmessage WHERE (sender = '"
                                                         + username1 + "' AND receiver = '" + username2
                                                         + "') OR (sender = '" + username2 + "' AND receiver = '"
                                                         + username1 + "') ORDER BY messageID DESC LIMIT "
@@ -1283,7 +1283,7 @@ public class Loader {
         ResultSet resultSet;
         try {
             resultSet = connection.prepareStatement("SELECT sender, message, date, replyMessageID, originalSender " +
-                                                        "FROM directmessages WHERE messageID = " + messageID
+                                                        "FROM directmessage WHERE messageID = " + messageID
                                                         + ";").executeQuery();
 
             //checks if the resultSet isn't empty
