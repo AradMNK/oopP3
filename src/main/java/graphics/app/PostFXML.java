@@ -2,30 +2,33 @@ package graphics.app;
 
 import Login.Loginner;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ToolBar;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import Objects.Post;
 import Objects.User;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class PostFXML {
+    User poster;
     @FXML Button likeButton, commentButton;
     @FXML Circle pfp;
-    @FXML Text name, username, bio, postContent, subtitle, date;
+    @FXML Text name, bio, postContent, subtitle, date;
     @FXML ScrollPane postPane, bioPane;
     @FXML GridPane picturePane;
     @FXML ToolBar toolbar;
+    @FXML Hyperlink username;
 
     @FXML void comment(){
 
@@ -52,6 +55,10 @@ public class PostFXML {
 
         ImageView imageView = new ImageView();
         imageView.setImage(new Image(handle));
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(Utility.IMAGE_POST_FIT_WIDTH);
+        VBox group = new VBox(postContent, imageView);
+        postPane.setContent(group);
     }
 
     public void initialize(Post post){
@@ -70,7 +77,7 @@ public class PostFXML {
             commentButton.setText(Integer.toString(Database.Loader.getNumberOfComments(post.getPostID().getHandle())));
         }
 
-        User poster = post.getPoster();
+        poster = post.getPoster();
         initContents(poster.getName(), poster.getUsername(), poster.getBio(),
                 post.getDescription(), poster.getSubtitle(), post.getDatePosted());
         initPicture(post.getPicture().getHandle());
@@ -89,10 +96,18 @@ public class PostFXML {
                         (Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE)).toString())));}
         }
 
-        User poster = Loginner.loginnedUser;
+        poster = Loginner.loginnedUser;
         initContents(poster.getName(), poster.getUsername(), poster.getBio(),
                 postContent.getText(), poster.getSubtitle(), LocalDateTime.now());
         commentButton.setDisable(true);
         likeButton.setDisable(true);
+        username.setDisable(true);
+    }
+
+    @FXML void usernameClick(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_FXML_PATH));
+        try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((UserFXML)fxmlLoader.getController()).initialize(poster);
     }
 }

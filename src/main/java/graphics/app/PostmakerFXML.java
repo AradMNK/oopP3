@@ -12,7 +12,6 @@ import org.controlsfx.control.Notifications;
 import java.net.MalformedURLException;
 
 public class PostmakerFXML {
-    MainFXML root;
     String picturePath = "";
 
     @FXML TextArea inputMessage;
@@ -27,7 +26,7 @@ public class PostmakerFXML {
         } catch (MalformedURLException e) {e.printStackTrace();}
     }
     @FXML void cancel(){
-        root.removeDisplay();
+        MainFXML.root.removeDisplay();
     }
     @FXML void post(){
         if (inputMessage.getText().equals("") && picturePath.equals("")){

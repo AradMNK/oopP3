@@ -15,6 +15,7 @@ public class Utility {
     POST_FXML_PATH = "Post.fxml",
     POSTS_FXML_PATH = "Posts.fxml",
     POSTMAKER_FXML_PATH = "Postmaker.fxml",
+    USER_FXML_PATH = "User.fxml",
 
     LIGHT_MODE_CSS_PATH = "Light.css",
     DARK_MODE_CSS_PATH = "Dark.css",
@@ -23,7 +24,7 @@ public class Utility {
     ICON_PATH = "instakilogram.png";
 
     public static final int PREF_WIDTH = 900, PREF_HEIGHT = 600,
-    POST_TEXT_MARGIN_FROM_RIGHT = 60;
+    POST_TEXT_MARGIN_FROM_RIGHT = 60, IMAGE_POST_FIT_WIDTH = 500;
 
     public static void delay(long millis, Runnable continuation) {
         Task<Void> sleeper = new Task<>() {

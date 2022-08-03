@@ -15,13 +15,15 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MainFXML {
+    public static MainFXML root;
     @FXML GridPane rootDisplay;
     @FXML Button homeButton, myAccountButton, chatsButton, feedButton, exploreButton,
             blocklistButton, postButton, searchButton, themeButton, followersButton, myPostsButton;
     @FXML TextField searchField;
 
     public void initialize(){
-    }
+        root = this;}
+
 
     @FXML void search(){
 
@@ -50,7 +52,6 @@ public class MainFXML {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTMAKER_FXML_PATH));
         try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace();}
-        ((PostmakerFXML)fxmlLoader.getController()).root = this;
     }
     @FXML void theme(){
         if (Theme.currentTheme == Theme.LIGHT){

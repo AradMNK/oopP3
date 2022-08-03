@@ -889,12 +889,12 @@
 *                                                                              *
 *******************************************************************************/
 .scroll-pane {    
-    -fx-background-color: transparent, #5e5985, #c1c5d4;
+    -fx-background-color: transparent, #5e5985, linear-gradient(to bottom,#c1c5d4 0%,#9a9ead 100%);
     -fx-background-insets: 0,0,1;
     -fx-padding: 20;    
 }
 .scroll-pane:focused {
-    -fx-background-color:  #403f5c,  #5e5985, #c1c5d4;
+    -fx-background-color:  #403f5c,  #5e5985, linear-gradient(to bottom,#c1c5d4 0%,#9a9ead 100%);
     -fx-background-insets: -1.4, 0, 1;
 }
 .scroll-pane .corner {
@@ -902,7 +902,7 @@
     -fx-background-insets: 0, 1 1 1 1;
 }
 .scroll-pane .viewport {
-    -fx-background-color: #c1c5d4;
+    -fx-background-color: transparent;
 }
 /*******************************************************************************
 *                                                                              *
@@ -1701,7 +1701,7 @@
     -fx-background-insets: 0,1,2;
 }
 .tool-bar:vertical {
-    -fx-background-color: #403f5c, linear-gradient(to bottom, #bec0d1, #cccad9);
+    -fx-background-color: #403f5c, #bec0d1;
     -fx-background-insets: 0, 0 1 0 1;    
 }
 .tool-bar .separator:vertical .line {
@@ -1715,7 +1715,7 @@
     -fx-border-color:  transparent transparent #7b7882 transparent;
 }
 .tool-bar:horizontal {
-    -fx-background-color: #403f5c, linear-gradient(to bottom, #bec0d1, #cccad9);    
+    -fx-background-color: #403f5c, #bec0d1;
     -fx-background-insets: 0, 1 0 1 0;    
 }
 .tool-bar:horizontal .tool-bar-overflow-button .arrow {
@@ -1837,4 +1837,10 @@
 	 -fx-fill: #2a2c38;
 	 -fx-padding: 2;
 	 -fx-font-family: 'System';
+ }
+ 
+ 
+ .vbox{
+	-fx-background-color: #d3d6e3;
+	-fx-border-color: black;
  }

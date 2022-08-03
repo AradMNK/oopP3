@@ -1,5 +1,6 @@
 package graphics.app;
 
+import Login.Loginner;
 import animatefx.animation.Pulse;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -17,7 +18,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class UserFXML {
-    @FXML Button followButton;
+    String internalUsername;
+    boolean followed;
+    @FXML Button followButton, messageButton;
     @FXML Circle picture;
     @FXML Text name, username, bio, subtitle, date;
     @FXML ScrollPane bioPane;
@@ -28,9 +31,9 @@ public class UserFXML {
         this.username.setText("@" + username);
         this.bio.setText(bio);
         this.subtitle.setText(subtitle);
-        this.date.setText(time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+        this.date.setText(time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         this.bio.wrappingWidthProperty().bind(bioPane.widthProperty().subtract(Utility.POST_TEXT_MARGIN_FROM_RIGHT));
-        picture.radiusProperty().bind(picturePane.heightProperty().divide(2));
+        picture.radiusProperty().bind(picturePane.widthProperty().divide(2));
     }
 
 
@@ -47,11 +50,27 @@ public class UserFXML {
         }
 
         initContents(user.getName(), user.getUsername(), user.getBio(), user.getSubtitle(), user.getDateJoined());
+        internalUsername = user.getUsername();
+
+        followed = Database.Loader.userFollows(Loginner.loginnedUser.getUsername(), user.getUsername());
+        if (Loginner.loginnedUser.getUsername().equals(user.getUsername())) followButton.setDisable(true);
+        if (followed) followButton.setText("Unfollow");
     }
 
     @FXML void follow(){
+        if (followed){
+            Loginner.loginnedUser.unfollow(internalUsername);
+            followButton.setText("Follow");
+            return;
+        }
+        Loginner.loginnedUser.follow(internalUsername);
+        followButton.setText("Unfollow");
+    }
+
+    @FXML void message(){
 
     }
 
     @FXML void hoverFollow(){new Pulse(followButton).play();}
+    @FXML void hoverMessage(){new Pulse(messageButton).play();}
 }
