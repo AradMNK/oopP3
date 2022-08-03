@@ -1473,6 +1473,22 @@ public class Loader {
     }
 
     public static String getGroupName(int groupID) {
-        return "";
+        //declares the group name
+        String name = null;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT name FROM group_chats WHERE groupID = " + groupID
+                                                        + ";").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                name = resultSet.getString(1);
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return name;
     }
 }
