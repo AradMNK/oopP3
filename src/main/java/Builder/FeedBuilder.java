@@ -14,6 +14,6 @@ public class FeedBuilder {
         for (int feedCommentID: feedCommentIDs) feed.getComments().add(CommentBuilder.getCommentFromDatabase(feedCommentID));
         for (int feedLikeID: feedLikeIDs) feed.getLikes().add(LikeBuilder.getLikeFromDatabase(feedLikeID));
 
-        return new Feed();
+        return feed;
     }
 }

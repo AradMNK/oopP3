@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -68,19 +67,18 @@ public class MainFXML {
                 (Launcher.class.getResource(Utility.LIGHT_MODE_CSS_PATH)).toString());
     }
     @FXML void followers(){
-
-        //setDisplayTo();
-
         FXMLLoader fxmlLoader_r = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH)),
-                   fxmlLoader_l = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH));
+                   fxmlLoader_l = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH)),
+                   fxmlLoader_master = new FXMLLoader(Launcher.class.getResource(Utility.FOLLOWERS_FXML_PATH));
         Parent root_r, root_l;
-        try {root_r = fxmlLoader_r.load(); root_l = fxmlLoader_l.load();}
+        try {fxmlLoader_master.load(); root_r = fxmlLoader_r.load(); root_l = fxmlLoader_l.load();}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
 
         ((UsersFXML)fxmlLoader_r.getController()).initialize(Loginner.loginnedUser.getFollowers());
-        ((UsersFXML)fxmlLoader_r.getController()).initialize(Loginner.loginnedUser.getFollowings());
-        //splitPane.getItems().addAll(root_l, root_r);
+        ((UsersFXML)fxmlLoader_l.getController()).initialize(Loginner.loginnedUser.getFollowings());
+        ((FollowersFXML)fxmlLoader_master.getController()).initialize
+                (root_r, root_l);
     }
     @FXML void myPosts(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));

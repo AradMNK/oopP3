@@ -27,7 +27,6 @@ public class PostFXML {
     @FXML Text name, bio, postContent, subtitle, date;
     @FXML ScrollPane postPane, bioPane;
     @FXML GridPane picturePane;
-    @FXML ToolBar toolbar;
     @FXML Hyperlink username;
 
     @FXML void comment(){
