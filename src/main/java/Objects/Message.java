@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Message {
     private SaveHandle ID, replyToID;
     private String content;
-    private String username, userName, originalUsername;
+    private String username, originalUsername;
     private LocalDateTime date;
 
     public SaveHandle getID() {return ID;}
@@ -16,9 +16,6 @@ public class Message {
 
     public String getUsername() {return username;}
     public void setUsername(String username) {this.username = username;}
-
-    public String getUserName() {return userName;}
-    public void setUserName(String userName) {this.userName = userName;}
 
     public String getOriginalUsername() {return originalUsername;}
     public void setOriginalUsername(String originalUsername) {this.originalUsername = originalUsername;}

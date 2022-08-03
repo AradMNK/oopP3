@@ -39,7 +39,8 @@ public class PostBuilder {
         post.setPoster(UserBuilder.getUserFromDatabase(details[0]));
         post.setPostID(new SaveHandle(postID));
         post.setDescription(details[1]);
-        post.setDatePosted(LocalDateTime.parse(details[3].substring(0, details[3].length() - 2), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        post.setDatePosted(LocalDateTime.parse(details[3].substring(0, details[3].length() - 2),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         String nullable = details[2];
         if (nullable == null) nullable = "";
         post.setPicture(new Handle(nullable));

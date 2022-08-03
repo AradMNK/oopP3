@@ -1,7 +1,5 @@
 package Database;
 
-import Objects.Post;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -1267,7 +1265,7 @@ public class Loader {
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
-                for (int i = 0; i < 6; i++){
+                for (int i = 0; i < details.length; i++){
                     details[i] = resultSet.getString(i+1);
                 }
             }
@@ -1279,18 +1277,18 @@ public class Loader {
 
     public static String[] getMessageDetails(int messageID) {
         //declares a string array to store the details
-        String[] details = new String[6];
+        String[] details = new String[5];
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT sender, receiver, message, date, replyMessageID, originalSender " +
+            resultSet = connection.prepareStatement("SELECT sender, message, date, replyMessageID, originalSender " +
                                                         "FROM directmessages WHERE messageID = " + messageID
                                                         + ";").executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
-                for (int i = 0; i < 6; i++){
+                for (int i = 0; i < details.length; i++){
                     details[i] = resultSet.getString(i+1);
                 }
             }

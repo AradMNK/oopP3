@@ -16,6 +16,7 @@ public class Utility {
     POSTS_FXML_PATH = "Posts.fxml",
     POSTMAKER_FXML_PATH = "Postmaker.fxml",
     USER_FXML_PATH = "User.fxml",
+    USERS_FXML_PATH = "Users.fxml",
 
     LIGHT_MODE_CSS_PATH = "Light.css",
     DARK_MODE_CSS_PATH = "Dark.css",

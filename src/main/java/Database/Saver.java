@@ -193,8 +193,8 @@ public class Saver {
 
                 //splits the messages and adds the new message
                 String[] members = membersList.split("");
-                for (int i = 0; i < members.length; i++){
-                    Saver.addGroupMessageToUnreadMessages(handle, members[i]);
+                for (String member : members) {
+                    Saver.addGroupMessageToUnreadMessages(handle, member);
                 }
             }
         }
