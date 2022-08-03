@@ -1471,4 +1471,8 @@ public class Loader {
         finally {Connector.connector.disconnect();}
         return postID;
     }
+
+    public static String getGroupName(int groupID) {
+        return "";
+    }
 }

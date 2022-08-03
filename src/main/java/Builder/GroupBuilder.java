@@ -11,7 +11,7 @@ public class GroupBuilder {
     public static Group getGroupFromDatabaseWithName(int groupID){
         Group group = new Group();
         group.setGroupID(new SaveHandle(groupID));
-        //group.setName(Database.Loader.getGroupName(groupID));
+        group.setName(Database.Loader.getGroupName(groupID));
         return group;
     }
 
@@ -22,6 +22,6 @@ public class GroupBuilder {
         int[] groupMessageIDs = Database.Loader.getGroupMessageIDsOfGroup(groupID, howMany);
         for (int groupMessageID: groupMessageIDs) group.
                 getShownMessages().add(GroupMessageBuilder.getGroupMessageFromDatabase(groupMessageID));
-        return new Group();
+        return group;
     }
 }
