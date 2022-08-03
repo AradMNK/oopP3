@@ -87,14 +87,14 @@ public class User {
         if (Database.Loader.userFollows(this.username, username)) return false;
 
         Database.Saver.addToFollowers(this.username, username);
-        followers.add(username);
+        followings.add(username);
         return true;
     }
     public boolean unfollow (String username){
         if (!Database.Loader.userFollows(this.username, username)) return false;
 
         Database.Changer.removeFromFollowers(this.username, username);
-        followers.remove(username);
+        followings.remove(username);
         return true;
     }
 

@@ -18,7 +18,7 @@
     -fx-selection-bar-text: #1B2430;
 	-fx-font-family: 'Ageo Personal Use';
 	-fx-font-size: 1em;
-	-fx-background-color: #E9E2ED;
+	-fx-background-color: #e3e1e6;
 }
 /*******************************************************************************
  *                                                                             *
@@ -901,7 +901,9 @@
     -fx-background-color: #403f5c, #7b728f;
     -fx-background-insets: 0, 1 1 1 1;
 }
-.scroll-pane .viewport {    -fx-background-color: #c1c5d4;}
+.scroll-pane .viewport {
+    -fx-background-color: #c1c5d4;
+}
 /*******************************************************************************
 *                                                                              *
 * ComboBoxBase                                                                 *
@@ -1217,7 +1219,7 @@
     -fx-background-color: transparent,#403f5c,rgb(236,238,241);
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0;
-    -fx-padding: 25;
+    -fx-padding: -10;
     -fx-prompt-text-fill: derive(white,-30%);
 }
 .text-area:hover {
@@ -1823,7 +1825,7 @@
 	 -fx-background-radius: 3;
 	 -fx-background-insets: 1, 2;
 	 -fx-background-color: #23212b, #d3dceb;
-	 -fx-padding: 1;
+	 -fx-padding: 10;
  }
  /*******************************************************************************
  *                                                                             *

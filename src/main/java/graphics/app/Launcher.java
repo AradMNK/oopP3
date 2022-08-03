@@ -2,7 +2,6 @@ package graphics.app;
 
 import Database.Connector;
 import TextController.TextController;
-import TextController.CommandType;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

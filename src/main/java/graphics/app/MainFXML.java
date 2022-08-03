@@ -1,5 +1,6 @@
 package graphics.app;
 
+import Login.Loginner;
 import animatefx.animation.Pulse;
 import graphics.theme.Theme;
 import javafx.fxml.FXML;
@@ -8,15 +9,15 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class MainFXML {
-    @FXML Pane rootDisplay;
+    @FXML GridPane rootDisplay;
     @FXML Button homeButton, myAccountButton, chatsButton, feedButton, exploreButton,
-            blocklistButton, postButton, searchButton, themeButton;
+            blocklistButton, postButton, searchButton, themeButton, followersButton, myPostsButton;
     @FXML TextField searchField;
 
     public void initialize(){
@@ -64,6 +65,15 @@ public class MainFXML {
         AppManager.mainStage.getScene().getStylesheets().add(Objects.requireNonNull
                 (Launcher.class.getResource(Utility.LIGHT_MODE_CSS_PATH)).toString());
     }
+    @FXML void followers(){
+
+    }
+    @FXML void myPosts(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));
+        try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
+        ((PostsFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getPosts());
+    }
 
     @FXML void hoverSearchButton(){new Pulse(searchButton).play();}
     @FXML void hoverSearchField(){new Pulse(searchField).play();}
@@ -75,6 +85,8 @@ public class MainFXML {
     @FXML void hoverBlocklist(){new Pulse(blocklistButton).play();}
     @FXML void hoverPost(){new Pulse(postButton).play();}
     @FXML void hoverTheme(){new Pulse(themeButton).play();}
+    @FXML void hoverFollowers(){new Pulse(followersButton).play();}
+    @FXML void hoverMyPosts(){new Pulse(myPostsButton).play();}
 
     void setDisplayTo(Parent root){
         rootDisplay.getChildren().clear();

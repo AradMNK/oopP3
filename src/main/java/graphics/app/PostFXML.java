@@ -38,9 +38,6 @@ public class PostFXML {
         postContent.wrappingWidthProperty().bind(postPane.widthProperty().subtract(Utility.POST_TEXT_MARGIN_FROM_RIGHT));
         this.bio.wrappingWidthProperty().bind(bioPane.widthProperty().subtract(Utility.POST_TEXT_MARGIN_FROM_RIGHT));
         picture.radiusProperty().bind(picturePane.heightProperty().divide(2));
-
-        commentButton.setDisable(true);
-        likeButton.setDisable(true);
     }
 
     private void initPicture(String handle) {
@@ -83,5 +80,7 @@ public class PostFXML {
         User poster = Loginner.loginnedUser;
         initContents(poster.getName(), poster.getUsername(), poster.getBio(),
                 postContent.getText(), poster.getSubtitle(), LocalDateTime.now());
+        commentButton.setDisable(true);
+        likeButton.setDisable(true);
     }
 }
