@@ -27,6 +27,13 @@ public class PostFXML {
     @FXML GridPane picturePane;
     @FXML ToolBar toolbar;
 
+    @FXML void comment(){
+
+    }
+    @FXML void like(){
+
+    }
+
     private void initContents(String name, String username, String bio, String post, String subtitle, LocalDateTime time){
         this.name.setText(name);
         this.username.setText("@" + username);

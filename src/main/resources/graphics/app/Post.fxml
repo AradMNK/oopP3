@@ -97,7 +97,7 @@
       <Text fx:id="date" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="date" textAlignment="CENTER" underline="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
       <ToolBar fx:id="toolbar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="40.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
         <items>
-          <Button fx:id="likeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="69.0" style="-fx-font-size: 1em;" styleClass="icon-button" text="0">
+          <Button fx:id="likeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#like" prefHeight="30.0" prefWidth="69.0" style="-fx-font-size: 1em;" styleClass="icon-button" text="0">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -109,7 +109,7 @@
                   <Font size="3.0" />
                </font>
             </Button>
-            <Button fx:id="commentButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="47.0" prefWidth="17.0" style="-fx-font-size: 1em;" styleClass="icon-button" text="0">
+            <Button fx:id="commentButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#comment" prefHeight="47.0" prefWidth="17.0" style="-fx-font-size: 1em;" styleClass="icon-button" text="0">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>

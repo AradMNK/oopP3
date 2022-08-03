@@ -1,5 +1,7 @@
 package Database;
 
+import Objects.Post;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -1413,6 +1415,14 @@ public class Loader {
     }
 
     public static int getNumberOfComments(int postID) {
+        return 0;
+    }
+
+    public static String getLikerUsername(int likeID) {
+        return "";
+    }
+
+    public static int getPostOfLike(int likeID) {
         return 0;
     }
 }
