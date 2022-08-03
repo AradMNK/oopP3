@@ -189,7 +189,7 @@ public class Loader {
 
     public static String[] getUserDetails (String username){
         //declares a string array to store the details
-        String[] details = new String[6];
+        String[] userDetails = new String[6];
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
@@ -199,14 +199,14 @@ public class Loader {
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
-                for (int i = 0; i < 6; i++){
-                    details[i] = resultSet.getString(i+1);
+                for (int i = 0; i < userDetails.length; i++){
+                    userDetails[i] = resultSet.getString(i+1);
                 }
             }
         }
         catch (SQLException e) {e.printStackTrace();}
         finally {Connector.connector.disconnect();}
-        return details;
+        return userDetails;
     }
 
     public static boolean postIsAd(int postID) {
@@ -868,7 +868,7 @@ public class Loader {
 
     public static String[] getCommentDetails(int commentID) {
         //declares a string array to store the details
-        String[] details = new String[4];
+        String[] commentDetails = new String[4];
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
@@ -878,19 +878,19 @@ public class Loader {
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
-                for (int i = 0; i < 4; i++){
-                    details[i] = resultSet.getString(i+1);
+                for (int i = 0; i < commentDetails.length; i++){
+                    commentDetails[i] = resultSet.getString(i+1);
                 }
             }
         }
         catch (SQLException e) {e.printStackTrace();}
         finally {Connector.connector.disconnect();}
-        return details;
+        return commentDetails;
     }
 
     public static String[] getPostDetails(int postID) {
         //declares a string array to store the details
-        String[] details = new String[5];
+        String[] postDetails = new String[5];
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
@@ -901,13 +901,13 @@ public class Loader {
             //checks if the resultSet isn't empty
             if (resultSet.next()){
                 for (int i = 0; i < 5; i++){
-                    details[i] = resultSet.getString(i+1);
+                    postDetails[i] = resultSet.getString(i+1);
                 }
             }
         }
         catch (SQLException e) {e.printStackTrace();}
         finally {Connector.connector.disconnect();}
-        return details;
+        return postDetails;
     }
 
     public static int[] searchInDirect (String username1, String username2, String pattern){
@@ -1204,20 +1204,38 @@ public class Loader {
 
     public static int[] getGroupMessageIDsOfGroup(int groupID, int howMany) {
         //declares an array for the messages
-        int[] messageIDs = new int[howMany];
+        int[] messageIDs = new int[0];
+
+        //declares the number of results
+        int resultCount;
+        int displayingResultCount;
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT messageID FROM groupmessages WHERE groupID = "
+            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM groupmessages WHERE groupID = "
                                                         + groupID + " ORDER BY messageID DESC LIMIT "
                                                         + howMany + ";").executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
-                for (int i = howMany - 1; i >= 0; i--){
-                    messageIDs[i] = resultSet.getInt(1);
+                resultCount = resultSet.getInt(1);
+
+                //checks if the number of results isn't zero
+                if (resultCount != 0) {
+                    resultSet = connection.prepareStatement("SELECT messageID FROM groupmessages WHERE groupID = "
+                                                                + groupID + " ORDER BY messageID DESC LIMIT "
+                                                                + howMany + ";").executeQuery();
+
+                    //declares the array
+                    displayingResultCount = Math.min(resultCount, howMany);
+                    messageIDs = new int [displayingResultCount];
+
                     resultSet.next();
+                    for (int i = displayingResultCount - 1; i >= 0; i--) {
+                        messageIDs[i] = resultSet.getInt(1);
+                        resultSet.next();
+                    }
                 }
             }
         }
@@ -1228,12 +1246,16 @@ public class Loader {
 
     public static int[] getMessageIDsOfUsers(String username1, String username2, int howMany) {
         //declares an array for the messages
-        int[] messageIDs = new int[howMany];
+        int[] messageIDs = new int[0];
+
+        //declares the number of results
+        int resultCount;
+        int displayingResultCount;
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT messageID FROM directmessage WHERE (sender = '"
+            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM directmessage WHERE (sender = '"
                                                         + username1 + "' AND receiver = '" + username2
                                                         + "') OR (sender = '" + username2 + "' AND receiver = '"
                                                         + username1 + "') ORDER BY messageID DESC LIMIT "
@@ -1241,9 +1263,25 @@ public class Loader {
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
-                for (int i = howMany - 1; i >= 0; i--){
-                    messageIDs[i] = resultSet.getInt(1);
+                resultCount = resultSet.getInt(1);
+
+                //checks if the number of results isn't zero
+                if (resultCount != 0) {
+                    resultSet = connection.prepareStatement("SELECT messageID FROM directmessage WHERE (sender = '"
+                                                                + username1 + "' AND receiver = '" + username2
+                                                                + "') OR (sender = '" + username2 + "' AND receiver = '"
+                                                                + username1 + "') ORDER BY messageID DESC LIMIT "
+                                                                + howMany + ";").executeQuery();
+
+                    //declares the array
+                    displayingResultCount = Math.min(resultCount, howMany);
+                    messageIDs = new int [displayingResultCount];
+
                     resultSet.next();
+                    for (int i = displayingResultCount - 1; i >= 0; i--) {
+                        messageIDs[i] = resultSet.getInt(1);
+                        resultSet.next();
+                    }
                 }
             }
         }
@@ -1254,7 +1292,7 @@ public class Loader {
 
     public static String[] getGroupMessageDetails(int groupMessageID) {
         //declares a string array to store the details
-        String[] details = new String[6];
+        String[] groupMessageDetails = new String[6];
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
@@ -1265,19 +1303,19 @@ public class Loader {
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
-                for (int i = 0; i < details.length; i++){
-                    details[i] = resultSet.getString(i+1);
+                for (int i = 0; i < groupMessageDetails.length; i++){
+                    groupMessageDetails[i] = resultSet.getString(i+1);
                 }
             }
         }
         catch (SQLException e) {e.printStackTrace();}
         finally {Connector.connector.disconnect();}
-        return details;
+        return groupMessageDetails;
     }
 
     public static String[] getMessageDetails(int messageID) {
         //declares a string array to store the details
-        String[] details = new String[5];
+        String[] messageDetails = new String[5];
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
@@ -1288,14 +1326,14 @@ public class Loader {
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
-                for (int i = 0; i < details.length; i++){
-                    details[i] = resultSet.getString(i+1);
+                for (int i = 0; i < messageDetails.length; i++){
+                    messageDetails[i] = resultSet.getString(i+1);
                 }
             }
         }
         catch (SQLException e) {e.printStackTrace();}
         finally {Connector.connector.disconnect();}
-        return details;
+        return messageDetails;
     }
 
     public static int[] getPostFeed(String username) {
