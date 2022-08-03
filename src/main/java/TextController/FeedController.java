@@ -36,7 +36,7 @@ public class FeedController {
 
         int choice;
 
-        try{choice = TextController.scanner.nextInt();}
+        try{choice = Integer.parseInt(TextController.getNext());}
         catch (Exception e){TextController.println("Please enter a number."); showMenu(user); return;}
 
         if (choice == 1 && hasPost) showPosts(user);

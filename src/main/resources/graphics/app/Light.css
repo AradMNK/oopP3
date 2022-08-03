@@ -1701,7 +1701,7 @@
     -fx-background-insets: 0,1,2;
 }
 .tool-bar:vertical {
-    -fx-background-color: #403f5c, linear-gradient(to bottom, #bec0d1, #cccad9);
+    -fx-background-color: #403f5c, #bec0d1;
     -fx-background-insets: 0, 0 1 0 1;    
 }
 .tool-bar .separator:vertical .line {
@@ -1715,7 +1715,7 @@
     -fx-border-color:  transparent transparent #7b7882 transparent;
 }
 .tool-bar:horizontal {
-    -fx-background-color: #403f5c, linear-gradient(to bottom, #bec0d1, #cccad9);    
+    -fx-background-color: #403f5c, #bec0d1;
     -fx-background-insets: 0, 1 0 1 0;    
 }
 .tool-bar:horizontal .tool-bar-overflow-button .arrow {

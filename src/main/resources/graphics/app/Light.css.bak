@@ -1826,6 +1826,7 @@
 	 -fx-background-insets: 1, 2;
 	 -fx-background-color: #23212b, #d3dceb;
 	 -fx-padding: 10;
+	 -fx-font-size:1em;
  }
  /*******************************************************************************
  *                                                                             *
