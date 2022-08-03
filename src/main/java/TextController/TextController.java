@@ -342,12 +342,18 @@ public class TextController {
             return;
         }
 
+        if (username.equals(Loginner.loginnedUser.getUsername())){
+            println("You cannot follow yourself... get a life dude.");
+            return;
+        }
+
         if (!Database.Loader.usernameExists(username)){
             println("Username \"@" + username + "\" does not exist.");
             return;
         }
 
-        if (!Loginner.loginnedUser.follow(username)) println("You already follow [@" + username + "].");
+        if (Loginner.loginnedUser.follow(username)) println("Followed @" + username);
+        else println("You already follow [@" + username + "].");
     }
     private static void unfollow(String username) {
         if (Loginner.loginState == LoginState.SIGN_OUT){
@@ -360,7 +366,8 @@ public class TextController {
             return;
         }
 
-        if (!Loginner.loginnedUser.unfollow(username)) println("You don't follow [@" + username + "] anyway.");
+        if (Loginner.loginnedUser.unfollow(username)) println("Unfollowed @" + username);
+        else println("You don't follow [@" + username + "] anyway.");
     }
 
     public static void inputCommand(){
