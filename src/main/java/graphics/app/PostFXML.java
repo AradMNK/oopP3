@@ -31,10 +31,10 @@ public class PostFXML {
     @FXML Hyperlink username;
 
     @FXML void comment(){
-        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.COMMENTMAKER_FXML_PATH));
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.COMMENTS_FXML_PATH));
         try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace();}
-        ((CommentmakerFXML)fxmlLoader.getController()).post = post;
+        ((CommentsFXML)fxmlLoader.getController()).initialize(post, post.getComments());
     }
     @FXML void like(){
         if (Database.Loader.isPostLiked(post.getPostID().getHandle(), Loginner.loginnedUser.getUsername())){
