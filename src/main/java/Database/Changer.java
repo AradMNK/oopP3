@@ -5,18 +5,18 @@ import java.sql.SQLException;
 
 public class Changer {
     public static void removePostFromFeed(String username, int postID) {
-        Connector.queryWithoutResult("DELETE FROM feed WHERE username = '" + username + "' AND postID = "
+        Connector.queryWithoutResult("DELETE FROM feed WHERE username = '" + username + "' AND ID = "
                                             + postID + " AND type = 'post';");
     }
 
     public static void removeCommentFromFeed(String username, int commentID) {
         Connector.queryWithoutResult("DELETE FROM feed WHERE username = '" + username
-                                            + "' AND postID = " + commentID + " AND type = 'comment';");
+                                            + "' AND ID = " + commentID + " AND type = 'comment';");
     }
 
     public static void removeLikeFromFeed(String username, int handle) {
         Connector.queryWithoutResult("DELETE FROM feed WHERE username = '" + username
-                                            + "' AND postID = " + handle + " AND type = 'like';");
+                                            + "' AND ID = " + handle + " AND type = 'like';");
     }
 
     public static void addViewForUser(int postID, String username) {
