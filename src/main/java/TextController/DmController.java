@@ -61,7 +61,7 @@ public class DmController {
     }
 
     private static String getMessage(Message message) {
-        return ("(" + message.getDate() + ") " + message.getUserName() + " :" + message.getContent());
+        return ("(" + message.getDate() + ") @" + message.getUsername() + ":" + message.getContent());
     }
 
     private static void enterChatMode() {

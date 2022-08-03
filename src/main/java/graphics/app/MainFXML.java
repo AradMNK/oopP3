@@ -68,8 +68,8 @@ public class MainFXML {
                 (Launcher.class.getResource(Utility.LIGHT_MODE_CSS_PATH)).toString());
     }
     @FXML void followers(){
-        SplitPane splitPane = new SplitPane();
-        setDisplayTo(splitPane);
+
+        //setDisplayTo();
 
         FXMLLoader fxmlLoader_r = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH)),
                    fxmlLoader_l = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH));
@@ -80,7 +80,7 @@ public class MainFXML {
 
         ((UsersFXML)fxmlLoader_r.getController()).initialize(Loginner.loginnedUser.getFollowers());
         ((UsersFXML)fxmlLoader_r.getController()).initialize(Loginner.loginnedUser.getFollowings());
-        splitPane.getItems().addAll(root_l, root_r);
+        //splitPane.getItems().addAll(root_l, root_r);
     }
     @FXML void myPosts(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));

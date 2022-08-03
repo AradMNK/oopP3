@@ -3,7 +3,6 @@ package graphics.app;
 import Login.Loginner;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +21,7 @@ import java.util.Objects;
 
 public class PostFXML {
     User poster;
+    Post post;
     @FXML Button likeButton, commentButton;
     @FXML Circle pfp;
     @FXML Text name, bio, postContent, subtitle, date;
@@ -31,10 +31,17 @@ public class PostFXML {
     @FXML Hyperlink username;
 
     @FXML void comment(){
-
+        //FIXME
     }
     @FXML void like(){
-
+        if (Database.Loader.isPostLiked(post.getPostID().getHandle(), Loginner.loginnedUser.getUsername())){
+            Loginner.loginnedUser.unlike(post.getPostID().getHandle());
+            likeButton.setText(Integer.toString(Integer.parseInt(likeButton.getText()) - 1));
+        }
+        else {
+            Loginner.loginnedUser.like(post.getPostID().getHandle());
+            likeButton.setText(Integer.toString(Integer.parseInt(likeButton.getText()) - 1));
+        }
     }
 
     private void initContents(String name, String username, String bio, String post, String subtitle, LocalDateTime time){
@@ -62,6 +69,7 @@ public class PostFXML {
     }
 
     public void initialize(Post post){
+        this.post = post;
         if (post.getPoster().getPfp().getHandle().equals(""))
             pfp.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
