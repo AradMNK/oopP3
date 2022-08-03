@@ -25,7 +25,9 @@ public class Loginner {
             username = args[0];
             TextController.println("Enter password for " + username + ":");
             String newLine = TextController.getLine();
-            password = newLine.substring(0, newLine.indexOf(' '));
+            int index = newLine.indexOf(' ');
+            if (index == -1) password = newLine;
+            else password = newLine.substring(0, index);
         }
         else{
             username = args[0];
