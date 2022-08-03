@@ -1415,14 +1415,62 @@ public class Loader {
     }
 
     public static int getNumberOfComments(int postID) {
-        return 0;
+        //declares the number of comments
+        int numberOfComments = 0;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT COUNT(commentID) FROM comments WHERE postID = " + postID
+                                                        + ";").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()) {
+                numberOfComments = Integer.parseInt(resultSet.getString(1));
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return numberOfComments;
     }
 
     public static String getLikerUsername(int likeID) {
-        return "";
+        //declares the username
+        String username = null;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT username FROM likes WHERE likeID = '" + likeID
+                                                        + "';").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                username = resultSet.getString(1);
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return username;
     }
 
     public static int getPostOfLike(int likeID) {
-        return 0;
+        //declares the postID
+        int postID = 0;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT postID FROM likes WHERE likeID = '" + likeID
+                                                        + "';").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                postID = resultSet.getInt(1);
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return postID;
     }
 }
