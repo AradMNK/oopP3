@@ -1,5 +1,6 @@
 package graphics.app;
 
+import Objects.Comment;
 import Objects.Post;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,5 +22,16 @@ public class PostsFXML {
 
     public void initialize(HashSet<Post> posts){
         for (Post post: posts) addPost(post);
+    }
+
+    private void addComment(Comment comment){
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POST_FXML_PATH));
+        try {display.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((PostFXML)fxmlLoader.getController()).initialize(comment);
+    }
+
+    public void initializeForComments(HashSet<Comment> comments){
+        for (Comment comment: comments) addComment(comment);
     }
 }
