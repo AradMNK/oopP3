@@ -27,7 +27,6 @@ public class DmController {
            return;
         }
 
-
         dm = DirectMessengerBuilder.getDirectMessengerFromDatabase(Loginner.loginnedUser, username, showMessages);
         //if users have dm load else create
 
@@ -79,7 +78,7 @@ public class DmController {
     }
 
     private static boolean actOnCommand(String line) {
-        String[] split = line.split("\\s*");
+        String[] split = line.split("\\s");
         DmCommand dmCommand = DmCommand.toDmCommand(split[0]);
         try {
             switch (dmCommand) {
@@ -93,7 +92,7 @@ public class DmController {
                 case REFRESH -> refresh();
                 case MORE -> more();
 
-                case LEAVE -> {return true;}
+                case LEAVE -> {TextController.println("You have left the dm mode."); return true;}
                 default -> {}
             }
         }
@@ -251,7 +250,7 @@ enum DmCommand{
     FORWARD("\\forward"),
     DELETE("\\del"),
     MORE("\\more"),
-    LEAVE("/leave"),
+    LEAVE("\\leave"),
 
     BLOCK("\\block"),
     UNBLOCK("\\unblock"),

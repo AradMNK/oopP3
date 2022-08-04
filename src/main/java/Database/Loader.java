@@ -1583,7 +1583,7 @@ public class Loader {
         return false;
     }
 
-    public static boolean doesUserHaveGroups(String username) { //CHANGES
+    public static boolean doesUserHaveGroups(String username) {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
