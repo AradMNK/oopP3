@@ -23,6 +23,8 @@ public class PostmakerFXML {
         try {
             picturePath = fileChooser.showOpenDialog(AppManager.mainStage).toURI().toURL().toString();
             picture = new ImageView(picturePath);
+            picture.setPreserveRatio(true);
+            picture.setFitWidth(50);
         } catch (MalformedURLException e) {e.printStackTrace();}
     }
     @FXML void cancel(){

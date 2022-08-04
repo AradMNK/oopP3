@@ -1,5 +1,7 @@
 package Objects;
 
+import Builder.PostBuilder;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -65,10 +67,17 @@ public class User {
             Database.Saver.updateFeedsFromPost(usernames, handle);
     }
 
-    public void comment(int postID, String msg){
+    public Comment comment(int postID, String msg){
         int handle = Database.Saver.addToComments(username, LocalDateTime.now(), postID, msg);
         for (String usernames: followers)
             Database.Saver.updateFeedsFromComment(usernames, handle);
+        Comment comment = new Comment();
+        comment.setCommentID(new SaveHandle(handle));
+        comment.setCommenter(this);
+        comment.setDate(LocalDateTime.now());
+        comment.setMsg(msg);
+        comment.setPost(PostBuilder.getPostFromDatabase(postID));
+        return comment;
     }
 
     public boolean like(int postID){

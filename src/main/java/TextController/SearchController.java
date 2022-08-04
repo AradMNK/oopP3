@@ -12,11 +12,7 @@ public class SearchController {
             TextController.println("Please login first to see account details.");
             return;
         }
-
-        //declares the user
-        User user = Loginner.loginnedUser;
-
-        searchMenu(user);
+        searchMenu(Loginner.loginnedUser);
     }
 
     public static void searchMenu (User user){

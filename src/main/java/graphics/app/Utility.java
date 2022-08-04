@@ -34,6 +34,7 @@ public class Utility {
     public static final int PREF_WIDTH = 900, PREF_HEIGHT = 600,
     POST_TEXT_MARGIN_FROM_RIGHT = 60, IMAGE_POST_FIT_WIDTH = 500,
     MESSAGES_TO_LOAD = 10, MAX_PREVIEW_CHARS = 20;
+    public static final int HIDE_WIDTH_VALUE = 300;
 
     public static void delay(long millis, Runnable continuation) {
         Task<Void> sleeper = new Task<>() {

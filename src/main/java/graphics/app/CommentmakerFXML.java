@@ -13,7 +13,6 @@ public class CommentmakerFXML {
     Post post;
     @FXML TextArea inputMessage;
     @FXML Button cancelButton, postButton;
-    @FXML ImageView picture;
 
     @FXML void cancel(){
         MainFXML.root.removeDisplay();
@@ -25,11 +24,13 @@ public class CommentmakerFXML {
             return;
         }
 
-        Loginner.loginnedUser.comment(post.getPostID().getHandle(), inputMessage.getText());
+
+        post.getComments().add
+                (Loginner.loginnedUser.comment(post.getPostID().getHandle(), inputMessage.getText()));
 
         Notifications notification = Notifications.create();
         notification.title("Success!");
-        notification.text("Successfully posted your post!");
+        notification.text("Successfully commented your opinion that totally matters!");
         notification.showInformation();
         cancel();
     }
