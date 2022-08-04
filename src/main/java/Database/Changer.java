@@ -47,7 +47,7 @@ public class Changer {
     }
 
     public static void removeFromBlockList(String blocker, String blocked) {
-        Connector.queryWithoutResult("DELETE FROM blocks WHERE blocker = '" + blocker
+        Connector.queryWithoutResult("DELETE FROM block WHERE blocker = '" + blocker
                                             +"' AND blocked = '" + blocked + "';");
     }
 

@@ -105,6 +105,12 @@ public class Saver {
 
     public static void addToMessages(String sender, String receiver, String originalSender,
                                      LocalDateTime now, String line, int replyMsgID) {
+        //adds to direct
+        if (Loader.usersHaveDm(sender, receiver) == false){
+            Connector.queryWithoutResult("INSERT INTO directs (user1, user2) VALUES ('" + sender
+                    + "', '" + receiver + "');");
+        }
+
         //formats date and time
         DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = now.format(formatObj);
