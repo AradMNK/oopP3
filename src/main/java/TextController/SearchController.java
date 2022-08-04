@@ -36,36 +36,20 @@ public class SearchController {
         catch (Exception e){TextController.println("Please enter a number."); searchMenu(user); return;}
 
         if (choice == 1){
-            if (hasDirect){
-                searchInDirect(user);
-            }
-            else {
-                TextController.println("Theres no direct to search a message in it.");
-            }
+            if (hasDirect) searchInDirect(user);
+            else TextController.println("Theres no direct to search a message in it.");
         }
         else if (choice == 2){
-            if (hasGroups){
-                searchInGroup(user);
-            }
-            else {
-                TextController.println("Theres no group to search a message in it.");
-            }
+            if (hasGroups) searchInGroup(user);
+            else TextController.println("Theres no group to search a message in it.");
         }
         else if (choice == 3){
-            if (hasDirect){
-                searchDirect(user);
-            }
-            else {
-                TextController.println("No direct found.");
-            }
+            if (hasDirect) searchDirect(user);
+            else TextController.println("No direct found.");
         }
         else if (choice == 4){
-            if (hasGroups){
-                searchGroup(user);
-            }
-            else {
-                TextController.println("no group found.");
-            }
+            if (hasGroups) searchGroup(user);
+            else TextController.println("no group found.");
         }
         else if (choice == 5) {
             searchUsers();
