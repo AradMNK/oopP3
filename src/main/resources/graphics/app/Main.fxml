@@ -153,18 +153,6 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="feedButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#feed" onMouseEntered="#hoverFeed" styleClass="icon-button" text="Feed" textOverrun="CLIP">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Icons/Unread%20Messages.png" />
-                     </image>
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-            </Button>
             <Button fx:id="exploreButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#explore" onMouseEntered="#hoverExplore" styleClass="icon-button" text="Explore" textOverrun="CLIP">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">

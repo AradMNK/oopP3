@@ -18,7 +18,7 @@ import java.util.Objects;
 public class MainFXML {
     public static MainFXML root;
     @FXML GridPane rootDisplay;
-    @FXML Button homeButton, myAccountButton, chatsButton, feedButton, exploreButton,
+    @FXML Button homeButton, myAccountButton, chatsButton, exploreButton,
             blocklistButton, postButton, searchButton, themeButton, followersButton, myPostsButton;
     @FXML TextField searchField;
 
@@ -29,7 +29,13 @@ public class MainFXML {
 
     }
     @FXML void home(){
+        Feed feed = Loginner.loginnedUser.getFeed();
+        if (feed.getLikes().size() == 0 && feed.getComments().size() == 0 && feed.getPosts().size() == 0){
+            noResult("You have nothing new in your feed... for now.");
+            return;
+        }
 
+        
     }
     @FXML void myAccount(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MY_ACCOUNT_FXML_PATH));
@@ -37,14 +43,14 @@ public class MainFXML {
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace();}
     }
     @FXML void chats(){
-
-    }
-    @FXML void feed(){
-        Feed feed = Loginner.loginnedUser.getFeed();
-        if (feed.getLikes().size() == 0 && feed.getComments().size() == 0 && feed.getPosts().size() == 0){
-            noResult("You have nothing new in your feed... for now.");
+        if (Database.Loader.doesUserHaveChat(Loginner.loginnedUser.getUsername())){
+            noResult("You have no posts yet! Use the new post button to post your first!");
             return;
         }
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));
+        try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
+        ((PostsFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getPosts());
     }
     @FXML void explore(){
 
@@ -113,7 +119,6 @@ public class MainFXML {
     @FXML void hoverHome(){new Pulse(homeButton).play();}
     @FXML void hoverMyAccount(){new Pulse(myAccountButton).play();}
     @FXML void hoverChats(){new Pulse(chatsButton).play();}
-    @FXML void hoverFeed(){new Pulse(feedButton).play();}
     @FXML void hoverExplore(){new Pulse(exploreButton).play();}
     @FXML void hoverBlocklist(){new Pulse(blocklistButton).play();}
     @FXML void hoverPost(){new Pulse(postButton).play();}

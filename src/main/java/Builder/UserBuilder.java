@@ -20,6 +20,7 @@ public class UserBuilder {
         user.setFollowers(Arrays.stream(Database.Loader.getBlocklist(username)).collect(Collectors.toSet()));
         user.setFollowers(Arrays.stream(Database.Loader.getFollowers(username)).collect(Collectors.toSet()));
         user.setFollowings(Arrays.stream(Database.Loader.getFollowings(username)).collect(Collectors.toSet()));
+        user.setChats(Arrays.stream(Database.Loader.getChats(username)).collect(Collectors.toSet()));
         addGroups(user);
         return user;
     }

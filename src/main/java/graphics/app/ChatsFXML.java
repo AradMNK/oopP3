@@ -12,10 +12,11 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
-public class PostsFXML {
-    @FXML VBox display;
+public class ChatsFXML {
+    @FXML
+    VBox display;
 
-    private void addPost(Post post){
+    private void addChat(Post post){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POST_FXML_PATH));
         try {display.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
@@ -26,6 +27,6 @@ public class PostsFXML {
         List<Post> postList = posts.stream().toList();
         ArrayList<Post> sortedPosts = new ArrayList<>(postList);
         sortedPosts.sort(Comparator.comparing(Post::getDatePosted));
-        for (Post post: sortedPosts) addPost(post);
+        for (Post post: sortedPosts) addChat(post);
     }
 }

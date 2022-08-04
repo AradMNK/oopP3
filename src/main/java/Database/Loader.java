@@ -1534,17 +1534,16 @@ public class Loader {
         //declares an array of usernames not to be included
         String [] usernamesNotToBeIncluded = new String[usernameDontInclude.length + 1];
         usernamesNotToBeIncluded[0] = username;
-        for (int i = 1; i < usernamesNotToBeIncluded.length; i++){
-            usernamesNotToBeIncluded[i] = usernameDontInclude[i-1];
-        }
+        System.arraycopy(usernameDontInclude,
+                0, usernamesNotToBeIncluded, 1, usernameDontInclude.length);
 
         //declares the sql
-        String query = "SELECT username FROM users WHERE NOT (";
+        StringBuilder query = new StringBuilder("SELECT username FROM users WHERE NOT (");
         for (int i = 0; i < usernamesNotToBeIncluded.length; i++){
-            if (i != usernamesNotToBeIncluded.length - 1)
-                query += ("username = '" + usernamesNotToBeIncluded[i] + "' OR ");
+            if (i != usernameDontInclude.length)
+                query.append("username = '").append(usernamesNotToBeIncluded[i]).append("' OR ");
             else {
-                query += ("username = '" + usernamesNotToBeIncluded[i] + "') ORDER BY RAND() LIMIT 1;");
+                query.append("username = '").append(usernamesNotToBeIncluded[i]).append("') ORDER BY RAND() LIMIT 1;");
             }
         }
 
@@ -1552,9 +1551,9 @@ public class Loader {
         String result = null;
 
         Connection connection = Connector.connector.connect();
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement(query).executeQuery();
+            resultSet = connection.prepareStatement(query.toString()).executeQuery();
 
             //checks if the resultSet is empty
             if (resultSet.next()){
@@ -1564,5 +1563,13 @@ public class Loader {
         catch (SQLException e) {e.printStackTrace();}
         finally {Connector.connector.disconnect();}
         return result;
+    }
+
+    public static boolean doesUserHaveChat(String username) {
+        return true;
+    }
+
+    public static String[] getChats(String username) {
+        return new String[2]; // the usernames
     }
 }

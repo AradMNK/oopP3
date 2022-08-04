@@ -10,7 +10,8 @@ public class User {
     private Handle pfp;
     private Feed feed;
     private final HashSet<Post> posts = new HashSet<>();
-    private Set<String> blocklist = new HashSet<>(), followers = new HashSet<>(), followings = new HashSet<>();
+    private Set<String> blocklist = new HashSet<>(), chats = new HashSet<>(),
+            followers = new HashSet<>(), followings = new HashSet<>();
     private final HashSet<Group> groups = new HashSet<>();
     private LocalDate dateJoined;
 
@@ -34,10 +35,12 @@ public class User {
     public Set<String> getFollowers() {return followers;}
     public Set<String> getFollowings() {return followings;}
     public Set<Group> getGroups() {return groups;}
+    public Set<String> getChats() {return chats;}
 
     public void setBlocklist(Set<String> blocklist) {this.blocklist = blocklist;}
     public void setFollowers(Set<String> followers) {this.followers = followers;}
     public void setFollowings(Set<String> followings) {this.followings = followings;}
+    public void setChats(Set<String> chats) {this.chats = chats;}
 
     public LocalDate getDateJoined() {return dateJoined;}
     public void setDateJoined(LocalDate dateJoined) {this.dateJoined = dateJoined;}
