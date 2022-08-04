@@ -1541,8 +1541,28 @@ public class Loader {
         //declares the sql
         String query = "SELECT username FROM users WHERE NOT (";
         for (int i = 0; i < usernamesNotToBeIncluded.length; i++){
-
+            if (i != usernamesNotToBeIncluded.length - 1)
+                query += ("username = '" + usernamesNotToBeIncluded[i] + "' OR ");
+            else {
+                query += ("username = '" + usernamesNotToBeIncluded[i] + "') ORDER BY RAND() LIMIT 1;");
+            }
         }
-        return new String();
+
+        //declares the username in the resultSet
+        String result = null;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet = null;
+        try {
+            resultSet = connection.prepareStatement(query).executeQuery();
+
+            //checks if the resultSet is empty
+            if (resultSet.next()){
+                result = resultSet.getString(1);
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return result;
     }
 }
