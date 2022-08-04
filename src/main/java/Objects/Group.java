@@ -7,6 +7,7 @@ public class Group {
     private SaveHandle groupID;
     private User owner;
     private String name, groupJoiner;
+    private Handle pfp;
 
     private final HashSet<User> participants = new HashSet<>();
     private final ArrayList<GroupMessage> shownMessages = new ArrayList<>();
@@ -16,6 +17,9 @@ public class Group {
 
     public SaveHandle getGroupID() {return groupID;}
     public void setGroupID(SaveHandle groupID) {this.groupID = groupID;}
+
+    public Handle getPfp() {return pfp;}
+    public void setPfp(Handle pfp) {this.pfp = pfp;}
 
     public User getOwner() {return owner;}
     public void setOwner(User owner) {this.owner = owner;}
