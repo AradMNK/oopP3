@@ -31,6 +31,7 @@ public enum CommandType {
     DM("dm"),
     BLOCK("block"),
     UNBLOCK("unblock"),
+    SEARCH("search"),
 
     GROUPS("groups"),
     NEW_GROUP("newgroup"),

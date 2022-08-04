@@ -1583,6 +1583,24 @@ public class Loader {
         return false;
     }
 
+    public static boolean doesUserHaveGroups(String username) {
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT * FROM group_chats WHERE members LIKE '"
+                                                        + username + ",%' OR '%," + username + "' OR '%,"
+                                                        + username + ",%'" + " OR '" + username + "';").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                return true;
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return false;
+    }
+
     public static String[] getChats(String username) {
         //declares the empty array
         String[] chats = new String[0];
