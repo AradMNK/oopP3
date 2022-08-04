@@ -1555,7 +1555,7 @@ public class Loader {
         try {
             resultSet = connection.prepareStatement(query.toString()).executeQuery();
 
-            //checks if the resultSet is empty
+            //checks if the resultSet isn't empty
             if (resultSet.next()){
                 result = resultSet.getString(1);
             }
@@ -1566,10 +1566,66 @@ public class Loader {
     }
 
     public static boolean doesUserHaveChat(String username) {
-        return true;
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT * FROM directs WHERE username1 = '"
+                                                        + username + "' OR username2 = '" + username
+                                                        + "';").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                return true;
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return false;
     }
 
     public static String[] getChats(String username) {
-        return new String[2]; // the usernames
+        //declares the empty array
+        String[] chats = new String[0];
+
+        //declares the number of chats
+        int chatCount;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT COUNT(directID) FROM directs WHERE username1 = '"
+                                                        + username + "' OR username2 = '" + username
+                                                        + "';").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                //gets the number of chats
+                chatCount = resultSet.getInt(1);
+
+                if (chatCount != 0) {
+                    //declares the array and gets the usernames
+                    chats = new String[chatCount];
+
+                    //gets the likes
+                    resultSet = connection.prepareStatement("SELECT username1, username2 FROM directs WHERE username1 = '"
+                                                                + username + "' OR username2 = '" + username
+                                                                + "';").executeQuery();
+
+                    for (int i = 0; i < chatCount; i++) {
+                        if (resultSet.next()){
+                            if (username.equals(resultSet.getString(2))){
+                                chats[i] = resultSet.getString(1);
+                            }
+                            else if (username.equals(resultSet.getString(1))){
+                                chats[i] = resultSet.getString(2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return chats;
     }
 }
