@@ -1529,4 +1529,20 @@ public class Loader {
         finally {Connector.connector.disconnect();}
         return name;
     }
+
+    public static String randomUser (String username, String[] usernameDontInclude){
+        //declares an array of usernames not to be included
+        String [] usernamesNotToBeIncluded = new String[usernameDontInclude.length + 1];
+        usernamesNotToBeIncluded[0] = username;
+        for (int i = 1; i < usernamesNotToBeIncluded.length; i++){
+            usernamesNotToBeIncluded[i] = usernameDontInclude[i-1];
+        }
+
+        //declares the sql
+        String query = "SELECT username FROM users WHERE NOT (";
+        for (int i = 0; i < usernamesNotToBeIncluded.length; i++){
+
+        }
+        return new String();
+    }
 }
