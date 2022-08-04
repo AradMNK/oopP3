@@ -110,9 +110,9 @@ public class Saver {
         String formattedDate = now.format(formatObj);
 
         Connector.queryWithoutResult("INSERT INTO directmessage (sender, receiver, message, date"
-                + ", replyMessageID, originalSender) VALUES '" + sender + "', '"
+                + ", replyMessageID, originalSender) VALUES ('" + sender + "', '"
                 + receiver + "', '" + line + "', '" + formattedDate + "', "
-                + replyMsgID + ", '" + originalSender + "';");
+                + replyMsgID + ", '" + originalSender + "');");
 
         //declares new message count
         int newMessages;
@@ -132,8 +132,8 @@ public class Saver {
                                                     + " WHERE forUsername = '" + receiver + "' AND username = '" + sender + "';");
             }
             else {
-                Connector.queryWithoutResult("INSERT INTO unreadusers (forUsername, username, count) VALUES '"
-                                                    + receiver + "', '" + sender + "', 1;");
+                Connector.queryWithoutResult("INSERT INTO unreadusers (forUsername, username, count) VALUES ('"
+                                                    + receiver + "', '" + sender + "', 1);");
             }
         }
         catch (SQLException e) {e.printStackTrace();}
@@ -141,15 +141,15 @@ public class Saver {
     }
 
     public static void addToBlocklist(String blocker, String blocked) {
-        Connector.queryWithoutResult("INSERT INTO block (blocker, blocked) VALUES '"
-                                            + blocker + "', '" + blocked + "';");
+        Connector.queryWithoutResult("INSERT INTO block (blocker, blocked) VALUES ('"
+                                            + blocker + "', '" + blocked + "');");
     }
 
     public static int createGroup(String ownerUsername, String name, String joiner) {
         //declares the groupID
         int groupID = 0;
-        Connector.queryWithoutResult("INSERT INTO groups (name, admin, joinID) VALUES '"
-                                            + name + "', '" + ownerUsername + "', '" + joiner + "';");
+        Connector.queryWithoutResult("INSERT INTO groups (name, admin, joinID) VALUES ('"
+                                            + name + "', '" + ownerUsername + "', '" + joiner + "');");
 
         //gets the handle
         Connection connection = Connector.connector.connect();
@@ -174,9 +174,9 @@ public class Saver {
         String formattedDate = now.format(formatObj);
 
         Connector.queryWithoutResult("INSERT INTO groupmessages (groupID, sender, message, date"
-                + ", replyMessageID, originalSender) VALUES '" + handle + "', '"
+                + ", replyMessageID, originalSender) VALUES ('" + handle + "', '"
                 + sender + "', '" + content + "', '" + formattedDate + "', "
-                + notReplyID + ", '" + originalSender + "';");
+                + notReplyID + ", '" + originalSender + "');");
 
         //declares the group members
         String membersList;
@@ -221,8 +221,8 @@ public class Saver {
                                                     + groupID + ";");
             }
             else {
-                Connector.queryWithoutResult("INSERT INTO unreadgroups (forUsername, groupID, count) VALUES '"
-                                                    + username + "', " + groupID + ", 1;");
+                Connector.queryWithoutResult("INSERT INTO unreadgroups (forUsername, groupID, count) VALUES ('"
+                                                    + username + "', " + groupID + ", 1);");
             }
         }
         catch (SQLException e) {e.printStackTrace();}
