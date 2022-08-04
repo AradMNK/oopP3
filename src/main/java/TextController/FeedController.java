@@ -13,10 +13,7 @@ public class FeedController {
             TextController.println("Please login first to see your feed.");
             return;
         }
-
-        User user = Loginner.loginnedUser;
-
-        showMenu(user);
+        showMenu(Loginner.loginnedUser);
     }
 
     public static void showMenu(User user){

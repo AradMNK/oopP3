@@ -83,10 +83,9 @@ public class PostFXML {
             "Please choose another image.", "Image could not load!");
                 pfp.setFill(new ImagePattern(new Image((Objects.requireNonNull
                         (Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));}
-
-            likeButton.setText(Integer.toString(Database.Loader.getNumberOfLikes(post.getPostID().getHandle())));
-            commentButton.setText(Integer.toString(Database.Loader.getNumberOfComments(post.getPostID().getHandle())));
         }
+        likeButton.setText(Integer.toString(Database.Loader.getNumberOfLikes(post.getPostID().getHandle())));
+        commentButton.setText(Integer.toString(Database.Loader.getNumberOfComments(post.getPostID().getHandle())));
 
         poster = post.getPoster();
         initContents(poster.getName(), poster.getUsername(), poster.getBio(),
@@ -133,10 +132,9 @@ public class PostFXML {
                     "Please choose another image.", "Image could not load!");
                 pfp.setFill(new ImagePattern(new Image((Objects.requireNonNull
                         (Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));}
-
-            likeButton.setVisible(false);
-            commentButton.setVisible(false);
         }
+        likeButton.setVisible(false);
+        commentButton.setVisible(false);
         poster = comment.getCommenter();
         initContents(poster.getName(), poster.getUsername(), poster.getBio(),
                 comment.getMsg(), poster.getSubtitle(), comment.getDate());

@@ -3,6 +3,8 @@ package graphics.app;
 import Login.Loginner;
 import animatefx.animation.Pulse;
 import graphics.theme.Theme;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +24,9 @@ public class MainFXML {
             blocklistButton, postButton, searchButton, themeButton, followersButton, myPostsButton;
     @FXML TextField searchField;
 
-    public void initialize(){root = this;}
+    public void initialize(){
+        root = this;
+    }
 
 
     @FXML void search(){
@@ -34,8 +38,6 @@ public class MainFXML {
             noResult("You have nothing new in your feed... for now.");
             return;
         }
-
-        
     }
     @FXML void myAccount(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MY_ACCOUNT_FXML_PATH));
@@ -103,14 +105,25 @@ public class MainFXML {
                    fxmlLoader_l = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH)),
                    fxmlLoader_master = new FXMLLoader(Launcher.class.getResource(Utility.FOLLOWERS_FXML_PATH));
         Parent root_r, root_l, root;
-        try {root = fxmlLoader_master.load(); root_r = fxmlLoader_r.load(); root_l = fxmlLoader_l.load();}
+        try {root = fxmlLoader_master.load();}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
 
-        ((UsersFXML)fxmlLoader_r.getController()).initialize(Loginner.loginnedUser.getFollowers());
-        ((UsersFXML)fxmlLoader_l.getController()).initialize(Loginner.loginnedUser.getFollowings());
-        ((FollowersFXML)fxmlLoader_master.getController()).initialize
-                (root_r, root_l);
+        if (Loginner.loginnedUser.getFollowers().size() == 0){
+            root_r = noResultRoot("You have no followers yet...");}
+        else {try {root_r = fxmlLoader_r.load();} catch (IOException e) {
+                AppManager.alert(Alert.AlertType.ERROR,
+                        "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+            ((UsersFXML)fxmlLoader_r.getController()).initialize(Loginner.loginnedUser.getFollowers());}
+
+        if (Loginner.loginnedUser.getFollowings().size() == 0){
+            root_l = noResultRoot("You do not follow anyone yet...");}
+        else {try {root_l = fxmlLoader_l.load();} catch (IOException e) {
+                AppManager.alert(Alert.AlertType.ERROR,
+                        "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+            ((UsersFXML)fxmlLoader_l.getController()).initialize(Loginner.loginnedUser.getFollowings());}
+
+        ((FollowersFXML)fxmlLoader_master.getController()).initialize(root_r, root_l);
 
         setDisplayTo(root);
     }
@@ -140,5 +153,14 @@ public class MainFXML {
         } catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
         ((NoResultsFXML)fxmlLoader.getController()).initialize(msg);
+    }
+    private Parent noResultRoot(String msg){
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
+        Parent root;
+        try {root = fxmlLoader.load();
+        } catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return null;}
+        ((NoResultsFXML)fxmlLoader.getController()).initialize(msg);
+        return root;
     }
 }
