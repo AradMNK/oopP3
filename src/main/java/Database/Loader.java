@@ -1569,8 +1569,8 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT * FROM directs WHERE username1 = '"
-                                                        + username + "' OR username2 = '" + username
+            resultSet = connection.prepareStatement("SELECT * FROM directs WHERE user1 = '"
+                                                        + username + "' OR user2 = '" + username
                                                         + "';").executeQuery();
 
             //checks if the resultSet isn't empty
@@ -1593,8 +1593,8 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT COUNT(directID) FROM directs WHERE username1 = '"
-                                                        + username + "' OR username2 = '" + username
+            resultSet = connection.prepareStatement("SELECT COUNT(directID) FROM directs WHERE user1 = '"
+                                                        + username + "' OR user2 = '" + username
                                                         + "';").executeQuery();
 
             //checks if the resultSet isn't empty
@@ -1607,8 +1607,8 @@ public class Loader {
                     chats = new String[chatCount];
 
                     //gets the likes
-                    resultSet = connection.prepareStatement("SELECT username1, username2 FROM directs WHERE username1 = '"
-                                                                + username + "' OR username2 = '" + username
+                    resultSet = connection.prepareStatement("SELECT user1, user2 FROM directs WHERE user1 = '"
+                                                                + username + "' OR user2 = '" + username
                                                                 + "';").executeQuery();
 
                     for (int i = 0; i < chatCount; i++) {
