@@ -44,13 +44,14 @@ public class MainFXML {
     }
     @FXML void chats(){
         if (Database.Loader.doesUserHaveChat(Loginner.loginnedUser.getUsername())){
-            noResult("You have no posts yet! Use the new post button to post your first!");
+            noResult("You have no chats yet! Find someone and message them!");
             return;
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHATS_FXML_PATH));
         try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
-        ((PostsFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getPosts());
+        ((ChatsFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getChats(),
+                Loginner.loginnedUser.getGroups());
     }
     @FXML void explore(){
 
