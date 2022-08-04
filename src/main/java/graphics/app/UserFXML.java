@@ -68,7 +68,7 @@ public class UserFXML {
     }
 
     @FXML void message(){
-
+        //FIXME
     }
 
     @FXML void hoverFollow(){new Pulse(followButton).play();}

@@ -9,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 public class CommentsFXML {
@@ -44,7 +47,10 @@ public class CommentsFXML {
     public void initialize(Post post, Set<Comment> comments) {
         this.post = post;
         addPost(post);
-        for (Comment comment : comments) addComment(comment);
+        List<Comment> commentList = comments.stream().toList();
+        ArrayList<Comment> sortedComments = new ArrayList<>(commentList);
+        sortedComments.sort(Comparator.comparing(Comment::getDate));
+        for (Comment comment: sortedComments) addComment(comment);
     }
 
     @FXML void cancel(){

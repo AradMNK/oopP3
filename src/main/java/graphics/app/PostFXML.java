@@ -43,7 +43,7 @@ public class PostFXML {
         }
         else {
             Loginner.loginnedUser.like(post.getPostID().getHandle());
-            likeButton.setText(Integer.toString(Integer.parseInt(likeButton.getText()) - 1));
+            likeButton.setText(Integer.toString(Integer.parseInt(likeButton.getText()) + 1));
         }
     }
 

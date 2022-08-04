@@ -46,7 +46,13 @@ public class MainFXML {
 
     }
     @FXML void blocklist(){
-
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH));
+        Parent root;
+        try {root = fxmlLoader.load();}
+        catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
+        ((UsersFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getBlocklist());
+        setDisplayTo(root);
     }
     @FXML void post(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTMAKER_FXML_PATH));
@@ -70,8 +76,8 @@ public class MainFXML {
         FXMLLoader fxmlLoader_r = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH)),
                    fxmlLoader_l = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH)),
                    fxmlLoader_master = new FXMLLoader(Launcher.class.getResource(Utility.FOLLOWERS_FXML_PATH));
-        Parent root_r, root_l;
-        try {fxmlLoader_master.load(); root_r = fxmlLoader_r.load(); root_l = fxmlLoader_l.load();}
+        Parent root_r, root_l, root;
+        try {root = fxmlLoader_master.load(); root_r = fxmlLoader_r.load(); root_l = fxmlLoader_l.load();}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
 
@@ -79,6 +85,8 @@ public class MainFXML {
         ((UsersFXML)fxmlLoader_l.getController()).initialize(Loginner.loginnedUser.getFollowings());
         ((FollowersFXML)fxmlLoader_master.getController()).initialize
                 (root_r, root_l);
+
+        setDisplayTo(root);
     }
     @FXML void myPosts(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));
