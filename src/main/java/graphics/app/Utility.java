@@ -11,13 +11,18 @@ public class Utility {
     CREATE_FXML_PATH = "Create Account.fxml",
 
     MAIN_FXML_PATH = "Main.fxml",
+    NO_RESULTS_FXML_PATH = "No Results.fxml",
     MY_ACCOUNT_FXML_PATH = "My Account.fxml",
     POST_FXML_PATH = "Post.fxml",
     POSTS_FXML_PATH = "Posts.fxml",
     POSTMAKER_FXML_PATH = "Postmaker.fxml",
+    COMMENTS_FXML_PATH = "Comments.fxml",
+    COMMENTMAKER_FXML_PATH = "Commentmaker.fxml",
     USER_FXML_PATH = "User.fxml",
     USERS_FXML_PATH = "Users.fxml",
     FOLLOWERS_FXML_PATH = "Followers.fxml",
+
+    CHAT_PREVIEW_FXML_PATH = "Chat Preview",
 
     LIGHT_MODE_CSS_PATH = "Light.css",
     DARK_MODE_CSS_PATH = "Dark.css",

@@ -12,6 +12,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import Objects.Post;
 import Objects.User;
+import Objects.Comment;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -30,7 +31,10 @@ public class PostFXML {
     @FXML Hyperlink username;
 
     @FXML void comment(){
-        //FIXME
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.COMMENTS_FXML_PATH));
+        try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace();}
+        ((CommentsFXML)fxmlLoader.getController()).initialize(post, post.getComments());
     }
     @FXML void like(){
         if (Database.Loader.isPostLiked(post.getPostID().getHandle(), Loginner.loginnedUser.getUsername())){
@@ -39,7 +43,7 @@ public class PostFXML {
         }
         else {
             Loginner.loginnedUser.like(post.getPostID().getHandle());
-            likeButton.setText(Integer.toString(Integer.parseInt(likeButton.getText()) - 1));
+            likeButton.setText(Integer.toString(Integer.parseInt(likeButton.getText()) + 1));
         }
     }
 
@@ -116,5 +120,25 @@ public class PostFXML {
         try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((UserFXML)fxmlLoader.getController()).initialize(poster);
+    }
+
+    public void initialize(Comment comment) {
+        if (comment.getCommenter().getPfp().getHandle().equals(""))
+            pfp.setFill(new ImagePattern(new Image
+                    ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
+        else{
+            try {
+                pfp.setFill(new ImagePattern(new Image(comment.getCommenter().getPfp().getHandle())));}
+            catch (IllegalArgumentException e){AppManager.alert(Alert.AlertType.ERROR, "Unsupported image file!",
+                    "Please choose another image.", "Image could not load!");
+                pfp.setFill(new ImagePattern(new Image((Objects.requireNonNull
+                        (Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));}
+
+            likeButton.setVisible(false);
+            commentButton.setVisible(false);
+        }
+        poster = comment.getCommenter();
+        initContents(poster.getName(), poster.getUsername(), poster.getBio(),
+                comment.getMsg(), poster.getSubtitle(), comment.getDate());
     }
 }

@@ -16,7 +16,8 @@ public class CommentBuilder {
         comment.setCommenter(UserBuilder.getUserFromDatabase(details[0]));
         comment.setPost(PostBuilder.getPostFromDatabase(Integer.parseInt(details[1])));
         comment.setMsg(details[2]);
-        comment.setDate(LocalDateTime.parse(details[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        comment.setDate(LocalDateTime.parse(details[3].substring(0, details[3].length() - 2),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         return comment;
     }
@@ -29,7 +30,8 @@ public class CommentBuilder {
         comment.setCommenter(UserBuilder.getUserFromDatabase(details[0]));
         comment.setPost(post);
         comment.setMsg(details[2]);
-        comment.setDate(LocalDateTime.parse(details[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        comment.setDate(LocalDateTime.parse(details[3].substring(0, details[3].length() - 2),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         return comment;
     }

@@ -17,8 +17,9 @@ public class GroupMessageBuilder {
         int i = 1;
         message.setUsername(details[i++]);
         message.setContent(details[i++]);
-        message.setDate(LocalDateTime.parse(details[i++].substring(0, details[3].length() - 2),
+        message.setDate(LocalDateTime.parse(details[i].substring(0, details[i].length() - 2),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        i++;
         message.setReplyToID(new SaveHandle(Integer.parseInt(details[i++])));
         message.setOriginalUsername(details[i]);
 

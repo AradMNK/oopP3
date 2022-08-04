@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class UserFXML {
+public class ChatPreviewFXML {
     String internalUsername;
     boolean followed;
     @FXML Button followButton, messageButton;
@@ -57,19 +57,6 @@ public class UserFXML {
         if (followed) followButton.setText("Unfollow");
     }
 
-    @FXML void follow(){
-        if (followed){
-            Loginner.loginnedUser.unfollow(internalUsername);
-            followButton.setText("Follow");
-            return;
-        }
-        Loginner.loginnedUser.follow(internalUsername);
-        followButton.setText("Unfollow");
-    }
-
-    @FXML void message(){
-        //FIXME
-    }
 
     @FXML void hoverFollow(){new Pulse(followButton).play();}
     @FXML void hoverMessage(){new Pulse(messageButton).play();}

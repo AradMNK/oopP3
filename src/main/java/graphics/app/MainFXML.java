@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import Objects.Feed;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -21,8 +22,7 @@ public class MainFXML {
             blocklistButton, postButton, searchButton, themeButton, followersButton, myPostsButton;
     @FXML TextField searchField;
 
-    public void initialize(){
-        root = this;}
+    public void initialize(){root = this;}
 
 
     @FXML void search(){
@@ -40,18 +40,43 @@ public class MainFXML {
 
     }
     @FXML void feed(){
-
+        Feed feed = Loginner.loginnedUser.getFeed();
+        if (feed.getLikes().size() == 0 && feed.getComments().size() == 0 && feed.getPosts().size() == 0){
+            noResult("You have nothing new in your feed... for now.");
+            return;
+        }
     }
     @FXML void explore(){
 
     }
     @FXML void blocklist(){
-
+        if (Loginner.loginnedUser.getBlocklist().size() == 0){
+            noResult("You have no blocked users...!");
+            return;
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH));
+        Parent root;
+        try {root = fxmlLoader.load();}
+        catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
+        ((UsersFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getBlocklist());
+        setDisplayTo(root);
     }
+
     @FXML void post(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTMAKER_FXML_PATH));
         try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace();}
+    }
+    @FXML void myPosts(){
+        if (Loginner.loginnedUser.getPosts().size() == 0){
+            noResult("You have no posts yet! Use the new post button to post your first!");
+            return;
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));
+        try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
+        ((PostsFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getPosts());
     }
     @FXML void theme(){
         if (Theme.currentTheme == Theme.LIGHT){
@@ -70,8 +95,8 @@ public class MainFXML {
         FXMLLoader fxmlLoader_r = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH)),
                    fxmlLoader_l = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH)),
                    fxmlLoader_master = new FXMLLoader(Launcher.class.getResource(Utility.FOLLOWERS_FXML_PATH));
-        Parent root_r, root_l;
-        try {fxmlLoader_master.load(); root_r = fxmlLoader_r.load(); root_l = fxmlLoader_l.load();}
+        Parent root_r, root_l, root;
+        try {root = fxmlLoader_master.load(); root_r = fxmlLoader_r.load(); root_l = fxmlLoader_l.load();}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
 
@@ -79,12 +104,8 @@ public class MainFXML {
         ((UsersFXML)fxmlLoader_l.getController()).initialize(Loginner.loginnedUser.getFollowings());
         ((FollowersFXML)fxmlLoader_master.getController()).initialize
                 (root_r, root_l);
-    }
-    @FXML void myPosts(){
-        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));
-        try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
-                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
-        ((PostsFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getPosts());
+
+        setDisplayTo(root);
     }
 
     @FXML void hoverSearchButton(){new Pulse(searchButton).play();}
@@ -106,5 +127,12 @@ public class MainFXML {
     }
     void removeDisplay(){
         rootDisplay.getChildren().clear();
+    }
+    private void noResult(String msg) {
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
+        try {setDisplayTo(fxmlLoader.load());
+        } catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
+        ((NoResultsFXML)fxmlLoader.getController()).initialize(msg);
     }
 }

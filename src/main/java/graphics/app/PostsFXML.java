@@ -1,5 +1,6 @@
 package graphics.app;
 
+import Objects.Comment;
 import Objects.Post;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +8,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 
 public class PostsFXML {
     @FXML VBox display;
@@ -20,6 +24,9 @@ public class PostsFXML {
     }
 
     public void initialize(HashSet<Post> posts){
-        for (Post post: posts) addPost(post);
+        List<Post> postList = posts.stream().toList();
+        ArrayList<Post> sortedPosts = new ArrayList<>(postList);
+        sortedPosts.sort(Comparator.comparing(Post::getDatePosted));
+        for (Post post: sortedPosts) addPost(post);
     }
 }
