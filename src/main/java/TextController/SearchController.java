@@ -44,7 +44,7 @@ public class SearchController {
             }
         }
         else if (choice == 2){
-            if (hasDirect){
+            if (hasGroups){
                 searchInGroup(user);
             }
             else {
@@ -60,7 +60,7 @@ public class SearchController {
             }
         }
         else if (choice == 4){
-            if (hasDirect){
+            if (hasGroups){
                 searchGroup(user);
             }
             else {
@@ -91,12 +91,12 @@ public class SearchController {
         int[] messageIDs = Loader.searchInDirect(user.getUsername(), targetUser, pattern);
 
         //displays the messages
-        for (int i = 0; i < messageIDs.length; i++){
+        for (int messageID : messageIDs) {
             //prints the message
-            TextController.println(Loader.getMessageDetails(messageIDs[i])[0] + ": "
-                                    + Loader.getMessageDetails(messageIDs[i])[1]);
+            TextController.println(Loader.getMessageDetails(messageID)[0] + ": "
+                    + Loader.getMessageDetails(messageID)[1]);
             //prints the date
-            TextController.println(Loader.getMessageDetails(messageIDs[i])[2]);
+            TextController.println(Loader.getMessageDetails(messageID)[2]);
         }
     }
 
@@ -109,7 +109,7 @@ public class SearchController {
 
         for (int i = 0; i < groupIDs.length; i++){
             groupJoiners[i] = Loader.getGroupJoiner(groupIDs[i]);
-            TextController.println(Integer.toString(i+1) + ". @" + groupJoiners[i]);
+            TextController.println(i + 1 + ". @" + groupJoiners[i]);
         }
 
         //gets the group
@@ -132,12 +132,12 @@ public class SearchController {
         int[] messageIDs = Loader.searchInGroup(user.getUsername(), groupIDs[choice - 1], pattern);
 
         //displays the messages
-        for (int i = 0; i < messageIDs.length; i++){
+        for (int messageID : messageIDs) {
             //prints the message
-            TextController.println(Loader.getGroupMessageDetails(messageIDs[i])[1]
-                                    + ": " + Loader.getGroupMessageDetails(messageIDs[i])[2]);
+            TextController.println(Loader.getGroupMessageDetails(messageID)[1]
+                    + ": " + Loader.getGroupMessageDetails(messageID)[2]);
             //prints the date
-            TextController.println(Loader.getGroupMessageDetails(messageIDs[i])[3]);
+            TextController.println(Loader.getGroupMessageDetails(messageID)[3]);
         }
     }
 
@@ -150,12 +150,12 @@ public class SearchController {
         int[] messageIDs = Loader.searchDirects(user.getUsername(), pattern);
 
         //displays the messages
-        for (int i = 0; i < messageIDs.length; i++){
+        for (int messageID : messageIDs) {
             //prints the message
-            TextController.println(Loader.getMessageDetails(messageIDs[i])[0] + ": "
-                    + Loader.getMessageDetails(messageIDs[i])[1]);
+            TextController.println(Loader.getMessageDetails(messageID)[0] + ": "
+                    + Loader.getMessageDetails(messageID)[1]);
             //prints the date
-            TextController.println(Loader.getMessageDetails(messageIDs[i])[2]);
+            TextController.println(Loader.getMessageDetails(messageID)[2]);
         }
     }
 
@@ -171,15 +171,15 @@ public class SearchController {
         int groupID;
 
         //displays the messages
-        for (int i = 0; i < messageIDs.length; i++){
-            groupID = Integer.parseInt(Loader.getGroupMessageDetails(messageIDs[i])[0]);
+        for (int messageID : messageIDs) {
+            groupID = Integer.parseInt(Loader.getGroupMessageDetails(messageID)[0]);
             //prints the joiner
             TextController.println("@" + Loader.getGroupJoiner(groupID));
             //prints the message
-            TextController.println(Loader.getGroupMessageDetails(messageIDs[i])[1] + ": "
-                    + Loader.getGroupMessageDetails(messageIDs[i])[2]);
+            TextController.println(Loader.getGroupMessageDetails(messageID)[1] + ": "
+                    + Loader.getGroupMessageDetails(messageID)[2]);
             //prints the date
-            TextController.println(Loader.getGroupMessageDetails(messageIDs[i])[3]);
+            TextController.println(Loader.getGroupMessageDetails(messageID)[3]);
         }
     }
 
@@ -192,11 +192,11 @@ public class SearchController {
         String [] users = Loader.searchForUsers(pattern);
 
         //prints the users
-        for (int i = 0; i < users.length; i++){
+        for (String user : users) {
             //prints the username
-            TextController.println("@" + users[i]);
+            TextController.println("@" + user);
             //prints the name
-            TextController.println(Loader.getUserName(users[i]));
+            TextController.println(Loader.getUserName(user));
         }
     }
 }
