@@ -28,4 +28,8 @@ public class PostsFXML {
         sortedPosts.sort(Comparator.comparing(Post::getDatePosted));
         for (Post post: sortedPosts) addPost(post);
     }
+
+    public void initialize(Post[] posts) {
+        for (Post post: posts) addPost(post);
+    }
 }

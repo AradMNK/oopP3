@@ -59,7 +59,10 @@ public class MainFXML {
                 Loginner.loginnedUser.getGroups());
     }
     @FXML void explore(){
-
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.EXPLORE_FXML_PATH));
+        try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
+        ((ExploreFXML)fxmlLoader.getController()).initialize();
     }
     @FXML void blocklist(){
         if (Loginner.loginnedUser.getBlocklist().size() == 0){
@@ -157,7 +160,7 @@ public class MainFXML {
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
         ((NoResultsFXML)fxmlLoader.getController()).initialize(msg);
     }
-    private Parent noResultRoot(String msg){
+    Parent noResultRoot(String msg){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
         Parent root;
         try {root = fxmlLoader.load();

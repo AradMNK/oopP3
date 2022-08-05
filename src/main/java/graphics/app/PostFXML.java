@@ -10,9 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import Objects.Post;
-import Objects.User;
-import Objects.Comment;
+import Objects.*;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -29,6 +27,7 @@ public class PostFXML {
     @FXML ScrollPane postPane, bioPane;
     @FXML GridPane picturePane;
     @FXML Hyperlink username;
+    @FXML Label adLabel;
 
     @FXML void comment(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.COMMENTS_FXML_PATH));
@@ -91,6 +90,8 @@ public class PostFXML {
         initContents(poster.getName(), poster.getUsername(), poster.getBio(),
                 post.getDescription(), poster.getSubtitle(), post.getDatePosted());
         initPicture(post.getPicture().getHandle());
+
+        if (post.getPoster().getUserType() == UserType.NORMAL) adLabel.setVisible(false);
     }
 
     public void initializeSample(){
@@ -112,6 +113,7 @@ public class PostFXML {
         commentButton.setDisable(true);
         likeButton.setDisable(true);
         username.setDisable(true);
+        adLabel.setVisible(false);
     }
 
     @FXML void usernameClick(){
