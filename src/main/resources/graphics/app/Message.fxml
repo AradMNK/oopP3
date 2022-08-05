@@ -139,7 +139,7 @@
             <Font name="System Bold" size="11.815384864807129" />
          </font>
       </Hyperlink>
-      <Text fx:id="rl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Replying to" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+      <Text fx:id="replied" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Replying to" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
          <font>
             <Font name="System Italic" size="11.815384864807129" />
          </font>
