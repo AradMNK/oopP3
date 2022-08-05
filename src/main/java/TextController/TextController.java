@@ -10,6 +10,7 @@ import Objects.Group;
 import Objects.Post;
 import Objects.SaveHandle;
 import Objects.UserType;
+import Objects.User;
 import Recommender.AdRecommender;
 import Recommender.UserRecommender;
 
@@ -182,11 +183,11 @@ public class TextController {
             return;
         }
 
-        String[] recommendedUsers = UserRecommender.recommendUser();
+        User[] recommendedUsers = UserRecommender.recommendUser();
 
         println("The top " + recommendedUsers.length + " usernames for you are (in order):");
-        for (String username: recommendedUsers) {
-            println("[@" + username + "]");
+        for (User recommendedUser: recommendedUsers) {
+            println("[@" + recommendedUser.getUsername() + "]");
         }
     }
     private static void recommendAd() {

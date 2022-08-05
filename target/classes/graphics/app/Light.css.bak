@@ -889,12 +889,12 @@
 *                                                                              *
 *******************************************************************************/
 .scroll-pane {    
-    -fx-background-color: transparent, #5e5985, linear-gradient(to bottom,#c1c5d4 0%,#787e94 100%);
+    -fx-background-color: transparent, #5e5985, linear-gradient(to bottom,#c1c5d4 0%,#9a9ead 100%);
     -fx-background-insets: 0,0,1;
     -fx-padding: 20;    
 }
 .scroll-pane:focused {
-    -fx-background-color:  #403f5c,  #5e5985, linear-gradient(to bottom,#c1c5d4 0%,#787e94 100%);
+    -fx-background-color:  #403f5c,  #5e5985, linear-gradient(to bottom,#c1c5d4 0%,#9a9ead 100%);
     -fx-background-insets: -1.4, 0, 1;
 }
 .scroll-pane .corner {
@@ -1836,11 +1836,28 @@
  .text{
 	 -fx-fill: #2a2c38;
 	 -fx-padding: 2;
-	 -fx-font-family: 'System';
+	 -fx-font-family: 'AgeoPersonalUse';
  }
  
- 
+  /*******************************************************************************
+ *                                                                             *
+ * VBox                                                                        *
+ *                                                                             *
+ ******************************************************************************/
  .vbox{
 	-fx-background-color: #d3d6e3;
 	-fx-border-color: black;
  }
+  /*******************************************************************************
+ *                                                                             *
+ * Rect                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+.vbar{
+	-fx-fill: #56535c;
+	-fx-stroke: #35303d;
+}
+.hbar{
+	-fx-fill: #3f414d;
+	-fx-stroke: transparent;
+}

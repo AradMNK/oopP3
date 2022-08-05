@@ -8,7 +8,7 @@ import java.util.*;
 public class UserRecommender {
     private static final int NUMBER_OF_RECOMMENDED_USERS = 3, NUMBER_OF_TRIES = 5;
 
-    public static String[] recommendAlgorithmic(){
+    public static User[] recommendAlgorithmic(){
         HashSet<User> followerOfFollowers = new HashSet<>();
 
         for (String followerUsername: Loginner.loginnedUser.getFollowings()){
@@ -35,12 +35,12 @@ public class UserRecommender {
         ArrayList<User> sortedList = new ArrayList<>(stringListCopy);
         sortedList.sort(Comparator.comparing(user -> scores[stringListCopy.indexOf(user)]));
 
-        return (String[]) Arrays.copyOfRange(sortedList.toArray(),
+        return (User[]) Arrays.copyOfRange(sortedList.toArray(),
                 0, Math.min(sortedList.size(), NUMBER_OF_RECOMMENDED_USERS));
     }
 
-    public static String[] recommendUser(){
-        String[] algorithmic = recommendAlgorithmic();
+    public static User[] recommendUser(){
+        User[] algorithmic = recommendAlgorithmic();
         ArrayList<String> append = new ArrayList<>();
         if (algorithmic.length < NUMBER_OF_RECOMMENDED_USERS){
             String username;
@@ -53,12 +53,12 @@ public class UserRecommender {
             }
         }
         String[] appended = append.toArray(new String[0]);
-        String[] result = new String[append.size() + algorithmic.length];
+        User[] result = new User[append.size() + algorithmic.length];
         int i;
         for (i = 0; i < algorithmic.length; i++)
             result[i] = algorithmic[i];
         for (String s : appended)
-            result[i++] = s;
+            result[i++] = UserBuilder.getUserFromDatabase(s);
         return result;
     }
 }

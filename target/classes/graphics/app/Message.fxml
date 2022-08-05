@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -128,5 +129,15 @@
          </graphic>
       </Button>
       <Separator prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="4" />
+      <Text fx:id="forwarded" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Forwarded from" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+         <font>
+            <Font name="System Italic" size="11.815384864807129" />
+         </font>
+      </Text>
+      <Hyperlink fx:id="forwardedUser" onAction="#forwardedUserClick" text="FORWARDEDNAME" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="System Bold" size="11.815384864807129" />
+         </font>
+      </Hyperlink>
    </children>
 </GridPane>
