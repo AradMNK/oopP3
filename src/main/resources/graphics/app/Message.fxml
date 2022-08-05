@@ -128,13 +128,23 @@
             </ImageView>
          </graphic>
       </Button>
-      <Separator prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="4" />
+      <Separator maxWidth="1.7976931348623157E308" prefWidth="200.0" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
       <Text fx:id="forwarded" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Forwarded from" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
          <font>
             <Font name="System Italic" size="11.815384864807129" />
          </font>
       </Text>
-      <Hyperlink fx:id="forwardedUser" onAction="#forwardedUserClick" text="FORWARDEDNAME" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <Hyperlink fx:id="forwardedUser" onAction="#forwardedUserClick" text="FORWARDEDNAME" underline="true" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+         <font>
+            <Font name="System Bold" size="11.815384864807129" />
+         </font>
+      </Hyperlink>
+      <Text fx:id="rl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Replying to" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+         <font>
+            <Font name="System Italic" size="11.815384864807129" />
+         </font>
+      </Text>
+      <Hyperlink fx:id="repliedMessage" onAction="#repliedMessageClick" text="Message" underline="true" GridPane.columnIndex="2" GridPane.halignment="LEFT">
          <font>
             <Font name="System Bold" size="11.815384864807129" />
          </font>
