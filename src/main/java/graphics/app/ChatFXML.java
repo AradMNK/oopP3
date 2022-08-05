@@ -1,5 +1,7 @@
 package graphics.app;
 
+import Database.Saver;
+import Login.Loginner;
 import Objects.*;
 import animatefx.animation.Pulse;
 import javafx.fxml.FXML;
@@ -18,6 +20,10 @@ import java.io.IOException;
 import java.util.*;
 
 public class ChatFXML {
+    DirectMessenger dm;
+    Group group;
+    boolean isGroupType = false;
+
     LinkedList<Message> messages;
     @FXML Circle picture;
     @FXML Text name;
@@ -48,6 +54,7 @@ public class ChatFXML {
     }
 
     public void initialize(User user, DirectMessenger dm){
+        isGroupType = false;
         if (user.getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
@@ -66,6 +73,7 @@ public class ChatFXML {
     }
 
     public void initialize(Group group){
+        isGroupType = true;
         if (group.getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));
@@ -81,7 +89,7 @@ public class ChatFXML {
     }
 
     @FXML void send(){
-
+        //Saver.addToMessages(Loginner.loginnedUser.getUsername(), dm);
     }
 
     @FXML void hoverSend(){new Pulse(sendButton).play();}
