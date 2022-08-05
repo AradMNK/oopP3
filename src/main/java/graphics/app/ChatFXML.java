@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -29,10 +30,11 @@ public class ChatFXML {
     LinkedList<Message> messages;
     @FXML Circle picture;
     @FXML Text name;
-    @FXML GridPane picturePane;
+    @FXML GridPane picturePane, masterPane;
     @FXML Button sendButton;
     @FXML TextArea message;
     @FXML VBox display;
+    @FXML Rectangle hbar, vbar;
 
     private void initContents(String name, DirectMessenger dm){
         this.name.setText(name);
@@ -53,6 +55,8 @@ public class ChatFXML {
             ((MessageFXML)fxmlLoader.getController()).initialize(message, user);
         }
         picture.radiusProperty().bind(picturePane.widthProperty().divide(2));
+        vbar.heightProperty().bind(masterPane.heightProperty());
+        vbar.widthProperty().bind(masterPane.heightProperty().divide(10));
     }
 
     public void initialize(User user, DirectMessenger dm){
@@ -108,10 +112,11 @@ public class ChatFXML {
                 now, message.getText(), replyID)));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
-        newMessage.setOriginalUsername(dm.getUser().getUsername());
-        newMessage.setUsername(dm.getUser().getUsername());
-        newMessage.setReplyToID(dm.getShownMessages().get(replyID).getID());
-        dm.getShownMessages().addLast(newMessage);
+        newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
+        newMessage.setUsername(Loginner.loginnedUser.getUsername());
+        newMessage.setGroup(group);
+        newMessage.setReplyToID(group.getShownMessages().get(replyID).getID());
+        group.getShownMessages().addLast(newMessage);
     }
 
     private void sendMessage() {

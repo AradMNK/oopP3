@@ -1,7 +1,7 @@
 package Objects;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Group {
     private SaveHandle groupID;
@@ -10,7 +10,7 @@ public class Group {
     private Handle pfp;
 
     private final HashSet<User> participants = new HashSet<>();
-    private final ArrayList<GroupMessage> shownMessages = new ArrayList<>();
+    private final LinkedList<GroupMessage> shownMessages = new LinkedList<>();
 
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
@@ -28,5 +28,5 @@ public class Group {
     public void setGroupJoiner(String groupJoiner) {this.groupJoiner = groupJoiner;}
 
     public HashSet<User> getParticipants() {return participants;}
-    public ArrayList<GroupMessage> getShownMessages() {return shownMessages;}
+    public LinkedList<GroupMessage> getShownMessages() {return shownMessages;}
 }
