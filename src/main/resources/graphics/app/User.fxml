@@ -87,7 +87,7 @@
             <Font name="System Italic" size="11.815384864807129" />
          </font></Text>
       <Text fx:id="username" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="\@username" underline="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-      <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+      <Separator prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="5" />
       <Button fx:id="messageButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#message" onMouseEntered="#hoverMessage" style="-fx-font-size: 1.5em;" styleClass="icon-button" text="Message" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
