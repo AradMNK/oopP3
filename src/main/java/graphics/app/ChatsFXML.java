@@ -34,10 +34,9 @@ public class ChatsFXML {
     public void initialize(Set<String> chats, Set<Group> groups){
         DirectMessenger[] directs = new DirectMessenger[chats.size()];
         int i = 0;
-        for (String username: chats) {
+        for (String username: chats)
             directs[i++] = DirectMessengerBuilder.getDirectMessengerFromDatabase
                     (Loginner.loginnedUser, username, Utility.MESSAGES_TO_LOAD);
-        }
         List<DirectMessenger> directsList = Arrays.asList(directs);
         ArrayList<DirectMessenger> sortedDirects = new ArrayList<>(directsList);
         LocalDateTime[] dateTimes = new LocalDateTime[directs.length];

@@ -81,7 +81,7 @@ public class ChatFXML {
     }
 
     @FXML void send(){
-        //FIXME
+
     }
 
     @FXML void hoverSend(){new Pulse(sendButton).play();}
