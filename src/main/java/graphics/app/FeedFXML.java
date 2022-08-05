@@ -1,5 +1,7 @@
 package graphics.app;
 
+import Database.Changer;
+import Login.Loginner;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,7 +30,8 @@ public class FeedFXML {
             ((NoResultsFXML)loader.getController()).initialize("No new posts from your followers yet...");
         }
         else{
-            for (Post post: sortedPost) {addPost(post);}
+            for (Post post: sortedPost) {addPost(post);
+                Changer.removePostFromFeed(Loginner.loginnedUser.getUsername(), post.getPostID().getHandle());}
         }
 
         List<Comment> commentList = comments.stream().toList();
@@ -42,7 +45,8 @@ public class FeedFXML {
             ((NoResultsFXML)loader.getController()).initialize("No new comments on your posts yet...");
         }
         else{
-            for (Comment comment: sortedComments) {addComment(comment);}
+            for (Comment comment: sortedComments) {addComment(comment);
+                Changer.removeCommentFromFeed(Loginner.loginnedUser.getUsername(), comment.getCommentID().getHandle());}
         }
 
         if (likes.size() == 0){
@@ -52,7 +56,8 @@ public class FeedFXML {
             ((NoResultsFXML)loader.getController()).initialize("No new likes on your posts yet...");
         }
         else{
-            for (Like like: likes) {addLike(like);}
+            for (Like like: likes) {addLike(like);
+                Changer.removeLikeFromFeed(Loginner.loginnedUser.getUsername(), like.getLikeID().getHandle());}
         }
     }
 
