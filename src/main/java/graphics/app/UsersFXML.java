@@ -23,4 +23,8 @@ public class UsersFXML {
     public void initialize(Set<String> users){
         for (String user: users) addUser(UserBuilder.getUserFromDatabase(user));
     }
+
+    public void initialize(User[] users) {
+        for (User user: users) addUser(user);
+    }
 }

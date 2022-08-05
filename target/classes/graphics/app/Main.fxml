@@ -11,16 +11,16 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="150.0" prefHeight="600.0" prefWidth="900.0" vgap="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.MainFXML">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="150.0" prefHeight="546.0" prefWidth="893.0" snapToPixel="false" vgap="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.MainFXML">
    <columnConstraints>
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="27.0" />
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="73.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="200.0" percentWidth="30.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="448.477025587094" prefWidth="458.58460660494336" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="100.0" minHeight="50.0" percentHeight="100.0" prefHeight="70.0" vgrow="ALWAYS" />
    </rowConstraints>
    <children>
-      <ToolBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="600.0" prefWidth="322.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <ToolBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="676.0" prefWidth="353.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
         <items>
             <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-background-color: rgba(183, 211, 223, 0.5); -fx-background-radius: 15;">
                <columnConstraints>
@@ -53,7 +53,7 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
             </GridPane>
-            <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
@@ -188,7 +188,7 @@
             <Insets left="20.0" right="15.0" />
          </padding>
       </ToolBar>
-      <GridPane fx:id="rootDisplay" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="756.0" prefWidth="885.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <GridPane fx:id="rootDisplay" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="608.0" prefWidth="450.0" snapToPixel="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="100.0" />
         </columnConstraints>

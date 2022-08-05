@@ -2,6 +2,7 @@ package graphics.app;
 
 import Builder.PostBuilder;
 import Objects.Post;
+import Objects.User;
 import Recommender.AdRecommender;
 import Recommender.UserRecommender;
 import javafx.fxml.FXML;
@@ -9,10 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class ExploreFXML {
     @FXML VBox displayR, displayL;
@@ -23,15 +21,15 @@ public class ExploreFXML {
                    fxmlLoader_users = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH));
 
 
-        String[] usernames = UserRecommender.recommendUser();
-        if (usernames.length == 0){
+        User[] users = UserRecommender.recommendUser();
+        if (users.length == 0){
             displayR.getChildren().add(MainFXML.root.noResultRoot
                     ("We cannot recommend any new users for now :(.\nPlease try again later."));
         } else{
             try {root_r = fxmlLoader_users.load();}
             catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,"Exception occurred.",
                     e.getCause().getMessage(), "Exception"); e.printStackTrace();}
-            ((UsersFXML)fxmlLoader_users.getController()).initialize(Arrays.stream(usernames).collect(Collectors.toSet()));
+            ((UsersFXML)fxmlLoader_users.getController()).initialize(users);
             displayR.getChildren().add(root_r);
         }
 
