@@ -43,7 +43,7 @@ public class Changer {
     }
 
     public static void deleteGroupMessage(int handle) {
-        Connector.queryWithoutResult("DELETE FROM directmessage WHERE messageID = " + handle + ";");
+        Connector.queryWithoutResult("DELETE FROM groupmessage WHERE messageID = " + handle + ";");
     }
 
     public static void removeFromBlockList(String blocker, String blocked) {
@@ -121,6 +121,31 @@ public class Changer {
                 //removes the member from group
                 Connector.queryWithoutResult("UPDATE group_chats SET members = '" + members
                                                     + "' WHERE groupID = " + handle + ";");
+                addToBanList(handle, username);
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+    }
+
+    public static void addToBanList (int handle, String username){
+        //declares the ban list
+        String banList;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT banList FROM group_chats WHERE groupID = "
+                                                        + handle + ";").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                banList = resultSet.getString(1);
+
+                //adds the member to the group
+                banList = (banList + "," + username);
+                Connector.queryWithoutResult("UPDATE group_chats SET members = '" + banList
+                        +"' WHERE groupID = " + handle + ";");
             }
         }
         catch (SQLException e) {e.printStackTrace();}
@@ -195,5 +220,6 @@ public class Changer {
         Connector.queryWithoutResult
                 ("UPDATE users SET subtitle = '" + value + "' WHERE username = '" + username + "';");
     }
+
 
 }
