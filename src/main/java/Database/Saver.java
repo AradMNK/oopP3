@@ -120,15 +120,24 @@ public class Saver {
                 + receiver + "', '" + line + "', '" + formattedDate + "', "
                 + replyMsgID + ", '" + originalSender + "');");
 
-        //declares new message count
-        int newMessages;
-
         //declares the messageID
         int messageID = 0;
+
+        //declares new message count
+        int newMessages;
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
+            //returns the messageID
+            resultSet = connection.prepareStatement("SELECT messageID FROM directmessage"
+                    + " ORDER BY messageID DESC LIMIT 1;").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                messageID = resultSet.getInt(1);
+            }
+
             //adds to new messages
             resultSet = connection.prepareStatement("SELECT count FROM unreadusers WHERE forUsername = '"
                                                         + receiver + "' AND username = '" + sender + "';").executeQuery();
@@ -143,15 +152,6 @@ public class Saver {
             else {
                 Connector.queryWithoutResult("INSERT INTO unreadusers (forUsername, username, count) VALUES ('"
                                                     + receiver + "', '" + sender + "', 1);");
-            }
-
-            //returns the messageID
-            resultSet = connection.prepareStatement("SELECT messageID FROM directmessage"
-                                                        + " ORDER BY messageID DESC LIMIT 1;").executeQuery();
-
-            //checks if the resultSet isn't empty
-            if (resultSet.next()){
-                messageID = resultSet.getInt(1);
             }
         }
         catch (SQLException e) {e.printStackTrace();}
@@ -198,15 +198,24 @@ public class Saver {
                 + sender + "', '" + content + "', '" + formattedDate + "', "
                 + notReplyID + ", '" + originalSender + "');");
 
-        //declares the group members
-        String membersList;
-
         //declares the messageID
         int messageID = 0;
+
+        //declares the group members
+        String membersList;
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
+            //returns the messageID
+            resultSet = connection.prepareStatement("SELECT messageID FROM groupmessage"
+                    + " ORDER BY messageID DESC LIMIT 1;").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                messageID = resultSet.getInt(1);
+            }
+
             resultSet = connection.prepareStatement("SELECT members FROM group_chats WHERE groupID = "
                                                         + handle + ";").executeQuery();
 
@@ -219,15 +228,6 @@ public class Saver {
                 for (String member : members) {
                     Saver.addGroupMessageToUnreadMessages(handle, member);
                 }
-            }
-
-            //returns the messageID
-            resultSet = connection.prepareStatement("SELECT messageID FROM groupmessage"
-                                                        + " ORDER BY messageID DESC LIMIT 1;").executeQuery();
-
-            //checks if the resultSet isn't empty
-            if (resultSet.next()){
-                messageID = resultSet.getInt(1);
             }
         }
         catch (SQLException e) {e.printStackTrace();}

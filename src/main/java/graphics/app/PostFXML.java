@@ -1,6 +1,7 @@
 package graphics.app;
 
 import Login.Loginner;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -56,7 +57,7 @@ public class PostFXML {
 
         postContent.wrappingWidthProperty().bind(postPane.widthProperty().subtract(Utility.POST_TEXT_MARGIN_FROM_RIGHT));
         this.bio.wrappingWidthProperty().bind(bioPane.widthProperty().subtract(Utility.POST_TEXT_MARGIN_FROM_RIGHT));
-        pfp.radiusProperty().bind(picturePane.heightProperty().divide(2));
+        pfp.radiusProperty().bind(Bindings.min(picturePane.heightProperty(), picturePane.widthProperty()).divide(2));
     }
 
     private void initPicture(String handle) {
@@ -91,7 +92,7 @@ public class PostFXML {
                 post.getDescription(), poster.getSubtitle(), post.getDatePosted());
         initPicture(post.getPicture().getHandle());
 
-        if (post.getPoster().getUserType() == UserType.NORMAL) adLabel.setVisible(false);
+        if (post.getPoster().getUserType() == UserType.BUSINESS) adLabel.setVisible(true);
     }
 
     public void initializeSample(){
@@ -113,7 +114,6 @@ public class PostFXML {
         commentButton.setDisable(true);
         likeButton.setDisable(true);
         username.setDisable(true);
-        adLabel.setVisible(false);
     }
 
     @FXML void usernameClick(){

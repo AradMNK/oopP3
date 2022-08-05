@@ -62,11 +62,11 @@ public class Changer {
     }
 
     public static void removeGroup(int groupID) {
-        Connector.queryWithoutResult("DELETE FROM groups WHERE groupID = " + groupID + ";");
+        Connector.queryWithoutResult("DELETE FROM group_chats WHERE groupID = " + groupID + ";");
     }
 
     public static void changeGroupJoiner(int handle, String newID) {
-        Connector.queryWithoutResult("UPDATE groups SET joinID = '" + newID +"' WHERE groupID = " + handle + ";");
+        Connector.queryWithoutResult("UPDATE group_chats SET joinID = '" + newID +"' WHERE groupID = " + handle + ";");
     }
 
     public static void addUserToGroup(String username, int handle) {
@@ -76,7 +76,7 @@ public class Changer {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT members FROM groups WHERE groupID = " + handle + ";").executeQuery();
+            resultSet = connection.prepareStatement("SELECT members FROM group_chats WHERE groupID = " + handle + ";").executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
@@ -84,7 +84,7 @@ public class Changer {
 
                 //adds the member to the group
                 members = (members + "," + username);
-                Connector.queryWithoutResult("UPDATE groups SET members = '" + members
+                Connector.queryWithoutResult("UPDATE group_chats SET members = '" + members
                                                     +"' WHERE groupID = " + handle + ";");
             }
         }
@@ -100,7 +100,7 @@ public class Changer {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT members FROM groups WHERE groupID = " + handle + ";").executeQuery();
+            resultSet = connection.prepareStatement("SELECT members FROM group_chats WHERE groupID = " + handle + ";").executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
@@ -119,7 +119,7 @@ public class Changer {
                 members = members.replaceAll(",,", ",");
 
                 //removes the member from group
-                Connector.queryWithoutResult("UPDATE groups SET members = '" + members
+                Connector.queryWithoutResult("UPDATE group_chats SET members = '" + members
                                                     + "' WHERE groupID = " + handle + ";");
             }
         }
@@ -135,7 +135,7 @@ public class Changer {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT banList FROM groups WHERE groupID = " + handle + ";").executeQuery();
+            resultSet = connection.prepareStatement("SELECT banList FROM group_chats WHERE groupID = " + handle + ";").executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
@@ -154,7 +154,7 @@ public class Changer {
                 banned = banned.replaceAll(",,", ",");
 
                 //removes the member from group
-                Connector.queryWithoutResult("UPDATE groups SET banList = '" + banned
+                Connector.queryWithoutResult("UPDATE group_chats SET banList = '" + banned
                                                     + "' WHERE groupID = " + handle + ";");
             }
         }

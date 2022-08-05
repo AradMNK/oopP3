@@ -29,7 +29,7 @@
     <RowConstraints minHeight="-Infinity" percentHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Rectangle fx:id="hbar" arcHeight="5.0" arcWidth="5.0" fill="#4b6f92" height="69.0" stroke="BLACK" strokeType="INSIDE" styleClass="hbar" width="903.0" />
+      <Rectangle fx:id="hbar" arcHeight="5.0" arcWidth="5.0" fill="#4b6f92" height="69.0" onMouseClicked="#usernameClicked" stroke="BLACK" strokeType="INSIDE" styleClass="hbar" width="903.0" />
       <Rectangle fx:id="vbar" arcHeight="5.0" arcWidth="5.0" fill="#4b6f92" height="402.0" stroke="BLACK" strokeType="INSIDE" styleClass="vbar" width="93.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="BASELINE" GridPane.vgrow="ALWAYS" />
       <GridPane fx:id="picturePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
          <columnConstraints>
@@ -39,7 +39,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Circle fx:id="picture" radius="21.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <Circle fx:id="picture" onMouseClicked="#usernameClicked" radius="21.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
@@ -72,7 +72,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Name" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <Text fx:id="name" onMouseClicked="#usernameClicked" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Name" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
