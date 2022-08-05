@@ -61,10 +61,12 @@ public class UserFXML {
         if (followed){
             Loginner.loginnedUser.unfollow(internalUsername);
             followButton.setText("Follow");
+            followed = false;
             return;
         }
         Loginner.loginnedUser.follow(internalUsername);
         followButton.setText("Unfollow");
+        followed = true;
     }
 
     @FXML void message(){

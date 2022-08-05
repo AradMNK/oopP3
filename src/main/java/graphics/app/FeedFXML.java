@@ -39,7 +39,7 @@ public class FeedFXML {
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
             try {displayComments.getChildren().add(loader.load());}
             catch (IOException e) {e.printStackTrace();}
-            ((NoResultsFXML)loader.getController()).initialize("No new comments from your followers yet...");
+            ((NoResultsFXML)loader.getController()).initialize("No new comments on your posts yet...");
         }
         else{
             for (Comment comment: sortedComments) {addComment(comment);}
@@ -47,7 +47,7 @@ public class FeedFXML {
 
         if (likes.size() == 0){
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
-            try {displayComments.getChildren().add(loader.load());}
+            try {displayLikes.getChildren().add(loader.load());}
             catch (IOException e) {e.printStackTrace();}
             ((NoResultsFXML)loader.getController()).initialize("No new likes on your posts yet...");
         }
