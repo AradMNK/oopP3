@@ -21,7 +21,7 @@ public class ChatsFXML {
         try {displayDirects.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((ChatPreviewFXML)fxmlLoader.getController()).initialize
-                (directMessenger.getRecipient(), directMessenger.getShownMessages().get(0));
+                (directMessenger.getRecipient(), directMessenger.getShownMessages().get(0), directMessenger);
     }
 
     private void addGroup(Group group){
