@@ -24,10 +24,12 @@ public class MessageFXML {
     User user;
     @FXML Button replyButton, editButton, forwardButton, deleteButton;
     @FXML Circle pfp;
-    @FXML Text name, date, msg;
+    @FXML Text name, date, msg, forwarded;
     @FXML GridPane picturePane, messagePane;
+    @FXML Hyperlink forwardedUser;
 
     @FXML void reply(){
+
     }
     @FXML void edit(){
     }
@@ -65,6 +67,10 @@ public class MessageFXML {
             deleteButton.setDisable(true);
         }
         initContents(user.getName(), message.getContent(), message.getDate());
+
+        if (!message.getUsername().equals(message.getOriginalUsername())){
+
+        }
     }
 
     @FXML void usernameClick(){
@@ -72,5 +78,8 @@ public class MessageFXML {
         try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((UserFXML)fxmlLoader.getController()).initialize(UserBuilder.getUserFromDatabase(message.getUsername()));
+    }
+    @FXML void forwardedUserClick(){
+
     }
 }
