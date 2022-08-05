@@ -4,9 +4,9 @@ import Login.Loginner;
 import java.util.*;
 
 public class AdRecommender {
-    private static final int NUMBER_OF_RECOMMENDED_ADS = 3;
+    private static final int NUMBER_OF_RECOMMENDED_ADS = 3, NUMBER_OF_TRIES = 5;
 
-    public static Integer[] recommendAd(){
+    public static Integer[] recommendAdAlgorithmic(){
         final HashSet<Integer> likedPostsOfFollowers = new HashSet<>();
 
         for (String followerUsername: Loginner.loginnedUser.getFollowings())
@@ -24,5 +24,26 @@ public class AdRecommender {
 
         return Arrays.copyOfRange(sortedPosts.toArray(new Integer[0]),
                 0, Math.min(sortedPosts.size(), NUMBER_OF_RECOMMENDED_ADS));
+    }
+
+    public static Integer[] recommendAd(){
+        Integer[] algorithmic = recommendAdAlgorithmic();
+        ArrayList<Integer> append = new ArrayList<>();
+        if (algorithmic.length < NUMBER_OF_RECOMMENDED_ADS){
+            Integer username;
+            int i = 0;
+            while (append.size() < NUMBER_OF_RECOMMENDED_ADS - algorithmic.length && i < NUMBER_OF_TRIES){
+                username = Database.Loader.getRandomAd(Database.Loader.getLikedAds
+                        (Loginner.loginnedUser.getUsername()).toArray(new Integer[0]));
+                if (!append.contains(username)) append.add(username);
+                i++;
+            }
+        }
+        Integer[] appended = append.toArray(new Integer[0]);
+        Integer[] result = new Integer[append.size() + algorithmic.length];
+        int i;
+        for (i = 0; i < algorithmic.length; i++) result[i] = algorithmic[i];
+        for (Integer s : appended) result[i++] = s;
+        return result;
     }
 }
