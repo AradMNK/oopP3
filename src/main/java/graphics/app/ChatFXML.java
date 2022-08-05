@@ -1,37 +1,31 @@
 package graphics.app;
 
+import Objects.*;
 import animatefx.animation.Pulse;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import Objects.User;
-import Objects.Message;
-import Objects.Group;
-import Objects.GroupMessage;
-import Objects.DirectMessenger;
 import javafx.scene.text.Text;
+
 import java.util.Objects;
 
-public class ChatPreviewFXML {
+public class ChatFXML {
+
     DirectMessenger dm;
     @FXML Circle picture;
-    @FXML Text name, header, content;
-    @FXML GridPane picturePane, chatPane;
+    @FXML Text name;
+    @FXML GridPane picturePane;
+    @FXML Button sendButton;
+    @FXML TextArea message;
 
     private void initContents(String name, String header, String content){
         this.name.setText(name);
-        this.header.setText(header);
-        this.content.setText(stripContent(content));
         picture.radiusProperty().bind(picturePane.widthProperty().divide(2));
-    }
-
-    private String stripContent(String content) {
-        if (content.length() > Utility.MAX_PREVIEW_CHARS)
-            return content.substring(0, Utility.MAX_PREVIEW_CHARS - 3) + "...";
-        return content;
     }
 
     public void initialize(User user, Message message, DirectMessenger dm){
@@ -64,9 +58,9 @@ public class ChatPreviewFXML {
         initContents(group.getName(), Database.Loader.getUserName(message.getUsername()), message.getContent());
     }
 
-    @FXML void hoverChatPane(){new Pulse(chatPane).play();}
-
-    @FXML void clickChatPane(){
+    @FXML void send(){
         //FIXME
     }
+
+    @FXML void hoverSend(){new Pulse(sendButton).play();}
 }

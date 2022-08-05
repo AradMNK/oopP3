@@ -17,7 +17,7 @@ public class UserBuilder {
     public static User getUserFromDatabaseFull(String username){
         User user = getUserFromDatabaseWithPosts(username);
         user.setFeed(FeedBuilder.getFeedFromDatabase(user));
-        user.setFollowers(Arrays.stream(Database.Loader.getBlocklist(username)).collect(Collectors.toSet()));
+        user.setBlocklist(Arrays.stream(Database.Loader.getBlocklist(username)).collect(Collectors.toSet()));
         user.setFollowers(Arrays.stream(Database.Loader.getFollowers(username)).collect(Collectors.toSet()));
         user.setFollowings(Arrays.stream(Database.Loader.getFollowings(username)).collect(Collectors.toSet()));
         user.setChats(Arrays.stream(Database.Loader.getChats(username)).collect(Collectors.toSet()));
