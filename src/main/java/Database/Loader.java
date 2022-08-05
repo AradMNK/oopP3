@@ -1546,7 +1546,7 @@ public class Loader {
 
         //declares the sql
         StringBuilder query = new StringBuilder("SELECT username FROM users WHERE NOT (");
-        for (int i = 0; i < usernamesNotToBeIncluded.length; i++){
+        for (int i = 0; i < usernamesNotToBeIncluded.length - 1; i++){
             if (i != usernameDontInclude.length)
                 query.append("username = '").append(usernamesNotToBeIncluded[i]).append("' OR ");
             else {
@@ -1659,7 +1659,7 @@ public class Loader {
         //declares the sql
         StringBuilder query = new StringBuilder("SELECT username FROM users WHERE NOT (");
         for (int i = 0; i < postsNotToBeIncluded.length; i++){
-            if (i != postsNotToBeIncluded.length)
+            if (i != postsNotToBeIncluded.length - 1)
                 query.append("postID = ").append(postsNotToBeIncluded[i]).append(" OR ");
             else {
                 query.append("postID = ").append(postsNotToBeIncluded[i]).append(") AND type = 'business' "
