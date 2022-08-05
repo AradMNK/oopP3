@@ -35,7 +35,7 @@ public class UserRecommender {
         ArrayList<User> sortedList = new ArrayList<>(stringListCopy);
         sortedList.sort(Comparator.comparing(user -> scores[stringListCopy.indexOf(user)]));
 
-        return (User[]) Arrays.copyOfRange(sortedList.toArray(),
+        return Arrays.copyOfRange(sortedList.toArray(new User[0]),
                 0, Math.min(sortedList.size(), NUMBER_OF_RECOMMENDED_USERS));
     }
 

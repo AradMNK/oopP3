@@ -62,7 +62,6 @@ public class MainFXML {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.EXPLORE_FXML_PATH));
         try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
-        ((ExploreFXML)fxmlLoader.getController()).initialize();
     }
     @FXML void blocklist(){
         if (Loginner.loginnedUser.getBlocklist().size() == 0){
