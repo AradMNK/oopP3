@@ -62,7 +62,7 @@ public class TextController {
             case DM -> DmController.attemptEntrance(command.getArgs()[0]);
             case BLOCK -> block(command.getArgs()[0]);
             case UNBLOCK -> unblock(command.getArgs()[0]);
-            case SEARCH -> SearchController.search(); //CHANGES
+            case SEARCH -> SearchController.search();
 
             case GROUPS -> GroupController.showGroups();
             case NEW_GROUP -> newGroup();

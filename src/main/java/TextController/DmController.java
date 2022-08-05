@@ -27,14 +27,13 @@ public class DmController {
            return;
         }
 
-
         dm = DirectMessengerBuilder.getDirectMessengerFromDatabase(Loginner.loginnedUser, username, showMessages);
         //if users have dm load else create
 
         showMessages = showMessagesInit;
         showPreviousChats();
 
-        uBlocked = Database.Loader.isUserBlocked(dm.getUser().getUsername(), dm.getRecipient().getUsername());
+        uBlocked = Database.Loader.isUserBlocked(dm.getRecipient().getUsername(), dm.getUser().getUsername());
         uBlocker = Loginner.loginnedUser.getBlocklist().contains(dm.getRecipient().getUsername());
         blockMessage();
 
@@ -79,7 +78,7 @@ public class DmController {
     }
 
     private static boolean actOnCommand(String line) {
-        String[] split = line.split("\\s*");
+        String[] split = line.split("\\s");
         DmCommand dmCommand = DmCommand.toDmCommand(split[0]);
         try {
             switch (dmCommand) {
@@ -93,7 +92,7 @@ public class DmController {
                 case REFRESH -> refresh();
                 case MORE -> more();
 
-                case LEAVE -> {return true;}
+                case LEAVE -> {TextController.println("You have left the dm mode."); return true;}
                 default -> {}
             }
         }
@@ -110,14 +109,14 @@ public class DmController {
     private static void unblock() {
         if (!Loginner.loginnedUser.unblock(dm.getRecipient().getUsername())) {
             TextController.println("The user [@" + dm.getRecipient().getUsername() + "] was not in your blocklist.");
-            uBlocker = false;
         }
+        uBlocker = false;
     }
     private static void block(){
         if (!Loginner.loginnedUser.block(dm.getRecipient().getUsername())){
             TextController.println("The user [@" + dm.getRecipient().getUsername() + "] was already in your blocklist.");
-            uBlocker = true;
         }
+        uBlocker = true;
     }
 
     private static void forward(int num, String where) {
@@ -251,7 +250,7 @@ enum DmCommand{
     FORWARD("\\forward"),
     DELETE("\\del"),
     MORE("\\more"),
-    LEAVE("/leave"),
+    LEAVE("\\leave"),
 
     BLOCK("\\block"),
     UNBLOCK("\\unblock"),
