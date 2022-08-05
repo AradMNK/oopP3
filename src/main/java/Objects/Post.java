@@ -11,12 +11,6 @@ public class Post {
     private User poster;
 
     public Post(){}
-    public Post(int postID, String description, LocalDateTime datePosted, User poster){
-        this.postID = new SaveHandle(postID);
-        this.description = description;
-        this.datePosted = datePosted;
-        this.poster = poster;
-    }
     public Post(int postID, String description, LocalDateTime datePosted, User poster, String picturePath) {
         this.postID = new SaveHandle(postID);
         this.description = description;

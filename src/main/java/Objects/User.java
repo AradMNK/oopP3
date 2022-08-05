@@ -56,7 +56,7 @@ public class User {
     public void post(String description){
         LocalDateTime dateTime = LocalDateTime.now();
         int handle = Database.Saver.addToPosts(username, dateTime, description, getUserType().toString());
-        posts.add(new Post(handle, description, dateTime, this));
+        posts.add(new Post(handle, description, dateTime, this, ""));
         for (String usernames: followers)
             Database.Saver.updateFeedsFromPost(usernames, handle);
     }
