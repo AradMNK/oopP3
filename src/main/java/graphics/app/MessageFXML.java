@@ -68,9 +68,11 @@ public class MessageFXML {
         }
         initContents(user.getName(), message.getContent(), message.getDate());
 
-        if (!message.getUsername().equals(message.getOriginalUsername())){
-
+        if (message.getUsername().equals(message.getOriginalUsername())){
+            forwarded.setVisible(false);
+            forwardedUser.setVisible(false);
         }
+        else forwardedUser.setText("@" + message.getOriginalUsername());
     }
 
     @FXML void usernameClick(){
