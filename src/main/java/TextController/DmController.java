@@ -68,7 +68,8 @@ public class DmController {
         TextController.println("You can leave with +" + DmCommand.LEAVE + ".");
         while (true){
             line = TextController.getLine();
-            if (actOnCommand(line)) break;
+            if (actOnCommand(line)) continue;
+            else if (line.equals("\\leave")) {TextController.println("You have left the dm mode."); break;}
             else {
                 if (uBlocked || uBlocker) {blockMessage(); continue;}
                 Database.Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
@@ -92,13 +93,13 @@ public class DmController {
                 case REFRESH -> refresh();
                 case MORE -> more();
 
-                case LEAVE -> {TextController.println("You have left the dm mode."); return true;}
-                default -> {}
+                //case LEAVE -> {TextController.println("You have left the dm mode."); return true;}
+                default -> {return false;}
             }
         }
         catch (ArrayIndexOutOfBoundsException e){
             if (line.startsWith("\\")) TextController.println("You need to provide an argument for " + line);}
-        return false;
+        return true;
     }
 
     private static void more() {
