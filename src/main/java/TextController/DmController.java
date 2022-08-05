@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class DmController {
     final static int replyShowNum = 10, notReplyID = 0, showMessagesIncrement = 10, showMessagesInit = 10;
     static int showMessages = showMessagesInit;
-    final static String inReplyTo = "In reply to: ", ellipsis = "...";
+    final static String inReplyTo = "In reply to: ", ellipsis = "...", editing = "editing: ";
     public static DirectMessenger dm;
     public static boolean uBlocked, uBlocker;
 
@@ -50,7 +50,7 @@ public class DmController {
                 TextController.print("[" + getInReplyTo(repliedMessage) + "] ");
                 TextController.println(getMessage(message));
             }
-            else if (message.getOriginalUsername().equals(dm.getUser().getUsername())){ //it's normal message
+            else if (message.getOriginalUsername().equals(message.getUsername())){ //it's normal message;
                 TextController.println(getMessage(message));
             } else { //it's a forwarded message
                 TextController.print("[Forwarded from @" + message.getOriginalUsername() + "] ");
@@ -65,7 +65,7 @@ public class DmController {
 
     private static void enterChatMode() {
         String line;
-        TextController.println("You can leave with +" + DmCommand.LEAVE + ".");
+        TextController.println("You can leave with " + DmCommand.LEAVE + ".");
         while (true){
             line = TextController.getLine();
             if (actOnCommand(line)) continue;
@@ -93,7 +93,6 @@ public class DmController {
                 case REFRESH -> refresh();
                 case MORE -> more();
 
-                //case LEAVE -> {TextController.println("You have left the dm mode."); return true;}
                 default -> {return false;}
             }
         }
@@ -194,6 +193,7 @@ public class DmController {
         }
 
         Message message = dm.getShownMessages().get(num);
+        TextController.println("[" + editing + "[" + message.getContent() + "]]");
         Database.Changer.editMessage(message.getID().getHandle(), TextController.getLine());
         TextController.println("SYSTEM: Successfully edited your message.");
     }
