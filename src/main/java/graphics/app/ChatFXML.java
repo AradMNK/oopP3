@@ -4,6 +4,7 @@ import Database.Saver;
 import Login.Loginner;
 import Objects.*;
 import animatefx.animation.Pulse;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -22,7 +23,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChatFXML {
-    int replyID = 0;
+    SaveHandle replyID = new SaveHandle(0);
     DirectMessenger dm;
     Group group;
     boolean isGroupType = false;
@@ -38,20 +39,21 @@ public class ChatFXML {
 
     private void initContents(String name){
         this.name.setText(name);
-        picture.radiusProperty().bind(picturePane.widthProperty().divide(2));
+        picture.radiusProperty().bind(Bindings.min(picturePane.heightProperty(), picturePane.widthProperty()).divide(2));
         vbar.heightProperty().bind(masterPane.heightProperty());
         vbar.widthProperty().bind(masterPane.widthProperty().divide(10));
         hbar.heightProperty().bind(masterPane.heightProperty().divide(10));
-        hbar.widthProperty().bind(masterPane.widthProperty());
+        hbar.widthProperty().bind(masterPane.widthProperty().multiply(0.9));
     }
 
-    public void initialize(User user, DirectMessenger dm){
+    public void initialize(DirectMessenger dm){
+        this.dm = dm;
         isGroupType = false;
-        if (user.getPfp().getHandle().equals(""))
+        if (dm.getRecipient().getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
         else{
-            try {picture.setFill(new ImagePattern(new Image(user.getPfp().getHandle())));}
+            try {picture.setFill(new ImagePattern(new Image(dm.getRecipient().getPfp().getHandle())));}
             catch (IllegalArgumentException e){AppManager.alert(Alert.AlertType.ERROR, "Unsupported image file!",
                     "Please choose another image.", "Image could not load!");
                 picture.setFill(new ImagePattern(new Image((Objects.requireNonNull
@@ -66,7 +68,7 @@ public class ChatFXML {
             FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
             try {display.getChildren().add(fxmlLoader.load());}
             catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
-                    "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();
+                    "Exception occurred.", e.toString(), "Exception"); e.printStackTrace();
                 continue;}
             User messenger;
             if (dm.getUser().getUsername().equals(message.getUsername())) messenger = dm.getUser();
@@ -78,10 +80,11 @@ public class ChatFXML {
             }
             ((MessageFXML)fxmlLoader.getController()).initialize(message, messenger);
         }
-        initContents(user.getName());
+        initContents(dm.getRecipient().getName());
     }
 
     public void initialize(Group group){
+        this.group = group;
         isGroupType = true;
         if (group.getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
@@ -117,27 +120,39 @@ public class ChatFXML {
         return -1;
     }
 
+    @FXML void usernameClicked(){
+        if (isGroupType){
+            //FIXME
+            return;
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_FXML_PATH));
+        try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((UserFXML)fxmlLoader.getController()).initialize(dm.getRecipient());
+    }
+
     @FXML void send(){
         if (message.getText().equals("")) {
             AppManager.alert(Alert.AlertType.WARNING, "WARNING!",
                     "You cannot send an empty message.", "Empty message!");
             return;
         }
-        if (isGroupType) sendMessage();
-        else sendGroupMessage();
+        if (isGroupType) sendGroupMessage();
+        else sendMessage();
+        message.clear();
     }
     private void sendGroupMessage() {
         LocalDateTime now = LocalDateTime.now();
         GroupMessage newMessage = new GroupMessage();
         newMessage.setID(new SaveHandle(Saver.addToGroupMessages(group.getGroupID().getHandle(),
                 Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(),
-                now, message.getText(), replyID)));
+                now, message.getText(), replyID.getHandle())));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
         newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
         newMessage.setUsername(Loginner.loginnedUser.getUsername());
         newMessage.setGroup(group);
-        newMessage.setReplyToID(group.getShownMessages().get(replyID).getID());
+        newMessage.setReplyToID(replyID);
         group.getShownMessages().addLast(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
@@ -150,12 +165,12 @@ public class ChatFXML {
         LocalDateTime now = LocalDateTime.now();
         Message newMessage = new Message();
         newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
-                dm.getUser().getUsername(), now, message.getText(), replyID)));
+                dm.getUser().getUsername(), now, message.getText(), replyID.getHandle())));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
         newMessage.setOriginalUsername(dm.getUser().getUsername());
         newMessage.setUsername(dm.getUser().getUsername());
-        newMessage.setReplyToID(dm.getShownMessages().get(replyID).getID());
+        newMessage.setReplyToID(replyID);
         dm.getShownMessages().addLast(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));

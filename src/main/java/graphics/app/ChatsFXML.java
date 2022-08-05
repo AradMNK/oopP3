@@ -7,6 +7,7 @@ import Objects.Group;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChatsFXML {
+    @FXML Button newGroupButton;
     @FXML VBox displayGroups, displayDirects;
 
     private void addChat(DirectMessenger directMessenger){
@@ -54,5 +56,9 @@ public class ChatsFXML {
         for (Group group: groupsList) {dateTimesGroups[i++] = group.getShownMessages().get(0).getDate();}
         sortedGroups.sort(Comparator.comparing(group -> dateTimesGroups[groupsList.indexOf(group)]));
         for (Group group : sortedGroups) addGroup(group);
+    }
+
+    @FXML void newGroup(){
+
     }
 }

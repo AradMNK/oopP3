@@ -98,7 +98,7 @@
             <Font size="3.0" />
          </font>
       </Button>
-    <Button fx:id="editButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#like" prefHeight="30.0" prefWidth="69.0" style="-fx-font-size: 1em;" styleClass="icon-button" text="Edit" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <Button fx:id="editButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#edit" prefHeight="30.0" prefWidth="69.0" style="-fx-font-size: 1em;" styleClass="icon-button" text="Edit" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>

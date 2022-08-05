@@ -2,6 +2,7 @@ package graphics.app;
 
 import Login.Loginner;
 import animatefx.animation.Pulse;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -31,7 +32,7 @@ public class ChatPreviewFXML {
         this.name.setText(name);
         this.header.setText(header);
         this.content.setText(stripContent(content));
-        picture.radiusProperty().bind(picturePane.widthProperty().divide(2));
+        picture.radiusProperty().bind(Bindings.min(picturePane.heightProperty(), picturePane.widthProperty()).divide(2));
     }
 
     private String stripContent(String content) {
@@ -80,6 +81,6 @@ public class ChatPreviewFXML {
         try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         if (isGroupType) ((ChatFXML)fxmlLoader.getController()).initialize(group);
-        else ((ChatFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser, dm);
+        else ((ChatFXML)fxmlLoader.getController()).initialize(dm);
     }
 }
