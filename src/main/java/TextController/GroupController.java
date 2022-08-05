@@ -283,6 +283,7 @@ public class GroupController {
         }
 
         ArrayList<String> groupJoiners = new ArrayList<>();
+
         for (Group group: Loginner.loginnedUser.getGroups()) {
             TextController.println(group.getName() + " [@" + group.getGroupJoiner() + "]");
             groupJoiners.add(group.getGroupJoiner());

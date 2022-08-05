@@ -18,7 +18,9 @@ public class GroupBuilder {
     }
 
     public static Group getGroupFromDatabaseFull(String groupJoiner, int howMany){
+        //gets the groupID
         int groupID = Database.Loader.getGroupID(groupJoiner);
+
         Group group = getGroupFromDatabase(groupID);
         group.setGroupJoiner(Database.Loader.getGroupJoiner(groupID));
         group.setOwner(UserBuilder.getUserFromDatabase(Database.Loader.getGroupOwner(groupID)));
