@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChatFXML {
-    int replyID = 0;
+    SaveHandle replyID = new SaveHandle(0);
     DirectMessenger dm;
     Group group;
     boolean isGroupType = false;
@@ -45,13 +45,14 @@ public class ChatFXML {
         hbar.widthProperty().bind(masterPane.widthProperty());
     }
 
-    public void initialize(User user, DirectMessenger dm){
+    public void initialize(DirectMessenger dm){
+        this.dm = dm;
         isGroupType = false;
-        if (user.getPfp().getHandle().equals(""))
+        if (dm.getRecipient().getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
         else{
-            try {picture.setFill(new ImagePattern(new Image(user.getPfp().getHandle())));}
+            try {picture.setFill(new ImagePattern(new Image(dm.getRecipient().getPfp().getHandle())));}
             catch (IllegalArgumentException e){AppManager.alert(Alert.AlertType.ERROR, "Unsupported image file!",
                     "Please choose another image.", "Image could not load!");
                 picture.setFill(new ImagePattern(new Image((Objects.requireNonNull
@@ -78,10 +79,11 @@ public class ChatFXML {
             }
             ((MessageFXML)fxmlLoader.getController()).initialize(message, messenger);
         }
-        initContents(user.getName());
+        initContents(dm.getRecipient().getName());
     }
 
     public void initialize(Group group){
+        this.group = group;
         isGroupType = true;
         if (group.getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
@@ -123,21 +125,21 @@ public class ChatFXML {
                     "You cannot send an empty message.", "Empty message!");
             return;
         }
-        if (isGroupType) sendMessage();
-        else sendGroupMessage();
+        if (isGroupType) sendGroupMessage();
+        else sendMessage();
     }
     private void sendGroupMessage() {
         LocalDateTime now = LocalDateTime.now();
         GroupMessage newMessage = new GroupMessage();
         newMessage.setID(new SaveHandle(Saver.addToGroupMessages(group.getGroupID().getHandle(),
                 Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(),
-                now, message.getText(), replyID)));
+                now, message.getText(), replyID.getHandle())));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
         newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
         newMessage.setUsername(Loginner.loginnedUser.getUsername());
         newMessage.setGroup(group);
-        newMessage.setReplyToID(group.getShownMessages().get(replyID).getID());
+        newMessage.setReplyToID(replyID);
         group.getShownMessages().addLast(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
@@ -150,12 +152,12 @@ public class ChatFXML {
         LocalDateTime now = LocalDateTime.now();
         Message newMessage = new Message();
         newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
-                dm.getUser().getUsername(), now, message.getText(), replyID)));
+                dm.getUser().getUsername(), now, message.getText(), replyID.getHandle())));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
         newMessage.setOriginalUsername(dm.getUser().getUsername());
         newMessage.setUsername(dm.getUser().getUsername());
-        newMessage.setReplyToID(dm.getShownMessages().get(replyID).getID());
+        newMessage.setReplyToID(replyID);
         dm.getShownMessages().addLast(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));

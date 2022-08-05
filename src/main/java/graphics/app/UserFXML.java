@@ -1,8 +1,10 @@
 package graphics.app;
 
+import Builder.DirectMessengerBuilder;
 import Login.Loginner;
 import animatefx.animation.Pulse;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -13,6 +15,7 @@ import javafx.scene.shape.Circle;
 import Objects.User;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -70,7 +73,11 @@ public class UserFXML {
     }
 
     @FXML void message(){
-        //FIXME
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_FXML_PATH));
+        try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((ChatFXML)fxmlLoader.getController()).initialize(DirectMessengerBuilder.getDirectMessengerFromDatabase
+                (Loginner.loginnedUser, internalUsername, Utility.MESSAGES_TO_LOAD));
     }
 
     @FXML void hoverFollow(){new Pulse(followButton).play();}

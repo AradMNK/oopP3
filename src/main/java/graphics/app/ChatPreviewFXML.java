@@ -80,6 +80,6 @@ public class ChatPreviewFXML {
         try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         if (isGroupType) ((ChatFXML)fxmlLoader.getController()).initialize(group);
-        else ((ChatFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser, dm);
+        else ((ChatFXML)fxmlLoader.getController()).initialize(dm);
     }
 }
