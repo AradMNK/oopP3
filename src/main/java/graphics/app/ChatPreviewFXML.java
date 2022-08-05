@@ -52,13 +52,13 @@ public class ChatPreviewFXML {
     public void initialize(Group group, GroupMessage message){
         if (group.getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
-                    ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
+                    ((Objects.requireNonNull(Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));
         else{
             try {picture.setFill(new ImagePattern(new Image(group.getPfp().getHandle())));}
             catch (IllegalArgumentException e){AppManager.alert(Alert.AlertType.ERROR, "Unsupported image file!",
                     "Please choose another image.", "Image could not load!");
                 picture.setFill(new ImagePattern(new Image((Objects.requireNonNull
-                        (Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));}
+                        (Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));}
         }
 
         initContents(group.getName(), Database.Loader.getUserName(message.getUsername()), message.getContent());

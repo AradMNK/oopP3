@@ -24,11 +24,13 @@ public class Utility {
 
     CHAT_PREVIEW_FXML_PATH = "Chat Preview",
     CHATS_FXML_PATH = "Chats.fxml",
+    MESSAGE_FXML_PATH = "Message.fxml",
 
     LIGHT_MODE_CSS_PATH = "Light.css",
     DARK_MODE_CSS_PATH = "Dark.css",
 
     UNKNOWN_USER_PICTURE = "unknown user.jpg",
+    GROUP_PICTURE_PATH = "Icons/Group.png",
     ICON_PATH = "instakilogram.png";
 
     public static final int PREF_WIDTH = 900, PREF_HEIGHT = 600,

@@ -1,6 +1,6 @@
 package Objects;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class DirectMessenger {
     private User user, recipient;
@@ -12,7 +12,7 @@ public class DirectMessenger {
 
     public DirectMessenger(){}
 
-    private final ArrayList<Message> ShownMessages = new ArrayList<>();
+    private final LinkedList<Message> ShownMessages = new LinkedList<>();
 
     public User getRecipient() {return recipient;}
     public void setRecipient(User recipient) {this.recipient = recipient;}
@@ -20,5 +20,5 @@ public class DirectMessenger {
     public User getUser() {return user;}
     public void setUser(User user) {this.user = user;}
 
-    public ArrayList<Message> getShownMessages() {return ShownMessages;}
+    public LinkedList<Message> getShownMessages() {return ShownMessages;}
 }

@@ -79,7 +79,7 @@
       </Text>
       <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
         <content>
-            <VBox maxWidth="1.7976931348623157E308" />
+            <VBox fx:id="display" maxWidth="1.7976931348623157E308" />
         </content>
       </ScrollPane>
    </children>
