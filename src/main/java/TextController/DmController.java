@@ -191,7 +191,7 @@ public class DmController {
         }
 
         Message message = dm.getShownMessages().get(num);
-        TextController.println("[" + editing + "[" + message.getContent() + "]]");
+        TextController.println("[" + editing + "[" + getEdit(message.getContent()) + "]]");
         Database.Changer.editMessage(message.getID().getHandle(), TextController.getLine());
         TextController.println("SYSTEM: Successfully edited your message.");
     }
@@ -230,6 +230,12 @@ public class DmController {
         String out = (msg.length() > replyShowNum + ellipsis.length()) ?
                 msg.substring(0, replyShowNum) + ellipsis : msg;
         return inReplyTo + "[" + out + "]";
+    }
+
+    private static String getEdit(String msg){
+        String out = (msg.length() > replyShowNum + ellipsis.length()) ?
+                msg.substring(0, replyShowNum) + ellipsis : msg;
+        return out;
     }
 
     private static void blockMessage(){

@@ -176,7 +176,7 @@ public class Display {
         Group group;
         for (int groupID : groupIDs) {
             group = GroupBuilder.getGroupFromDatabase(groupID);
-            TextController.println(group.getName() + " [" + groupID + "] ("
+            TextController.println(group.getName() + " [@" + Database.Loader.getGroupJoiner(groupID) + "] ("
                     + Database.Loader.getUnreadCountForGroupID(Loginner.loginnedUser.getUsername(), groupID) + ")");
         }
         TextController.println("Use /" + CommandType.GROUPS + " to see all groups and enter one if needed.");

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class GroupController {
     final static int replyShowNum = 10, notReplyID = 0, showMessagesIncrement = 10, showMessagesInit = 10;
     static int showMessages = showMessagesInit;
-    final static String inReplyTo = "In reply to: ", ellipsis = "...";
+    final static String inReplyTo = "In reply to: ", ellipsis = "...", editing = "Editing: ";
     public static Group group;
 
     public static void attemptEntrance(Group g) {
@@ -49,7 +49,7 @@ public class GroupController {
         TextController.println("You can leave with " + GroupCommand.EXIT + ".");
         while (true){
             line = TextController.getLine();
-            if (line.equals("\\exit")) break;
+            if (line.equals("\\exit")) {TextController.println("You have exited the chat."); break;}
             else if (line.equals("\\leave")) {leave(); break;}
             else if (actOnCommand(line)) continue;
             else {
@@ -232,6 +232,7 @@ public class GroupController {
         }
 
         Message message = group.getShownMessages().get(num);
+        TextController.println("[" + editing + "[" + getEdit(message.getContent()) + "]]");
         Database.Changer.editGroupMessage(message.getID().getHandle(), TextController.getLine());
         TextController.println("SYSTEM: Successfully edited your message.");
     }
@@ -271,6 +272,12 @@ public class GroupController {
         String out = (msg.length() > replyShowNum + ellipsis.length()) ?
                 msg.substring(0, replyShowNum) + ellipsis : msg;
         return inReplyTo + "[" + out + "]";
+    }
+
+    private static String getEdit(String msg){
+        String out = (msg.length() > replyShowNum + ellipsis.length()) ?
+                msg.substring(0, replyShowNum) + ellipsis : msg;
+        return out;
     }
 
     public static void showGroups() {
