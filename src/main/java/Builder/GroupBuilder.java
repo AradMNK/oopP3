@@ -1,5 +1,6 @@
 package Builder;
 
+import Database.Loader;
 import Objects.Group;
 import Objects.SaveHandle;
 
@@ -12,10 +13,12 @@ public class GroupBuilder {
         Group group = new Group();
         group.setGroupID(new SaveHandle(groupID));
         group.setName(Database.Loader.getGroupName(groupID));
+        group.setGroupJoiner(Database.Loader.getGroupJoiner(groupID));
         return group;
     }
 
-    public static Group getGroupFromDatabaseFull(int groupID, int howMany){
+    public static Group getGroupFromDatabaseFull(String groupJoiner, int howMany){
+        int groupID = Database.Loader.getGroupID(groupJoiner);
         Group group = getGroupFromDatabase(groupID);
         group.setGroupJoiner(Database.Loader.getGroupJoiner(groupID));
         group.setOwner(UserBuilder.getUserFromDatabase(Database.Loader.getGroupOwner(groupID)));
