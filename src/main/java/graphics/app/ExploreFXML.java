@@ -26,6 +26,7 @@ public class ExploreFXML {
             displayR.getChildren().add(MainFXML.root.noResultRoot
                     ("We cannot recommend any new users for now :(.\nPlease try again later."));
         } else{
+            System.out.println("i am called");
             try {root_r = fxmlLoader_users.load();}
             catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,"Exception occurred.",
                     e.getCause().getMessage(), "Exception"); e.printStackTrace();}
@@ -45,7 +46,7 @@ public class ExploreFXML {
             catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,"Exception occurred.",
                     e.getCause().getMessage(), "Exception"); e.printStackTrace();}
             ((PostsFXML)fxmlLoader_posts.getController()).initialize(posts);
-            displayL.getChildren().add(root_l);
+            //displayL.getChildren().add(root_l);
         }
 
     }

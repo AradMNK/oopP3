@@ -22,7 +22,7 @@ public class AdRecommender {
         }
         sortedPosts.sort(Comparator.comparing(integer -> likeNum[postsCopy.indexOf(integer)]));
 
-        return (Integer[]) Arrays.copyOfRange(sortedPosts.toArray(),
+        return Arrays.copyOfRange(sortedPosts.toArray(new Integer[0]),
                 0, Math.min(sortedPosts.size(), NUMBER_OF_RECOMMENDED_ADS));
     }
 }
