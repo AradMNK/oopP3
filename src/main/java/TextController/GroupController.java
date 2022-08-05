@@ -252,7 +252,7 @@ public class GroupController {
     }
 
     private static void refresh() {
-        group = GroupBuilder.getGroupFromDatabaseFull(group.getGroupID().getHandle(), showMessages);
+        group = GroupBuilder.getGroupFromDatabaseFull(group.getGroupJoiner(), showMessages);
         showPreviousChats();
     }
     private static void more() {
@@ -282,19 +282,19 @@ public class GroupController {
             return;
         }
 
-        ArrayList<Integer> groupIDs = new ArrayList<>();
+        ArrayList<String> groupJoiners = new ArrayList<>();
+
         for (Group group: Loginner.loginnedUser.getGroups()) {
-            TextController.println(group.getName() + " [" + group.getGroupID() + "]");
-            groupIDs.add(group.getGroupID().getHandle());
+            TextController.println(group.getName() + " [@" + group.getGroupJoiner() + "]");
+            groupJoiners.add(group.getGroupJoiner());
         }
 
-        TextController.println("\nType in the group ID you want to enter in.");
+        TextController.println("\nType in the group joiner you want to enter in.");
 
-        int parsed;
-        try {parsed = Integer.parseInt(TextController.getNext());} catch (NumberFormatException e) {
-            TextController.println("Please enter a valid number."); showGroups(); return;}
-        if (groupIDs.contains(parsed)) {
-            attemptEntrance(GroupBuilder.getGroupFromDatabaseFull(parsed, showMessages));
+        String joiner = TextController.getLine();
+
+        if (groupJoiners.contains(joiner)) {
+            attemptEntrance(GroupBuilder.getGroupFromDatabaseFull(joiner, showMessages));
         }
     }
 }
