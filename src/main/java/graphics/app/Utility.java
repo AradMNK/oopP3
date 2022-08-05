@@ -13,6 +13,7 @@ public class Utility {
     MAIN_FXML_PATH = "Main.fxml",
     NO_RESULTS_FXML_PATH = "No Results.fxml",
     MY_ACCOUNT_FXML_PATH = "My Account.fxml",
+    LIKE_FXML_PATH = "Like.fxml",
     POST_FXML_PATH = "Post.fxml",
     POSTS_FXML_PATH = "Posts.fxml",
     POSTMAKER_FXML_PATH = "Postmaker.fxml",
@@ -21,6 +22,8 @@ public class Utility {
     USER_FXML_PATH = "User.fxml",
     USERS_FXML_PATH = "Users.fxml",
     FOLLOWERS_FXML_PATH = "Followers.fxml",
+
+    FEED_FXML_PATH = "Feed.fxml",
 
     CHAT_FXML_PATH = "Chat.fxml",
     CHAT_PREVIEW_FXML_PATH = "Chat Preview",

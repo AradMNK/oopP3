@@ -3,8 +3,6 @@ package graphics.app;
 import Login.Loginner;
 import animatefx.animation.Pulse;
 import graphics.theme.Theme;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,11 +36,16 @@ public class MainFXML {
             noResult("You have nothing new in your feed... for now.");
             return;
         }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.FEED_FXML_PATH));
+        try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
+        ((FeedFXML)fxmlLoader.getController()).initialize(feed.getPosts(), feed.getComments(), feed.getLikes());
     }
     @FXML void myAccount(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MY_ACCOUNT_FXML_PATH));
         try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
-                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace();}
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
     }
     @FXML void chats(){
         if (Database.Loader.doesUserHaveChat(Loginner.loginnedUser.getUsername())){

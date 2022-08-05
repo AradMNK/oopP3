@@ -57,7 +57,10 @@ public class FeedFXML {
     }
 
     private void addLike(Like like) {
-
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.LIKE_FXML_PATH));
+        try {displayPosts.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((LikeFXML)fxmlLoader.getController()).initialize(like);
     }
 
     private void addPost(Post post) {
