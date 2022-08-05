@@ -33,7 +33,7 @@ public class DmController {
         showMessages = showMessagesInit;
         showPreviousChats();
 
-        uBlocked = Database.Loader.isUserBlocked(dm.getUser().getUsername(), dm.getRecipient().getUsername());
+        uBlocked = Database.Loader.isUserBlocked(dm.getRecipient().getUsername(), dm.getUser().getUsername());
         uBlocker = Loginner.loginnedUser.getBlocklist().contains(dm.getRecipient().getUsername());
         blockMessage();
 
@@ -109,14 +109,14 @@ public class DmController {
     private static void unblock() {
         if (!Loginner.loginnedUser.unblock(dm.getRecipient().getUsername())) {
             TextController.println("The user [@" + dm.getRecipient().getUsername() + "] was not in your blocklist.");
-            uBlocker = false;
         }
+        uBlocker = false;
     }
     private static void block(){
         if (!Loginner.loginnedUser.block(dm.getRecipient().getUsername())){
             TextController.println("The user [@" + dm.getRecipient().getUsername() + "] was already in your blocklist.");
-            uBlocker = true;
         }
+        uBlocker = true;
     }
 
     private static void forward(int num, String where) {
