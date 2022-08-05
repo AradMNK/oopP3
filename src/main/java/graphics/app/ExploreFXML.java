@@ -1,9 +1,7 @@
 package graphics.app;
 
 import Builder.PostBuilder;
-import Builder.UserBuilder;
 import Objects.Post;
-import Objects.User;
 import Recommender.AdRecommender;
 import Recommender.UserRecommender;
 import javafx.fxml.FXML;
