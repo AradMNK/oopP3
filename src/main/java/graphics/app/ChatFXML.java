@@ -108,10 +108,11 @@ public class ChatFXML {
                 now, message.getText(), replyID)));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
-        newMessage.setOriginalUsername(dm.getUser().getUsername());
-        newMessage.setUsername(dm.getUser().getUsername());
-        newMessage.setReplyToID(dm.getShownMessages().get(replyID).getID());
-        dm.getShownMessages().addLast(newMessage);
+        newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
+        newMessage.setUsername(Loginner.loginnedUser.getUsername());
+        newMessage.setGroup(group);
+        newMessage.setReplyToID(group.getShownMessages().get(replyID).getID());
+        group.getShownMessages().addLast(newMessage);
     }
 
     private void sendMessage() {

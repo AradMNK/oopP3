@@ -106,7 +106,7 @@ public class Saver {
     public static int addToMessages(String sender, String receiver, String originalSender,
                                      LocalDateTime now, String line, int replyMsgID) {
         //adds to direct
-        if (Loader.usersHaveDm(sender, receiver) == false){
+        if (!Loader.usersHaveDm(sender, receiver)){
             Connector.queryWithoutResult("INSERT INTO directs (user1, user2) VALUES ('" + sender
                     + "', '" + receiver + "');");
         }
