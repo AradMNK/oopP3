@@ -47,7 +47,7 @@ public class UserRecommender {
             int i = 0;
             while (append.size() < NUMBER_OF_RECOMMENDED_USERS - algorithmic.length && i < NUMBER_OF_TRIES){
                 username = Database.Loader.randomUser(Loginner.loginnedUser.getUsername(),
-                        Loginner.loginnedUser.getFollowers().toArray(new String[0]));
+                        Loginner.loginnedUser.getFollowings().toArray(new String[0]));
                 if (!append.contains(username)) append.add(username);
                 i++;
             }
@@ -55,10 +55,8 @@ public class UserRecommender {
         String[] appended = append.toArray(new String[0]);
         User[] result = new User[append.size() + algorithmic.length];
         int i;
-        for (i = 0; i < algorithmic.length; i++)
-            result[i] = algorithmic[i];
-        for (String s : appended)
-            result[i++] = UserBuilder.getUserFromDatabase(s);
+        for (i = 0; i < algorithmic.length; i++) result[i] = algorithmic[i];
+        for (String s : appended) result[i++] = UserBuilder.getUserFromDatabase(s);
         return result;
     }
 }
