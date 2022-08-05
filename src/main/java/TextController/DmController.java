@@ -69,12 +69,10 @@ public class DmController {
         while (true){
             line = TextController.getLine();
             if (actOnCommand(line)) continue;
-            else if (line.equals("\\leave")) {TextController.println("You have left the dm mode."); break;}
-            else {
-                if (uBlocked || uBlocker) {blockMessage(); continue;}
-                Database.Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
-                        dm.getUser().getUsername(), LocalDateTime.now(), line, notReplyID);
-            }
+            else if (line.equals(DmCommand.LEAVE.toString())) {TextController.println("You have left the dm mode."); break;}
+            if (uBlocked || uBlocker) {blockMessage(); continue;}
+            Database.Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
+                    dm.getUser().getUsername(), LocalDateTime.now(), line, notReplyID);
         }
     }
 

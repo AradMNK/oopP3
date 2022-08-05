@@ -1,5 +1,7 @@
 package graphics.app;
 
+import Database.Saver;
+import Login.Loginner;
 import Objects.*;
 import animatefx.animation.Pulse;
 import javafx.fxml.FXML;
@@ -15,9 +17,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChatFXML {
+    int replyID = 0;
+    DirectMessenger dm;
+    Group group;
+    boolean isGroupType = false;
+
     LinkedList<Message> messages;
     @FXML Circle picture;
     @FXML Text name;
@@ -48,6 +56,7 @@ public class ChatFXML {
     }
 
     public void initialize(User user, DirectMessenger dm){
+        isGroupType = false;
         if (user.getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
@@ -66,6 +75,7 @@ public class ChatFXML {
     }
 
     public void initialize(Group group){
+        isGroupType = true;
         if (group.getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));
@@ -81,7 +91,40 @@ public class ChatFXML {
     }
 
     @FXML void send(){
-        //FIXME
+        if (message.getText().equals("")) {
+            AppManager.alert(Alert.AlertType.WARNING, "WARNING!",
+                    "You cannot send an empty message.", "Empty message!");
+            return;
+        }
+        if (isGroupType) sendMessage();
+        else sendGroupMessage();
+    }
+
+    private void sendGroupMessage() {
+        LocalDateTime now = LocalDateTime.now();
+        GroupMessage newMessage = new GroupMessage();
+        newMessage.setID(new SaveHandle(Saver.addToGroupMessages(group.getGroupID().getHandle(),
+                Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(),
+                now, message.getText(), replyID)));
+        newMessage.setDate(now);
+        newMessage.setContent(message.getText());
+        newMessage.setOriginalUsername(dm.getUser().getUsername());
+        newMessage.setUsername(dm.getUser().getUsername());
+        newMessage.setReplyToID(dm.getShownMessages().get(replyID).getID());
+        dm.getShownMessages().addLast(newMessage);
+    }
+
+    private void sendMessage() {
+        LocalDateTime now = LocalDateTime.now();
+        Message newMessage = new Message();
+        newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
+                dm.getUser().getUsername(), now, message.getText(), replyID)));
+        newMessage.setDate(now);
+        newMessage.setContent(message.getText());
+        newMessage.setOriginalUsername(dm.getUser().getUsername());
+        newMessage.setUsername(dm.getUser().getUsername());
+        newMessage.setReplyToID(dm.getShownMessages().get(replyID).getID());
+        dm.getShownMessages().addLast(newMessage);
     }
 
     @FXML void hoverSend(){new Pulse(sendButton).play();}
