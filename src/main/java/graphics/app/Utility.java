@@ -30,6 +30,7 @@ public class Utility {
     CHAT_PREVIEW_FXML_PATH = "Chat Preview",
     CHATS_FXML_PATH = "Chats.fxml",
     MESSAGE_FXML_PATH = "Message.fxml",
+    REPLYING_FXML_PATH = "Replying.fxml",
 
     LIGHT_MODE_CSS_PATH = "Light.css",
     DARK_MODE_CSS_PATH = "Dark.css",

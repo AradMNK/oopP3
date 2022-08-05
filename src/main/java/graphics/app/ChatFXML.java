@@ -7,6 +7,7 @@ import animatefx.animation.Pulse;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -23,10 +24,13 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChatFXML {
+    Parent replyNode;
     SaveHandle replyID = new SaveHandle(0);
     DirectMessenger dm;
     Group group;
     boolean isGroupType = false;
+
+    static ChatFXML chatFXML;
 
     LinkedList<Message> messages;
     @FXML Circle picture;
@@ -34,10 +38,11 @@ public class ChatFXML {
     @FXML GridPane picturePane, masterPane;
     @FXML Button sendButton;
     @FXML TextArea message;
-    @FXML VBox display;
+    @FXML VBox display, replyContainer;
     @FXML Rectangle hbar, vbar;
 
     private void initContents(String name){
+        chatFXML = this;
         this.name.setText(name);
         picture.radiusProperty().bind(Bindings.min(picturePane.heightProperty(), picturePane.widthProperty()).divide(2));
         vbar.heightProperty().bind(masterPane.heightProperty());
@@ -107,8 +112,8 @@ public class ChatFXML {
             catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                     "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();
                 continue;}
-            ((MessageFXML)fxmlLoader.getController()).initialize(message, participants.get(indexOf(message.getUsername(),
-                    participants)));
+            MessageFXML messageFXML = fxmlLoader.getController();
+            messageFXML.initialize(message, participants.get(indexOf(message.getUsername(), participants)));
         }
 
         initContents(group.getName());
@@ -181,4 +186,35 @@ public class ChatFXML {
     }
 
     @FXML void hoverSend(){new Pulse(sendButton).play();}
+
+    public void refreshForDelete(Message message) {
+        if (isGroupType){
+            group.getShownMessages().remove((GroupMessage) message);
+            initialize(group);
+        } else {
+            dm.getShownMessages().remove(message);
+            initialize(dm);
+        }
+    }
+
+    public void replyMode(SaveHandle id) {
+        if (replyNode != null) replyContainer.getChildren().remove(replyNode);
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.REPLYING_FXML_PATH));
+        try {replyNode = fxmlLoader.load();} catch (IOException e)
+        {AppManager.alert(Alert.AlertType.ERROR, "Exception occurred.", e.getCause().getMessage(),
+                "Exception"); e.printStackTrace(); return;}
+        ((ReplyingFXML)fxmlLoader.getController()).initialize(messages.get(indexOf(id, messages)));
+        replyContainer.getChildren().add(replyNode);
+        replyID = id;
+    }
+
+    private int indexOf(SaveHandle id, LinkedList<Message> messages) {
+        for (int i = 0; i < messages.size(); i++) if (messages.get(i).getID().equals(id)) return i;
+        return -1;
+    }
+
+    public void removeReply() {
+        replyContainer.getChildren().remove(replyNode);
+        replyID = new SaveHandle(0);
+    }
 }
