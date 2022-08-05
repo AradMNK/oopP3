@@ -1655,4 +1655,34 @@ public class Loader {
         return chats;
     }
 
+    public static int getRandomAd (int [] postsNotToBeIncluded){
+        //declares the sql
+        StringBuilder query = new StringBuilder("SELECT username FROM users WHERE NOT (");
+        for (int i = 0; i < postsNotToBeIncluded.length; i++){
+            if (i != postsNotToBeIncluded.length)
+                query.append("postID = ").append(postsNotToBeIncluded[i]).append(" OR ");
+            else {
+                query.append("postID = ").append(postsNotToBeIncluded[i]).append(") AND type = 'business' "
+                            + "ORDER BY RAND() LIMIT 1;");
+            }
+        }
+
+        //declares the post ID in the resultSet
+        int result = 0;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement(query.toString()).executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                result = resultSet.getInt(1);
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return result;
+    }
+
 }
