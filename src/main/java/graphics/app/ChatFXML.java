@@ -17,9 +17,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChatFXML {
+    int replyID = 0;
     DirectMessenger dm;
     Group group;
     boolean isGroupType = false;
@@ -89,7 +91,40 @@ public class ChatFXML {
     }
 
     @FXML void send(){
-        //Saver.addToMessages(Loginner.loginnedUser.getUsername(), dm);
+        if (message.getText().equals("")) {
+            AppManager.alert(Alert.AlertType.WARNING, "WARNING!",
+                    "You cannot send an empty message.", "Empty message!");
+            return;
+        }
+        if (isGroupType) sendMessage();
+        else sendGroupMessage();
+    }
+
+    private void sendGroupMessage() {
+        LocalDateTime now = LocalDateTime.now();
+        GroupMessage newMessage = new GroupMessage();
+        newMessage.setID(new SaveHandle(Saver.addToGroupMessages(group.getGroupID().getHandle(),
+                Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(),
+                now, message.getText(), replyID)));
+        newMessage.setDate(now);
+        newMessage.setContent(message.getText());
+        newMessage.setOriginalUsername(dm.getUser().getUsername());
+        newMessage.setUsername(dm.getUser().getUsername());
+        newMessage.setReplyToID(dm.getShownMessages().get(replyID).getID());
+        dm.getShownMessages().addLast(newMessage);
+    }
+
+    private void sendMessage() {
+        LocalDateTime now = LocalDateTime.now();
+        Message newMessage = new Message();
+        newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
+                dm.getUser().getUsername(), now, message.getText(), replyID)));
+        newMessage.setDate(now);
+        newMessage.setContent(message.getText());
+        newMessage.setOriginalUsername(dm.getUser().getUsername());
+        newMessage.setUsername(dm.getUser().getUsername());
+        newMessage.setReplyToID(dm.getShownMessages().get(replyID).getID());
+        dm.getShownMessages().addLast(newMessage);
     }
 
     @FXML void hoverSend(){new Pulse(sendButton).play();}
