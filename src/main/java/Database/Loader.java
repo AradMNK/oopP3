@@ -850,7 +850,7 @@ public class Loader {
                     groups = new int[groupCount];
 
                     //gets the groupIDs
-                    resultSet = connection.prepareStatement("SELECT COUNT(groupID) FROM group_chats WHERE members LIKE '"
+                    resultSet = connection.prepareStatement("SELECT groupID FROM group_chats WHERE members LIKE '"
                                                                 + username + ",%' OR members LIKE '%," + username
                                                                 + "' OR members LIKE '%," + username
                                                                 + ",%' OR members LIKE '" + username + "';").executeQuery();

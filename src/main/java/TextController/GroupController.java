@@ -272,7 +272,7 @@ public class GroupController {
         return inReplyTo + "[" + out + "]";
     }
 
-    public static void showGroups() { //problem
+    public static void showGroups() {
         if (Loginner.loginState == LoginState.SIGN_OUT){
             TextController.println("Please login before trying to see your group chats.");
             return;
