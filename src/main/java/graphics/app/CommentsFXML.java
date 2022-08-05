@@ -59,7 +59,7 @@ public class CommentsFXML {
     @FXML void comment(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.COMMENTMAKER_FXML_PATH));
         try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
-                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace();}
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
         ((CommentmakerFXML)fxmlLoader.getController()).post = post;
     }
 }

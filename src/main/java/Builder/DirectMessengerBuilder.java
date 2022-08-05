@@ -19,6 +19,6 @@ public class DirectMessengerBuilder {
         int[] messageIDs = Database.Loader.getMessageIDsOfUsers
                 (dm.getUser().getUsername(), dm.getRecipient().getUsername(), howMany);
         for (int messageID: messageIDs) dm.
-                getShownMessages().add(MessageBuilder.getMessageFromDatabase(messageID));
+                getShownMessages().addLast(MessageBuilder.getMessageFromDatabase(messageID));
     }
 }
