@@ -46,10 +46,12 @@ public class GroupController {
 
     private static void enterChatMode() {
         String line;
-        TextController.println("You can leave with +" + GroupCommand.EXIT + ".");
+        TextController.println("You can leave with " + GroupCommand.EXIT + ".");
         while (true){
             line = TextController.getLine();
-            if (actOnCommand(line)) break;
+            if (line.equals("\\exit")) break;
+            else if (line.equals("\\leave")) {leave(); break;}
+            else if (actOnCommand(line)) continue;
             else {
                 Database.Saver.addToGroupMessages(group.getGroupID().getHandle(),
                         Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(),
@@ -59,7 +61,7 @@ public class GroupController {
     }
 
     private static boolean actOnCommand(String line) {
-        String[] split = line.split("\\s*");
+        String[] split = line.split("\\s");
         GroupCommand groupCommand = GroupCommand.toGroupCommand(split[0]);
         try {
             switch (groupCommand) {
@@ -76,15 +78,13 @@ public class GroupController {
 
                 case REFRESH -> refresh();
                 case MORE -> more();
-                case LEAVE -> {leave(); return true;}
 
-                case EXIT -> {return true;}
-                default -> {}
+                default -> {return false;}
             }
         }
         catch (ArrayIndexOutOfBoundsException e){
             if (line.startsWith("\\")) TextController.println("You need to provide an argument for " + line);}
-        return false;
+        return true;
     }
 
     private static void showJoiner() {
@@ -272,7 +272,7 @@ public class GroupController {
         return inReplyTo + "[" + out + "]";
     }
 
-    public static void showGroups() {
+    public static void showGroups() { //problem
         if (Loginner.loginState == LoginState.SIGN_OUT){
             TextController.println("Please login before trying to see your group chats.");
             return;
@@ -315,7 +315,7 @@ enum GroupCommand{
 
     LEAVE("\\leave"),
 
-    EXIT("/exit"),
+    EXIT("\\exit"),
 
     NONE("");
 

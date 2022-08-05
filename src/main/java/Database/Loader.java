@@ -406,7 +406,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT message FROM groupmessages WHERE messageID = "
+            resultSet = connection.prepareStatement("SELECT message FROM groupmessage WHERE messageID = "
                                                         + handle +";").executeQuery();
 
             //checks if the resultSet isn't empty
@@ -966,7 +966,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM groupmessages WHERE groupID = "
+            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM groupmessage WHERE groupID = "
                                                         + groupID + " AND (members LIKE '" + username
                                                         + ",%' OR members LIKE '%," + username + "' OR members LIKE '%,"
                                                         + username + ",%'" + "OR members LIKE '" + username
@@ -981,7 +981,7 @@ public class Loader {
                     messageIDs = new int[numberOfResults];
 
                     //adds the IDs to the array
-                    resultSet = connection.prepareStatement("SELECT messageID FROM groupmessages WHERE groupID = "
+                    resultSet = connection.prepareStatement("SELECT messageID FROM groupmessage WHERE groupID = "
                                                                 + groupID + " AND (members LIKE '" + username
                                                                 + ",%' OR members LIKE '%," + username
                                                                 + "' OR members LIKE '%," + username + ",%'"
@@ -1052,8 +1052,8 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT COUNT(groupmessages.messageID) FROM group_chats "
-                                                        + "INNER JOIN groupmessages ON group_chats.groupID = groupmessages.groupID "
+            resultSet = connection.prepareStatement("SELECT COUNT(groupmessage.messageID) FROM group_chats "
+                                                        + "INNER JOIN groupmessage ON group_chats.groupID = groupmessage.groupID "
                                                         + "WHERE (group_chats.members LIKE '" + username
                                                         + ",%' OR members LIKE '%," + username + "' OR members LIKE '%,"
                                                         + username + ",%'" + "OR members LIKE '" + username
@@ -1070,8 +1070,8 @@ public class Loader {
                     messageIDs = new int[numberOfResults];
 
                     //adds the IDs to the array
-                    resultSet = connection.prepareStatement("SELECT groupmessages.messageID FROM group_chats "
-                                                                + "INNER JOIN groupmessages ON group_chats.groupID = groupmessages.groupID "
+                    resultSet = connection.prepareStatement("SELECT groupmessage.messageID FROM group_chats "
+                                                                + "INNER JOIN groupmessage ON group_chats.groupID = groupmessage.groupID "
                                                                 + "WHERE (group_chats.members LIKE '" + username
                                                                 + ",%' OR members LIKE '%," + username
                                                                 + "' OR members LIKE '%," + username + ",%'"
@@ -1220,7 +1220,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM groupmessages WHERE groupID = "
+            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM groupmessage WHERE groupID = "
                                                         + groupID + " ORDER BY messageID DESC LIMIT "
                                                         + howMany + ";").executeQuery();
 
@@ -1230,7 +1230,7 @@ public class Loader {
 
                 //checks if the number of results isn't zero
                 if (resultCount != 0) {
-                    resultSet = connection.prepareStatement("SELECT messageID FROM groupmessages WHERE groupID = "
+                    resultSet = connection.prepareStatement("SELECT messageID FROM groupmessage WHERE groupID = "
                                                                 + groupID + " ORDER BY messageID DESC LIMIT "
                                                                 + howMany + ";").executeQuery();
 
@@ -1305,7 +1305,7 @@ public class Loader {
         ResultSet resultSet;
         try {
             resultSet = connection.prepareStatement("SELECT groupID, sender, message, date, replyMessageID, originalSender "
-                                                        + "FROM users WHERE messageID = " + groupMessageID
+                                                        + "FROM groupmessage WHERE messageID = " + groupMessageID
                                                         + ";").executeQuery();
 
             //checks if the resultSet isn't empty
@@ -1654,4 +1654,5 @@ public class Loader {
         finally {Connector.connector.disconnect();}
         return chats;
     }
+
 }
