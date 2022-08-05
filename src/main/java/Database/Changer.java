@@ -38,7 +38,7 @@ public class Changer {
     }
 
     public static void editGroupMessage(int messageID, String line) {
-        Connector.queryWithoutResult("UPDATE groupmessages SET message = '" + line
+        Connector.queryWithoutResult("UPDATE groupmessage SET message = '" + line
                                             + "' WHERE messageID = " + messageID + ";");
     }
 

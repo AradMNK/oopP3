@@ -224,7 +224,7 @@ public class Saver {
                 membersList = resultSet.getString(1);
 
                 //splits the messages and adds the new message
-                String[] members = membersList.split("");
+                String[] members = membersList.split(",");
                 for (String member : members) {
                     Saver.addGroupMessageToUnreadMessages(handle, member);
                 }

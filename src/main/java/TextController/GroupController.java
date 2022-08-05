@@ -121,6 +121,7 @@ public class GroupController {
 
         Database.Changer.addUserToGroup(username, group.getGroupID().getHandle());
         group.getParticipants().add(UserBuilder.getUserFromDatabase(username));
+        TextController.println("User @" + username + " was added successfully.");
     }
     private static void ban(String username) {
         if (!group.getOwner().getUsername().equals(Loginner.loginnedUser.getUsername())){
