@@ -22,6 +22,7 @@ public class Utility {
     USERS_FXML_PATH = "Users.fxml",
     FOLLOWERS_FXML_PATH = "Followers.fxml",
 
+    CHAT_FXML_PATH = "Chat.fxml",
     CHAT_PREVIEW_FXML_PATH = "Chat Preview",
     CHATS_FXML_PATH = "Chats.fxml",
     MESSAGE_FXML_PATH = "Message.fxml",

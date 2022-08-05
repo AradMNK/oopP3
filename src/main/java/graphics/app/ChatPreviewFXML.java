@@ -1,7 +1,9 @@
 package graphics.app;
 
+import Login.Loginner;
 import animatefx.animation.Pulse;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -13,9 +15,13 @@ import Objects.Group;
 import Objects.GroupMessage;
 import Objects.DirectMessenger;
 import javafx.scene.text.Text;
+
+import java.io.IOException;
 import java.util.Objects;
 
 public class ChatPreviewFXML {
+    boolean isGroupType = false;
+    Group group;
     DirectMessenger dm;
     @FXML Circle picture;
     @FXML Text name, header, content;
@@ -36,6 +42,7 @@ public class ChatPreviewFXML {
 
     public void initialize(User user, Message message, DirectMessenger dm){
         this.dm = dm;
+        isGroupType = false;
         if (user.getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
@@ -50,6 +57,8 @@ public class ChatPreviewFXML {
     }
 
     public void initialize(Group group, GroupMessage message){
+        isGroupType = true;
+        this.group = group;
         if (group.getPfp().getHandle().equals(""))
             picture.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));
@@ -67,6 +76,10 @@ public class ChatPreviewFXML {
     @FXML void hoverChatPane(){new Pulse(chatPane).play();}
 
     @FXML void clickChatPane(){
-        //FIXME
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_FXML_PATH));
+        try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        if (isGroupType) ((ChatFXML)fxmlLoader.getController()).initialize(group);
+        else ((ChatFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser, dm);
     }
 }

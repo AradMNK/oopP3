@@ -41,9 +41,8 @@ public class ChatsFXML {
         ArrayList<DirectMessenger> sortedDirects = new ArrayList<>(directsList);
         LocalDateTime[] dateTimes = new LocalDateTime[directs.length];
         i = 0;
-        for (DirectMessenger direct: directs) {
+        for (DirectMessenger direct: directs)
             dateTimes[i++] = direct.getShownMessages().get(0).getDate();
-        }
         sortedDirects.sort(Comparator.comparing(dm -> dateTimes[directsList.indexOf(dm)]));
 
         for (DirectMessenger direct : sortedDirects) addChat(direct);
