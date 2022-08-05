@@ -4,6 +4,7 @@ import Database.Saver;
 import Login.Loginner;
 import Objects.*;
 import animatefx.animation.Pulse;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -38,11 +39,11 @@ public class ChatFXML {
 
     private void initContents(String name){
         this.name.setText(name);
-        picture.radiusProperty().bind(picturePane.widthProperty().divide(2));
+        picture.radiusProperty().bind(Bindings.min(picturePane.heightProperty(), picturePane.widthProperty()).divide(2));
         vbar.heightProperty().bind(masterPane.heightProperty());
         vbar.widthProperty().bind(masterPane.widthProperty().divide(10));
         hbar.heightProperty().bind(masterPane.heightProperty().divide(10));
-        hbar.widthProperty().bind(masterPane.widthProperty());
+        hbar.widthProperty().bind(masterPane.widthProperty().multiply(0.9));
     }
 
     public void initialize(DirectMessenger dm){
@@ -67,7 +68,7 @@ public class ChatFXML {
             FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
             try {display.getChildren().add(fxmlLoader.load());}
             catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
-                    "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();
+                    "Exception occurred.", e.toString(), "Exception"); e.printStackTrace();
                 continue;}
             User messenger;
             if (dm.getUser().getUsername().equals(message.getUsername())) messenger = dm.getUser();
@@ -119,6 +120,17 @@ public class ChatFXML {
         return -1;
     }
 
+    @FXML void usernameClicked(){
+        if (isGroupType){
+            //FIXME
+            return;
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_FXML_PATH));
+        try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((UserFXML)fxmlLoader.getController()).initialize(dm.getRecipient());
+    }
+
     @FXML void send(){
         if (message.getText().equals("")) {
             AppManager.alert(Alert.AlertType.WARNING, "WARNING!",
@@ -127,6 +139,7 @@ public class ChatFXML {
         }
         if (isGroupType) sendGroupMessage();
         else sendMessage();
+        message.clear();
     }
     private void sendGroupMessage() {
         LocalDateTime now = LocalDateTime.now();

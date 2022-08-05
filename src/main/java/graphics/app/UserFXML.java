@@ -3,6 +3,7 @@ package graphics.app;
 import Builder.DirectMessengerBuilder;
 import Login.Loginner;
 import animatefx.animation.Pulse;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -36,7 +37,7 @@ public class UserFXML {
         this.subtitle.setText(subtitle);
         this.date.setText(time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         this.bio.wrappingWidthProperty().bind(bioPane.widthProperty().subtract(Utility.POST_TEXT_MARGIN_FROM_RIGHT));
-        picture.radiusProperty().bind(picturePane.widthProperty().divide(2));
+        picture.radiusProperty().bind(Bindings.min(picturePane.heightProperty(), picturePane.widthProperty()).divide(2));
     }
 
 

@@ -119,7 +119,7 @@
          </graphic>
       </Button>
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="7" />
-      <Label fx:id="adLabel" maxHeight="1.7976931348623157E308" style="-fx-font-size: 0.8em;" text="AD" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <Label fx:id="adLabel" maxHeight="1.7976931348623157E308" visible="false" style="-fx-font-size: 0.8em;" text="AD" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <font>
             <Font size="8.0" />
          </font>
