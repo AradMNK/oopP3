@@ -2,6 +2,7 @@ package Builder;
 
 import Database.Loader;
 import Objects.Group;
+import Objects.GroupMessage;
 import Objects.SaveHandle;
 
 public class GroupBuilder {
@@ -25,8 +26,11 @@ public class GroupBuilder {
         group.setGroupJoiner(Database.Loader.getGroupJoiner(groupID));
         group.setOwner(UserBuilder.getUserFromDatabase(Database.Loader.getGroupOwner(groupID)));
         int[] groupMessageIDs = Database.Loader.getGroupMessageIDsOfGroup(groupID, howMany);
-        for (int groupMessageID: groupMessageIDs) group.
-                getShownMessages().addFirst(GroupMessageBuilder.getGroupMessageFromDatabase(groupMessageID));
+        for (int groupMessageID: groupMessageIDs){
+            GroupMessage groupMessage = GroupMessageBuilder.getGroupMessageFromDatabase(groupMessageID);
+            groupMessage.setGroup(group);
+            group.getShownMessages().addFirst(groupMessage);
+        }
         String[] participantUsernames = Loader.getParticipants(groupID);
         for (String username : participantUsernames)
             group.getParticipants().add(UserBuilder.getUserFromDatabase(username));
