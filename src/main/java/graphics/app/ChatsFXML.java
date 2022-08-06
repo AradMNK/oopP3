@@ -9,12 +9,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChatsFXML {
+    Stage popup;
     @FXML Button newGroupButton;
     @FXML VBox displayGroups, displayDirects;
 
@@ -70,5 +72,9 @@ public class ChatsFXML {
 
     @FXML void newGroup(){
 
+    }
+
+    public void createGroup() {
+        //FIXME
     }
 }
