@@ -116,9 +116,9 @@ public class Saver {
         String formattedDate = now.format(formatObj);
 
         Connector.queryWithoutResult("INSERT INTO directmessage (sender, receiver, message, date"
-                + ", replyMessageID, originalSender, originalID) VALUES ('" + sender + "', '"
+                + ", replyMessageID, originalSender) VALUES ('" + sender + "', '"
                 + receiver + "', '" + line + "', '" + formattedDate + "', "
-                + replyMsgID + ", '" + originalSender + "', " + originalID + ");");
+                + replyMsgID + ", '" + originalSender + "');");
 
         //declares the messageID
         int messageID = 0;
@@ -136,6 +136,16 @@ public class Saver {
             //checks if the resultSet isn't empty
             if (resultSet.next()){
                 messageID = resultSet.getInt(1);
+            }
+
+            //saves the originalID
+            if (originalID == 0){
+                Connector.queryWithoutResult("UPDATE directmessage SET originalID = " + messageID
+                                                    + " WHERE messageID = " + messageID + ";");
+            }
+            else {
+                Connector.queryWithoutResult("UPDATE directmessage SET originalID = " + originalID
+                                                    + " WHERE messageID = " + messageID + ";");
             }
 
             //adds to new messages
@@ -194,9 +204,9 @@ public class Saver {
         String formattedDate = now.format(formatObj);
 
         Connector.queryWithoutResult("INSERT INTO groupmessage (groupID, sender, message, date"
-                + ", replyMessageID, originalSender, originalID) VALUES ('" + handle + "', '"
+                + ", replyMessageID, originalSender) VALUES ('" + handle + "', '"
                 + sender + "', '" + content + "', '" + formattedDate + "', "
-                + notReplyID + ", '" + originalSender + "', " + originalID + ");");
+                + notReplyID + ", '" + originalSender + "');");
 
         //declares the messageID
         int messageID = 0;
@@ -214,6 +224,16 @@ public class Saver {
             //checks if the resultSet isn't empty
             if (resultSet.next()){
                 messageID = resultSet.getInt(1);
+            }
+
+            //saves the originalID
+            if (originalID == 0){
+                Connector.queryWithoutResult("UPDATE groupmessage SET originalID = " + messageID
+                        + " WHERE messageID = " + messageID + ";");
+            }
+            else {
+                Connector.queryWithoutResult("UPDATE groupmessage SET originalID = " + originalID
+                        + " WHERE messageID = " + messageID + ";");
             }
 
             resultSet = connection.prepareStatement("SELECT members FROM group_chats WHERE groupID = "
@@ -234,6 +254,7 @@ public class Saver {
         }
         catch (SQLException e) {e.printStackTrace();}
         finally {Connector.connector.disconnect();}
+
         return messageID;
     }
 

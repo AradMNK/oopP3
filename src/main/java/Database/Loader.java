@@ -1304,8 +1304,8 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT groupID, sender, message, date, replyMessageID, originalID "
-                                                        + "FROM groupmessage WHERE messageID = " + groupMessageID
+            resultSet = connection.prepareStatement("SELECT sender, message, date, replyMessageID, originalSender, "
+                                                        + "originalID FROM groupmessage WHERE messageID = " + groupMessageID
                                                         + ";").executeQuery();
 
             //checks if the resultSet isn't empty
@@ -1322,13 +1322,13 @@ public class Loader {
 
     public static String[] getMessageDetails(int messageID) {
         //declares a string array to store the details
-        String[] messageDetails = new String[5];
+        String[] messageDetails = new String[6];
 
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT sender, message, date, replyMessageID, originalID " +
-                                                        "FROM directmessage WHERE messageID = " + messageID
+            resultSet = connection.prepareStatement("SELECT sender, message, date, replyMessageID, originalSender, originalID "
+                                                        + "FROM directmessage WHERE messageID = " + messageID
                                                         + ";").executeQuery();
 
             //checks if the resultSet isn't empty
