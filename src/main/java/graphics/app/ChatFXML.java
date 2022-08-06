@@ -211,8 +211,10 @@ public class ChatFXML {
     }
 
     public void removeReply() {
-        replyContainer.getRoot().getChildren().clear();
-        replyContainer.hide();
+        if (replyContainer != null){
+            replyContainer.getRoot().getChildren().clear();
+            replyContainer.hide();
+        }
         replyID = new SaveHandle(0);
     }
 
@@ -220,7 +222,7 @@ public class ChatFXML {
         editingMessage = message;
         popupStage = new Stage(StageStyle.UTILITY);
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.EDIT_FXML_PATH));
-        try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.POPUP_PREF_WIDTH, Utility.POPUP_PREF_HEIGHT));}
+        try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.EDIT_PREF_WIDTH, Utility.EDIT_PREF_HEIGHT));}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                     "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((EditFXML)fxmlLoader.getController()).initialize(message.getContent());
@@ -244,7 +246,7 @@ public class ChatFXML {
         forwardingMessage = message;
         popupStage = new Stage(StageStyle.UTILITY);
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.FORWARD_FXML_PATH));
-        try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.POPUP_PREF_WIDTH, Utility.POPUP_PREF_HEIGHT));}
+        try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.FORWARD_PREF_WIDTH, Utility.FORWARD_PREF_HEIGHT));}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((ForwardFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getChats(),
