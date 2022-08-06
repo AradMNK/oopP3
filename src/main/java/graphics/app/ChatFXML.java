@@ -204,13 +204,15 @@ public class ChatFXML {
         {AppManager.alert(Alert.AlertType.ERROR, "Exception occurred.", e.getCause().getMessage(),
                 "Exception"); e.printStackTrace(); return;}
         ((ReplyingFXML)fxmlLoader.getController()).initialize(toMessage);
-        replyContainer = new PopOver(sendButton);
+        replyContainer = new PopOver(replyNode);
         replyContainer.show(message);
+        replyContainer.autoHideProperty().setValue(false);
         replyID = toMessage.getID();
     }
 
     public void removeReply() {
         replyContainer.getRoot().getChildren().clear();
+        replyContainer.hide();
         replyID = new SaveHandle(0);
     }
 
