@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 public class UsersFXML {
@@ -29,8 +30,8 @@ public class UsersFXML {
         for (User user: users) addUser(user);
     }
 
-    public void initializeOwnerMode(Set<String> users, Group group){
-        for (String user: users) addUserOwnerMode(UserBuilder.getUserFromDatabase(user), group);
+    public void initializeOwnerMode(HashSet<User> users, Group group){
+        for (User user: users) addUserOwnerMode(user, group);
     }
 
     private void addUserOwnerMode(User user, Group group) {
@@ -39,5 +40,9 @@ public class UsersFXML {
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((UserFXML)fxmlLoader.getController()).initialize(user);
         ((UserFXML)fxmlLoader.getController()).initializeGroupOwnerMode(group);
+    }
+
+    public void initialize(HashSet<User> users) {
+        for (User user: users) addUser(user);
     }
 }

@@ -1,6 +1,7 @@
 package Objects;
 
 import Builder.PostBuilder;
+import Database.Loader;
 import Login.Loginner;
 import TextController.TextController;
 
@@ -71,8 +72,7 @@ public class User {
 
     public Comment comment(int postID, String msg){
         int handle = Database.Saver.addToComments(username, LocalDateTime.now(), postID, msg);
-        for (String usernames: followers)
-            Database.Saver.updateFeedsFromComment(usernames, handle);
+        Database.Saver.updateFeedsFromComment(Loader.getPostPoster(postID), handle);
         Comment comment = new Comment();
         comment.setCommentID(new SaveHandle(handle));
         comment.setCommenter(this);
@@ -86,8 +86,7 @@ public class User {
         if (Database.Loader.isPostLiked(postID, this.username)) return false;
 
         Database.Saver.addToLikes(postID, this.username);
-        for (String usernames: followers)
-            Database.Saver.updateFeedsFromLike(usernames, postID);
+        Database.Saver.updateFeedsFromLike(Loader.getPostPoster(postID), postID);
         if (Database.Loader.postIsAd(postID)) Database.Changer.addLikeStat(postID, Loginner.loginnedUser.getUsername());
         return true;
     }
