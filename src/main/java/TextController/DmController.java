@@ -136,7 +136,7 @@ public class DmController {
         }
 
         Group group = GroupBuilder.getGroupFromDatabase(groupID);
-        if (!Loginner.loginnedUser.getGroups().contains(group)){
+        if (Loginner.loginnedUser.getGroups().stream().noneMatch(g -> g.getGroupID().getHandle() == groupID)){
             TextController.println("You are not part of this group!");
             return;
         }
@@ -231,9 +231,8 @@ public class DmController {
     }
 
     private static String getEdit(String msg){
-        String out = (msg.length() > replyShowNum + ellipsis.length()) ?
+        return (msg.length() > replyShowNum + ellipsis.length()) ?
                 msg.substring(0, replyShowNum) + ellipsis : msg;
-        return out;
     }
 
     private static void blockMessage(){
