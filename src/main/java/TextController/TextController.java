@@ -321,9 +321,7 @@ public class TextController {
 
         if (!Loginner.loginnedUser.like(postID)){
             println("You have already liked this post.");
-            return;
         }
-        if (Database.Loader.postIsAd(postID)) Database.Changer.addLikeStat(postID, Loginner.loginnedUser.getUsername());
     }
     private static void unlike(String postIDasString) {
         if (Loginner.loginState == LoginState.SIGN_OUT){

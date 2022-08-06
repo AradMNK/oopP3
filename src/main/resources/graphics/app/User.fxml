@@ -20,7 +20,8 @@
 <GridPane hgap="5.0" prefHeight="321.0" prefWidth="801.0" vgap="5.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.UserFXML">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="20.0" />
-      <ColumnConstraints percentWidth="40.0" />
+      <ColumnConstraints percentWidth="20.0" />
+      <ColumnConstraints minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
       <ColumnConstraints minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
       <ColumnConstraints minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
    </columnConstraints>
@@ -67,7 +68,7 @@
             </Circle>
          </children>
       </GridPane>
-      <ScrollPane fx:id="bioPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowSpan="4">
+      <ScrollPane fx:id="bioPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowSpan="4">
          <content>
             <Text fx:id="bio" boundsType="LOGICAL_VERTICAL_CENTER" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Strong Son of God, immortal Love,   Whom we, that have not seen thy face,   By faith, and faith alone, embrace,Believing where we cannot prove; Thine are these orbs of light and shade;   Thou madest Life in man and brute;   Thou madest Death; and lo, thy footIs on the skull which thou hast made. Thou wilt not leave us in the dust:Thou madest man, he knows not why,He thinks he was not made to die;And thou hast made him: thou art just. Thou seemest human and divine,   The highest, holiest manhood, thou.   Our wills are ours, we know not how;Our wills are ours, to make them thine. Our little systems have their day;   They have their day and cease to be:   They are but broken lights of thee,And thou, O Lord, art more than they. We have but faith: we cannot know;   For knowledge is of things we see   And yet we trust it comes from thee,A beam in darkness: let it grow. Let knowledge grow from more to more,   But more of reverence in us dwell;   That mind and soul, according well,May make one music as before, But vaster. We are fools and slight;   We mock thee when we do not fear:   But help thy foolish ones to bear;Help thy vain worlds to bear thy light. Forgive what seem'd my sin in me;   What seem'd my worth since I began;   For merit lives from man to man,And not from man, O Lord, to thee. Forgive my grief for one removed,   Thy creature, whom I found so fair.   I trust he lives in thee, and thereI find him worthier to be loved. Forgive these wild and wandering cries,   Confusions of a wasted youth;   Forgive them where they fail in truth,And in thy wisdom make me wise. II held it truth, with him who sings   To one clear harp in divers tones,   That men may rise on stepping-stonesOf their dead selves to higher things. But who shall so forecast the years   And find in loss a gain to match?   Or reach a hand thro' time to catchThe far-off interest of tears? Let Love clasp Grief lest both be drown'd,   Let darkness keep her raven gloss:   Ah, sweeter to be drunk with loss,To dance with death, to beat the ground, Than that the victor Hours should scorn   The long result of love, and boast,   `Behold the man that loved and lost,But all he was is overworn.'" textAlignment="JUSTIFY" textOrigin="CENTER" wrappingWidth="600.0" />
          </content>
@@ -88,7 +89,7 @@
          </font></Text>
       <Text fx:id="username" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="\@username" underline="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
       <Separator prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="5" />
-      <Button fx:id="messageButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#message" onMouseEntered="#hoverMessage" style="-fx-font-size: 1.5em;" styleClass="icon-button" text="Message" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="4">
+      <Button fx:id="messageButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#message" onMouseEntered="#hoverMessage" style="-fx-font-size: 1.5em;" styleClass="icon-button" text="Message" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="4">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -100,7 +101,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="followButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#follow" onMouseEntered="#hoverFollow" style="-fx-font-size: 1.5em;" styleClass="post-button" text="Follow" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <Button fx:id="followButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#follow" onMouseEntered="#hoverFollow" style="-fx-font-size: 1.5em;" styleClass="post-button" text="Follow" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -113,5 +114,29 @@
          </graphic>
       </Button>
       <Text fx:id="date" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="date" textAlignment="CENTER" underline="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <Button fx:id="blockButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#block" onMouseEntered="#hoverBlock" style="-fx-font-size: 1.5em;" styleClass="icon-button" text="BLOCK" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="4">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Icons/Block.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="banButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ban" onMouseEntered="#hoverBan" style="-fx-font-size: 1.5em;" styleClass="icon-button" text="BAN" textAlignment="RIGHT" textFill="RED" textOverrun="CLIP" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Icons/Block.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </GridPane>

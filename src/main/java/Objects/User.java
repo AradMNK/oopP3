@@ -1,6 +1,7 @@
 package Objects;
 
 import Builder.PostBuilder;
+import Login.Loginner;
 import TextController.TextController;
 
 import java.time.LocalDate;
@@ -87,6 +88,7 @@ public class User {
         Database.Saver.addToLikes(postID, this.username);
         for (String usernames: followers)
             Database.Saver.updateFeedsFromLike(usernames, postID);
+        if (Database.Loader.postIsAd(postID)) Database.Changer.addLikeStat(postID, Loginner.loginnedUser.getUsername());
         return true;
     }
     public boolean unlike(int postID){

@@ -1,6 +1,7 @@
 package graphics.app;
 
 import Builder.UserBuilder;
+import Objects.Group;
 import Objects.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,5 +27,17 @@ public class UsersFXML {
 
     public void initialize(User[] users) {
         for (User user: users) addUser(user);
+    }
+
+    public void initializeOwnerMode(Set<String> users, Group group){
+        for (String user: users) addUserOwnerMode(UserBuilder.getUserFromDatabase(user), group);
+    }
+
+    private void addUserOwnerMode(User user, Group group) {
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_FXML_PATH));
+        try {display.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((UserFXML)fxmlLoader.getController()).initialize(user);
+        ((UserFXML)fxmlLoader.getController()).initializeGroupOwnerMode(group);
     }
 }

@@ -1,6 +1,7 @@
 package graphics.app;
 
 import Builder.DirectMessengerBuilder;
+import Database.Changer;
 import Login.Loginner;
 import animatefx.animation.Pulse;
 import javafx.beans.binding.Bindings;
@@ -14,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import Objects.User;
+import Objects.Group;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -22,9 +24,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class UserFXML {
-    String internalUsername;
-    boolean followed;
-    @FXML Button followButton, messageButton;
+    Group internalGroup;
+    User internalUser;
+    boolean followed, blocked;
+    @FXML Button followButton, messageButton, blockButton, banButton;
     @FXML Circle picture;
     @FXML Text name, username, bio, subtitle, date;
     @FXML ScrollPane bioPane;
@@ -54,23 +57,44 @@ public class UserFXML {
         }
 
         initContents(user.getName(), user.getUsername(), user.getBio(), user.getSubtitle(), user.getDateJoined());
-        internalUsername = user.getUsername();
+        internalUser = user;
 
         followed = Database.Loader.userFollows(Loginner.loginnedUser.getUsername(), user.getUsername());
+        blocked = Database.Loader.isUserBlocked(user.getUsername(), Loginner.loginnedUser.getUsername());
         if (Loginner.loginnedUser.getUsername().equals(user.getUsername())) followButton.setDisable(true);
         if (followed) followButton.setText("Unfollow");
+        if (blocked) blockButton.setText("Unblock");
+    }
+    public void initializeGroupOwnerMode(Group group){
+        banButton.setVisible(true);
+        internalGroup = group;
     }
 
     @FXML void follow(){
         if (followed){
-            Loginner.loginnedUser.unfollow(internalUsername);
+            Loginner.loginnedUser.unfollow(internalUser.getUsername());
             followButton.setText("Follow");
             followed = false;
             return;
         }
-        Loginner.loginnedUser.follow(internalUsername);
+        Loginner.loginnedUser.follow(internalUser.getUsername());
         followButton.setText("Unfollow");
         followed = true;
+    }
+    @FXML void block(){
+        if (blocked){
+            Loginner.loginnedUser.unblock(internalUser.getUsername());
+            blockButton.setText("Block");
+            blocked = false;
+            return;
+        }
+        Loginner.loginnedUser.block(internalUser.getUsername());
+        blockButton.setText("Unblock");
+        blocked = true;
+    }
+    @FXML void ban(){
+        Changer.removeParticipant(internalGroup.getGroupID().getHandle(), internalUser.getUsername());
+        internalGroup.getParticipants().remove(internalUser);
     }
 
     @FXML void message(){
@@ -78,9 +102,11 @@ public class UserFXML {
         try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((ChatFXML)fxmlLoader.getController()).initialize(DirectMessengerBuilder.getDirectMessengerFromDatabase
-                (Loginner.loginnedUser, internalUsername, Utility.MESSAGES_TO_LOAD));
+                (Loginner.loginnedUser, internalUser.getUsername(), Utility.MESSAGES_TO_LOAD));
     }
 
     @FXML void hoverFollow(){new Pulse(followButton).play();}
     @FXML void hoverMessage(){new Pulse(messageButton).play();}
+    @FXML void hoverBlock(){new Pulse(blockButton).play();}
+    @FXML void hoverBan(){new Pulse(banButton).play();}
 }

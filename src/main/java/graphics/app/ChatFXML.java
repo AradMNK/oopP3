@@ -1,6 +1,7 @@
 package graphics.app;
 
 import Database.Changer;
+import Database.Loader;
 import Database.Saver;
 import Login.Loginner;
 import Objects.*;
@@ -135,7 +136,10 @@ public class ChatFXML {
 
     @FXML void usernameClicked(){
         if (isGroupType){
-            //FIXME
+            FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.GROUP_STATS_FXML_PATH));
+            try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                    "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+            ((GroupStatsFXML)fxmlLoader.getController()).initialize(group);
             return;
         }
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_FXML_PATH));
@@ -145,6 +149,17 @@ public class ChatFXML {
     }
 
     @FXML void send(){
+        if (Loader.isUserBlocked(dm.getRecipient().getUsername(), Loginner.loginnedUser.getUsername())){
+            AppManager.alert(Alert.AlertType.ERROR, "You have been blocked :(",
+                    "You cannot send messages to this user anymore.", "BLOCKED!");
+            return;
+        }
+        if (Loginner.loginnedUser.getBlocklist().stream().anyMatch(u-> u.equals(dm.getRecipient().getUsername()))){
+            AppManager.alert(Alert.AlertType.ERROR, "You have blocked this user!",
+                    "You cannot send messages to users whom you have blocked.", "BLOCK!");
+            return;
+        }
+
         if (message.getText().equals("")) {
             AppManager.alert(Alert.AlertType.WARNING, "WARNING!",
                     "You cannot send an empty message.", "Empty message!");
