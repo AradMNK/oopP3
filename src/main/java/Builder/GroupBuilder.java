@@ -27,6 +27,9 @@ public class GroupBuilder {
         int[] groupMessageIDs = Database.Loader.getGroupMessageIDsOfGroup(groupID, howMany);
         for (int groupMessageID: groupMessageIDs) group.
                 getShownMessages().add(GroupMessageBuilder.getGroupMessageFromDatabase(groupMessageID));
+        String[] participantUsernames = Loader.getParticipants(groupID);
+        for (String username : participantUsernames)
+            group.getParticipants().add(UserBuilder.getUserFromDatabase(username));
         return group;
     }
 }

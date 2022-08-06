@@ -188,6 +188,7 @@ public class ChatFXML {
     @FXML void hoverSend(){new Pulse(sendButton).play();}
 
     public void refreshForDelete(Message message) {
+        display.getChildren().clear();
         if (isGroupType){
             group.getShownMessages().remove((GroupMessage) message);
             initialize(group);

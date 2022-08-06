@@ -1685,4 +1685,28 @@ public class Loader {
         return result;
     }
 
+    public static String[] getParticipants (int groupID){
+        //declares a string for members
+        String membersString;
+
+        //declares the members array
+        String [] members = new String[0];
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT members FROM group_chats WHERE groupID = "
+                                                        + groupID + ";").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                membersString = resultSet.getString(1);
+
+                members = membersString.split("'");
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return members;
+    }
 }
