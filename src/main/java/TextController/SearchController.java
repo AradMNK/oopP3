@@ -78,6 +78,9 @@ public class SearchController {
             //prints the date
             TextController.println(Loader.getMessageDetails(messageID)[2]);
         }
+        if (messageIDs.length == 0){
+            TextController.println("No match found.");
+        }
     }
 
     public static void searchInGroup (User user){
@@ -114,10 +117,13 @@ public class SearchController {
         //displays the messages
         for (int messageID : messageIDs) {
             //prints the message
-            TextController.println(Loader.getGroupMessageDetails(messageID)[1]
-                    + ": " + Loader.getGroupMessageDetails(messageID)[2]);
+            TextController.println(Loader.getGroupMessageDetails(messageID)[0]
+                    + ": " + Loader.getGroupMessageDetails(messageID)[1]);
             //prints the date
-            TextController.println(Loader.getGroupMessageDetails(messageID)[3]);
+            TextController.println(Loader.getGroupMessageDetails(messageID)[2]);
+        }
+        if (messageIDs.length == 0){
+            TextController.println("No match found.");
         }
     }
 
@@ -137,6 +143,9 @@ public class SearchController {
             //prints the date
             TextController.println(Loader.getMessageDetails(messageID)[2]);
         }
+        if (messageIDs.length == 0){
+            TextController.println("No match found.");
+        }
     }
 
     public static void searchGroup (User user){
@@ -152,14 +161,17 @@ public class SearchController {
 
         //displays the messages
         for (int messageID : messageIDs) {
-            groupID = Integer.parseInt(Loader.getGroupMessageDetails(messageID)[0]);
+            groupID = Loader.getGroupOfTheMessage(messageID);
             //prints the joiner
             TextController.println("@" + Loader.getGroupJoiner(groupID));
             //prints the message
-            TextController.println(Loader.getGroupMessageDetails(messageID)[1] + ": "
-                    + Loader.getGroupMessageDetails(messageID)[2]);
+            TextController.println(Loader.getGroupMessageDetails(messageID)[0] + ": "
+                    + Loader.getGroupMessageDetails(messageID)[1]);
             //prints the date
-            TextController.println(Loader.getGroupMessageDetails(messageID)[3]);
+            TextController.println(Loader.getGroupMessageDetails(messageID)[2]);
+        }
+        if (messageIDs.length == 0){
+            TextController.println("No match found.");
         }
     }
 
