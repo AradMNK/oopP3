@@ -1,7 +1,9 @@
 package graphics.app;
 
+import Login.Loginner;
 import Objects.Group;
 import animatefx.animation.Pulse;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -18,7 +20,7 @@ public class GroupStatsFXML {
     @FXML Circle picture;
     @FXML Text name, link;
     @FXML Button addButton, unbanButton;
-    @FXML GridPane display, picturePane;
+    @FXML GridPane participants, picturePane;
 
     void initialize(Group group){
         this.group = group;
@@ -31,6 +33,13 @@ public class GroupStatsFXML {
                     "Please choose another image.", "Image could not load!");
                 picture.setFill(new ImagePattern(new Image((Objects.requireNonNull
                         (Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));}
+        }
+        picture.radiusProperty().bind(Bindings.min(picturePane.heightProperty(), picturePane.widthProperty()).divide(2));
+        name.setText(group.getName());
+        link.setText(group.getGroupJoiner());
+
+        if (Loginner.loginnedUser.getUsername().equals(group.getOwner().getUsername())) {
+            unbanButton.setVisible(true);
         }
     }
 
