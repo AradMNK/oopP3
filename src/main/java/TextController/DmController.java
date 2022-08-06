@@ -127,9 +127,7 @@ public class DmController {
         if (where.startsWith("@"))
             forwardToUser(where.substring(1), dm.getShownMessages().get(num));
         else
-            try {forwardToGroup(Integer.parseInt(where), dm.getShownMessages().get(num));}
-            catch (NumberFormatException e){TextController.println
-                ("Entered argument did not start with @ to send to a user and was also not a number to indicate groupID.");}
+            forwardToGroup(Database.Loader.getGroupID(where), dm.getShownMessages().get(num));
     }
     private static void forwardToGroup(int groupID, Message message) {
         if (!Database.Loader.groupExists(groupID)){
