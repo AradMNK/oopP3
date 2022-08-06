@@ -147,21 +147,25 @@ public class Saver {
                 Connector.queryWithoutResult("UPDATE directmessage SET originalID = " + originalID
                                                     + " WHERE messageID = " + messageID + ";");
             }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
 
+        connection = Connector.connector.connect();
+        try {
             //adds to new messages
             resultSet = connection.prepareStatement("SELECT count FROM unreadusers WHERE forUsername = '"
-                                                        + receiver + "' AND username = '" + sender + "';").executeQuery();
+                    + receiver + "' AND username = '" + sender + "';").executeQuery();
 
             //checks if the resultSet isn't empty
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 newMessages = resultSet.getInt(1);
-                newMessages ++;
+                newMessages++;
                 Connector.queryWithoutResult("UPDATE unreadusers SET count = " + newMessages
-                                                    + " WHERE forUsername = '" + receiver + "' AND username = '" + sender + "';");
-            }
-            else {
+                        + " WHERE forUsername = '" + receiver + "' AND username = '" + sender + "';");
+            } else {
                 Connector.queryWithoutResult("INSERT INTO unreadusers (forUsername, username, count) VALUES ('"
-                                                    + receiver + "', '" + sender + "', 1);");
+                        + receiver + "', '" + sender + "', 1);");
             }
         }
         catch (SQLException e) {e.printStackTrace();}
@@ -235,9 +239,14 @@ public class Saver {
                 Connector.queryWithoutResult("UPDATE groupmessage SET originalID = " + originalID
                         + " WHERE messageID = " + messageID + ";");
             }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
 
+        connection = Connector.connector.connect();
+        try {
             resultSet = connection.prepareStatement("SELECT members FROM group_chats WHERE groupID = "
-                                                        + handle + ";").executeQuery();
+                    + handle + ";").executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
