@@ -15,6 +15,7 @@ public class GroupBuilder {
         group.setGroupID(new SaveHandle(groupID));
         group.setName(Database.Loader.getGroupName(groupID));
         group.setGroupJoiner(Database.Loader.getGroupJoiner(groupID));
+        group.setOwner(UserBuilder.getUserFromDatabase(Database.Loader.getGroupOwner(groupID)));
         return group;
     }
 
@@ -23,8 +24,6 @@ public class GroupBuilder {
         int groupID = Database.Loader.getGroupID(groupJoiner);
 
         Group group = getGroupFromDatabase(groupID);
-        group.setGroupJoiner(Database.Loader.getGroupJoiner(groupID));
-        group.setOwner(UserBuilder.getUserFromDatabase(Database.Loader.getGroupOwner(groupID)));
         int[] groupMessageIDs = Database.Loader.getGroupMessageIDsOfGroup(groupID, howMany);
         for (int groupMessageID: groupMessageIDs){
             GroupMessage groupMessage = GroupMessageBuilder.getGroupMessageFromDatabase(groupMessageID);
