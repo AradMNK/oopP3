@@ -322,6 +322,9 @@ public class TextController {
         if (!Loginner.loginnedUser.like(postID)){
             println("You have already liked this post.");
         }
+        else {
+            println("You liked this post.");
+        }
     }
     private static void unlike(String postIDasString) {
         if (Loginner.loginState == LoginState.SIGN_OUT){
@@ -338,6 +341,9 @@ public class TextController {
         }
 
         if (!Loginner.loginnedUser.unlike(postID)) println("You did not like this post in the first place.");
+        else {
+            println("You unliked this post.");
+        }
     }
 
     private static void follow(String username) {
