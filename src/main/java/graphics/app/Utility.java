@@ -26,6 +26,10 @@ public class Utility {
     FEED_FXML_PATH = "Feed.fxml",
     EXPLORE_FXML_PATH = "Explore.fxml",
 
+    NEW_GROUP_FXML_PATH = "New Group.fxml",
+    JOIN_GROUP_FXML_PATH = "Join Group.fxml",
+    GROUP_STATS_FXML_PATH = "Group Stats.fxml",
+
     CHAT_FXML_PATH = "Chat.fxml",
     CHAT_PREVIEW_FXML_PATH = "Chat Preview.fxml",
     CHATS_FXML_PATH = "Chats.fxml",

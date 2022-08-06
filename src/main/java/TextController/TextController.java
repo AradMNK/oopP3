@@ -90,21 +90,19 @@ public class TextController {
 
         int id = Database.Loader.getGroupID(joiner);
 
-        for (Group group: Loginner.loginnedUser.getGroups())
-            if (group.getGroupID().getHandle() == id){
-                TextController.println("You have already joined this group!");
-                return;
-            }
+        if (Loginner.loginnedUser.getGroups().stream().noneMatch(g-> g.getGroupID().getHandle() == id)){
+            TextController.println("You have already joined this group!");
+            return;
+        }
 
         //checks if user is banned
-        if (!Database.Loader.isUserBanned(Database.Loader.getGroupID(joiner), Loginner.loginnedUser.getUsername())) {
-            Loginner.loginnedUser.getGroups().add(GroupBuilder.getGroupFromDatabase(id));
-            Database.Changer.addUserToGroup(Loginner.loginnedUser.getUsername(), id);
-            TextController.println("Joined successfully.");
+        if (Database.Loader.isUserBanned(id, Loginner.loginnedUser.getUsername())) {
+            TextController.println("You cannot join this group because you have been banned.");
+            return;
         }
-        else {
-            TextController.println("Join failed, You have been banned from this group.");
-        }
+        Loginner.loginnedUser.getGroups().add(GroupBuilder.getGroupFromDatabase(id));
+        Database.Changer.addUserToGroup(Loginner.loginnedUser.getUsername(), id);
+        TextController.println("Joined successfully.");
     }
 
     private static void writeHelp() {

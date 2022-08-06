@@ -47,6 +47,5 @@ public class ExploreFXML {
             ((PostsFXML)fxmlLoader_posts.getController()).initialize(posts);
             displayL.getChildren().add(root_l);
         }
-
     }
 }

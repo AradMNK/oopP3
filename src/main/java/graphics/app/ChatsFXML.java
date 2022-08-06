@@ -5,10 +5,13 @@ import Login.Loginner;
 import Objects.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -16,7 +19,7 @@ import java.util.*;
 
 public class ChatsFXML {
     Stage popup;
-    @FXML Button newGroupButton;
+    @FXML Button newGroupButton, joinGroupButton;
     @FXML VBox displayGroups, displayDirects;
 
     private void addChat(DirectMessenger directMessenger){
@@ -70,9 +73,15 @@ public class ChatsFXML {
     }
 
     @FXML void newGroup(){
-
+        popup = new Stage(StageStyle.UTILITY);
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.NEW_GROUP_FXML_PATH));
+        try {popup.setScene(new Scene(fxmlLoader.load()));}
+        catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                    "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((NewGroupFXML)fxmlLoader.getController()).initialize(this);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.showAndWait();
     }
-
     public void createGroup(String name, String joiner, String picturePath) {
         Group group = new Group();
         group.setGroupID(new SaveHandle(Database.Saver.createGroup(Loginner.loginnedUser.getUsername(),
@@ -84,5 +93,16 @@ public class ChatsFXML {
         Loginner.loginnedUser.getGroups().add(group);
         addGroup(group);
         popup.close();
+    }
+
+    @FXML void joinGroup(){
+        popup = new Stage(StageStyle.UTILITY);
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.JOIN_GROUP_FXML_PATH));
+        try {popup.setScene(new Scene(fxmlLoader.load()));}
+        catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((JoinGroupFXML)fxmlLoader.getController()).initialize(this);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.showAndWait();
     }
 }
