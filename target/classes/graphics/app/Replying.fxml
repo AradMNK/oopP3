@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,9 +12,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="masterPane" prefHeight="180.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.ReplyingFXML">
+<GridPane fx:id="masterPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.ReplyingFXML">
    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" percentWidth="90.0" />
+      <ColumnConstraints hgrow="SOMETIMES" percentWidth="80.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
    <rowConstraints>
@@ -21,7 +23,7 @@
       <RowConstraints percentHeight="80.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Rectangle fx:id="hbar" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="180.0" stroke="BLACK" strokeType="INSIDE" styleClass="hbar" width="591.0" GridPane.rowSpan="2" />
+      <Rectangle fx:id="hbar" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="180.0" stroke="BLACK" strokeType="INSIDE" styleClass="hbar" width="799.0" GridPane.columnSpan="3" GridPane.rowSpan="2" />
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -55,7 +57,7 @@
             </Text>
          </children>
       </GridPane>
-      <Button fx:id="closeButton" mnemonicParsing="false" onAction="#close" style="-fx-font-size: 1em;" styleClass="icon-button" text="Close" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <Button fx:id="closeButton" mnemonicParsing="false" onAction="#close" style="-fx-font-size: 1em;" styleClass="icon-button" text="Close" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -63,6 +65,14 @@
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="(Replying)" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Text>
    </children>
 </GridPane>

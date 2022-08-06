@@ -29,14 +29,12 @@ public class MessageFXML {
     @FXML Hyperlink forwardedUser, repliedMessage;
 
     @FXML void reply(){
-        ChatFXML.chatFXML.replyMode(message.getID());
+        ChatFXML.chatFXML.replyMode(message);
     }
     @FXML void edit(){
         ChatFXML.chatFXML.applyEdit(message);
     }
-    @FXML void forward(){
-        //FIXME
-    }
+    @FXML void forward(){ChatFXML.chatFXML.initForward(message);}
     @FXML void delete(){
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Delete message");
@@ -101,6 +99,6 @@ public class MessageFXML {
         ((UserFXML)fxmlLoader.getController()).initialize(user);
     }
     @FXML void repliedMessageClick(){
-        ChatFXML.chatFXML.replyMode(message.getReplyToID());
+        ChatFXML.chatFXML.replyMode(message);
     }
 }

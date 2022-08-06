@@ -13,10 +13,7 @@ import Objects.UserType;
 import Objects.User;
 import Recommender.AdRecommender;
 import Recommender.UserRecommender;
-
-import java.sql.DatabaseMetaData;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class TextController {
     public static final Scanner scanner = new Scanner(System.in);
