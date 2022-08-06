@@ -83,4 +83,16 @@ public class ChatPreviewFXML {
         if (isGroupType) ((ChatFXML)fxmlLoader.getController()).initialize(group);
         else ((ChatFXML)fxmlLoader.getController()).initialize(dm);
     }
+
+    void changeChatPaneClickToForward(){
+        chatPane.setOnMouseClicked(e->clickChatPaneToForward());
+    }
+
+    private void clickChatPaneToForward() {
+        //FIXME
+        if (isGroupType) ;
+        else ;
+
+        ChatFXML.chatFXML.forwarded();
+    }
 }
