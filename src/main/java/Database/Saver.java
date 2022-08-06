@@ -103,7 +103,7 @@ public class Saver {
                 ("INSERT INTO feed (username, ID, type) VALUES ('" + username + "', " + ID + ", 'comment');");
     }
 
-    public static int addToMessages(String sender, String receiver, String originalSender,
+    public static int addToMessages(String sender, String receiver, int originalID,
                                      LocalDateTime now, String line, int replyMsgID) {
         //adds to direct
         if (!Loader.usersHaveDm(sender, receiver)){
@@ -116,9 +116,9 @@ public class Saver {
         String formattedDate = now.format(formatObj);
 
         Connector.queryWithoutResult("INSERT INTO directmessage (sender, receiver, message, date"
-                + ", replyMessageID, originalSender) VALUES ('" + sender + "', '"
+                + ", replyMessageID, originalID) VALUES ('" + sender + "', '"
                 + receiver + "', '" + line + "', '" + formattedDate + "', "
-                + replyMsgID + ", '" + originalSender + "');");
+                + replyMsgID + ", " + originalID + ");");
 
         //declares the messageID
         int messageID = 0;
@@ -187,16 +187,16 @@ public class Saver {
         return groupID;
     }
 
-    public static int addToGroupMessages(int handle, String sender, String originalSender,
+    public static int addToGroupMessages(int handle, String sender, int originalID,
                                           LocalDateTime now, String content, int notReplyID) {
         //formats date and time
         DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = now.format(formatObj);
 
         Connector.queryWithoutResult("INSERT INTO groupmessage (groupID, sender, message, date"
-                + ", replyMessageID, originalSender) VALUES ('" + handle + "', '"
+                + ", replyMessageID, originalID) VALUES ('" + handle + "', '"
                 + sender + "', '" + content + "', '" + formattedDate + "', "
-                + notReplyID + ", '" + originalSender + "');");
+                + notReplyID + ", " + originalID + ");");
 
         //declares the messageID
         int messageID = 0;

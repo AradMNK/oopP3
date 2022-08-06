@@ -1304,7 +1304,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT groupID, sender, message, date, replyMessageID, originalSender "
+            resultSet = connection.prepareStatement("SELECT groupID, sender, message, date, replyMessageID, originalID "
                                                         + "FROM groupmessage WHERE messageID = " + groupMessageID
                                                         + ";").executeQuery();
 
@@ -1327,7 +1327,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT sender, message, date, replyMessageID, originalSender " +
+            resultSet = connection.prepareStatement("SELECT sender, message, date, replyMessageID, originalID " +
                                                         "FROM directmessage WHERE messageID = " + messageID
                                                         + ";").executeQuery();
 
