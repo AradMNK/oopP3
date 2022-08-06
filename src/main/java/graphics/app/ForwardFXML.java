@@ -33,7 +33,27 @@ public class ForwardFXML {
         ((ChatPreviewFXML)fxmlLoader.getController()).changeChatPaneClickToForward();
     }
 
+
     public void initialize(Set<String> chats, Set<Group> groups){
+        if (chats.size() == 0)
+            displayDirects.getChildren().add(MainFXML.root.noResultRoot("You have no direct messages yet..."));
+        else initDirects(chats);
+        if (groups.size() == 0)
+            displayGroups.getChildren().add(MainFXML.root.noResultRoot("You have no groups yet... But you can make one!"));
+        else initGroups(groups);
+    }
+
+    private void initGroups(Set<Group> groups) {
+        List<Group> groupsList = groups.stream().toList();
+        ArrayList<Group> sortedGroups = new ArrayList<>(groupsList);
+        LocalDateTime[] dateTimesGroups = new LocalDateTime[groups.size()];
+        int i = 0;
+        for (Group group: groupsList) {dateTimesGroups[i++] = group.getShownMessages().get(0).getDate();}
+        sortedGroups.sort(Comparator.comparing(group -> dateTimesGroups[groupsList.indexOf(group)]));
+        for (Group group : sortedGroups) addGroup(group);
+    }
+
+    private void initDirects(Set<String> chats) {
         DirectMessenger[] directs = new DirectMessenger[chats.size()];
         int i = 0;
         for (String username: chats)
@@ -46,15 +66,6 @@ public class ForwardFXML {
         for (DirectMessenger direct: directs)
             dateTimes[i++] = direct.getShownMessages().get(0).getDate();
         sortedDirects.sort(Comparator.comparing(dm -> dateTimes[directsList.indexOf(dm)]));
-
         for (DirectMessenger direct : sortedDirects) addChat(direct);
-
-        List<Group> groupsList = groups.stream().toList();
-        ArrayList<Group> sortedGroups = new ArrayList<>(groupsList);
-        LocalDateTime[] dateTimesGroups = new LocalDateTime[groups.size()];
-        i = 0;
-        for (Group group: groupsList) {dateTimesGroups[i++] = group.getShownMessages().get(0).getDate();}
-        sortedGroups.sort(Comparator.comparing(group -> dateTimesGroups[groupsList.indexOf(group)]));
-        for (Group group : sortedGroups) addGroup(group);
     }
 }

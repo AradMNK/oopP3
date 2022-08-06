@@ -205,7 +205,7 @@ public class ChatFXML {
                 "Exception"); e.printStackTrace(); return;}
         ((ReplyingFXML)fxmlLoader.getController()).initialize(toMessage);
         replyContainer = new PopOver(replyNode);
-        replyContainer.show(message);
+        replyContainer.show(name);
         replyContainer.autoHideProperty().setValue(false);
         replyID = toMessage.getID();
     }
@@ -247,6 +247,8 @@ public class ChatFXML {
         try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.POPUP_PREF_WIDTH, Utility.POPUP_PREF_HEIGHT));}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((ForwardFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getChats(),
+                Loginner.loginnedUser.getGroups());
         popupStage.getScene().getStylesheets().add(Theme.currentTheme.toString());
         new SlideInUp(popupStage.getScene().getRoot()).play();
         popupStage.initModality(Modality.APPLICATION_MODAL);
