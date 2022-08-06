@@ -1,5 +1,7 @@
 package Objects;
 
+import Login.Loginner;
+
 public class BusinessUser extends User {
     @Override
     public UserType getUserType(){return UserType.BUSINESS;}
@@ -9,6 +11,6 @@ public class BusinessUser extends User {
     }
 
     public void addViewToAccount(Post post) {
-        Database.Changer.addViewForUser(post.getPostID().getHandle(), this.getUsername());
+        Database.Changer.addViewForUser(post.getPostID().getHandle(), Loginner.loginnedUser.getUsername());
     }
 }
