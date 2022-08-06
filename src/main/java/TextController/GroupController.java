@@ -153,11 +153,15 @@ public class GroupController {
     }
 
     private static void leave() {
-        if (Loginner.loginnedUser.getUsername().equals(group.getOwner().getUsername()))
+        if (Loginner.loginnedUser.getUsername().equals(group.getOwner().getUsername())) {
             Database.Changer.removeGroup(group.getGroupID().getHandle());
+            TextController.println("You have left and deleted the group.");
+        }
         else {
             group.getParticipants().remove(Loginner.loginnedUser);
             Database.Changer.removeParticipant(group.getGroupID().getHandle(), Loginner.loginnedUser.getUsername());
+            Database.Changer.removeFromBanList(group.getGroupID().getHandle(), Loginner.loginnedUser.getUsername());
+            TextController.println("You have left the group.");
         }
         Loginner.loginnedUser.getGroups().removeIf(g -> g.getGroupID().equals(group.getGroupID()));
     }

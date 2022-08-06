@@ -147,7 +147,12 @@ public class Changer {
                 banList = resultSet.getString(1);
 
                 //adds the member to the ban list
-                banList = (banList + "," + username);
+                if (banList.equals("")){
+                    banList = username;
+                }
+                else {
+                    banList = (banList + "," + username);
+                }
                 Connector.queryWithoutResult("UPDATE group_chats SET banList = '" + banList
                         +"' WHERE groupID = " + handle + ";");
             }

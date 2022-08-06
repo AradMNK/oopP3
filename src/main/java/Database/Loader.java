@@ -1547,7 +1547,7 @@ public class Loader {
         //declares the sql
         StringBuilder query = new StringBuilder("SELECT username FROM users WHERE NOT (");
         for (int i = 0; i < usernamesNotToBeIncluded.length - 1; i++){
-            if (i != usernameDontInclude.length)
+            if (i != usernameDontInclude.length - 1)
                 query.append("username = '").append(usernamesNotToBeIncluded[i]).append("' OR ");
             else {
                 query.append("username = '").append(usernamesNotToBeIncluded[i]).append("') ORDER BY RAND() LIMIT 1;");
@@ -1708,5 +1708,30 @@ public class Loader {
         catch (SQLException e) {e.printStackTrace();}
         finally {Connector.connector.disconnect();}
         return members;
+    }
+
+    public static boolean isUserBanned (int groupID, String username){
+        //declares the banList
+        String banList;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT banList FROM group_chats WHERE groupID = "
+                                                        + groupID + ";").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                banList = resultSet.getString(1);
+
+                //checks if the user is banned or not
+                if (banList.equals(username)){
+                    return true;
+                }
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return false;
     }
 }

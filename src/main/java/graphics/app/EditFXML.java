@@ -6,15 +6,15 @@ import javafx.scene.control.TextArea;
 
 public class EditFXML {
     @FXML TextArea msg;
-    @FXML Button cancelButton, confirmButton;
+    @FXML Button cancelButton, editButton;
 
     void initialize(String msg){
         this.msg.setText(msg);
     }
     @FXML void cancel(){
-        ChatFXML.chatFXML.cancelEdit();
+        ChatFXML.chatFXML.cancelEdit(); //
     }
     @FXML void confirm(){
-        ChatFXML.chatFXML.confirmEdit(msg.getText());
+        ChatFXML.chatFXML.confirmEdit(msg.getText()); //
     }
 }
