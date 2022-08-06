@@ -257,4 +257,8 @@ public class ChatFXML {
             initialize(dm);
         }
     }
+
+    public void forwarded() {
+        popupStage.close();
+    }
 }
