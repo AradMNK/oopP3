@@ -161,6 +161,7 @@ public class DmController {
         Database.Saver.addToMessages(Loginner.loginnedUser.getUsername(), username, message.getOriginalUsername(),
                 message.getOriginalMessage().getHandle(), LocalDateTime.now(),
                 message.getContent(),notReplyID);
+        TextController.println("Message forwarded to @" + username + ".");
     }
 
     private static void reply(int num) {
