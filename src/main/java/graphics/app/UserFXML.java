@@ -1,6 +1,7 @@
 package graphics.app;
 
 import Builder.DirectMessengerBuilder;
+import Builder.UserBuilder;
 import Database.Changer;
 import Login.Loginner;
 import animatefx.animation.Pulse;
@@ -27,7 +28,7 @@ public class UserFXML {
     Group internalGroup;
     User internalUser;
     boolean followed, blocked;
-    @FXML Button followButton, messageButton, blockButton, banButton;
+    @FXML Button followButton, messageButton, blockButton, banButton, postsButton;
     @FXML Circle picture;
     @FXML Text name, username, bio, subtitle, date;
     @FXML ScrollPane bioPane;
@@ -96,6 +97,17 @@ public class UserFXML {
         Changer.removeParticipant(internalGroup.getGroupID().getHandle(), internalUser.getUsername());
         internalGroup.getParticipants().remove(internalUser);
     }
+    @FXML void posts(){
+        User userWithPosts = UserBuilder.getUserFromDatabaseWithPosts(internalUser.getUsername());
+        if (userWithPosts.getPosts().size() == 0){
+            MainFXML.root.noResult("This user has no posts yet...");
+            return;
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));
+        try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
+        ((PostsFXML)fxmlLoader.getController()).initialize(userWithPosts.getPosts());
+    }
 
     @FXML void message(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_FXML_PATH));
@@ -109,4 +121,5 @@ public class UserFXML {
     @FXML void hoverMessage(){new Pulse(messageButton).play();}
     @FXML void hoverBlock(){new Pulse(blockButton).play();}
     @FXML void hoverBan(){new Pulse(banButton).play();}
+    @FXML void hoverPosts(){new Pulse(postsButton).play();}
 }

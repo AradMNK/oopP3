@@ -152,7 +152,7 @@ public class MainFXML {
     void removeDisplay(){
         rootDisplay.getChildren().clear();
     }
-    private void noResult(String msg) {
+    public void noResult(String msg) {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
         try {setDisplayTo(fxmlLoader.load());
         } catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
