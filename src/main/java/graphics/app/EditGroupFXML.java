@@ -62,9 +62,10 @@ public class EditGroupFXML {
         Changer.changeGroupJoiner(group.getGroupID().getHandle(), group.getGroupJoiner());
         Changer.changeGroupName(group.getGroupID().getHandle(), group.getName());
 
-        root.update();
+        root.updateContent();
     }
-    @FXML void back(){root.popup.close();}
+    @FXML void back(){
+        GroupStatsFXML.popup.close();}
 
     @FXML void hoverCreate(){new Pulse(createButton).play();}
     @FXML void hoverBack(){new Pulse(backButton).play();}

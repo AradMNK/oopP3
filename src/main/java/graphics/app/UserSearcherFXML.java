@@ -9,13 +9,26 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import Objects.Group;
 
 import java.io.IOException;
 
 public class UserSearcherFXML {
+    Group group;
+    boolean isAdding;
     @FXML TextField searchField;
     @FXML Button searchButton;
     @FXML GridPane rootDisplay;
+
+    void initializeAdd(Group group){
+        isAdding = true;
+        this.group = group;
+    }
+
+    void initializeUnban(Group group){
+        isAdding = false;
+        this.group = group;
+    }
 
     @FXML void search(){
         String[] matches = Loader.searchForUsers(searchField.getText());
@@ -29,7 +42,8 @@ public class UserSearcherFXML {
         try {root = fxmlLoader.load();}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getClass().toString(), "Exception"); e.printStackTrace(); return;}
-        ((UsersFXML)fxmlLoader.getController()).initialize(matches);
+        if (isAdding) ((UsersFXML)fxmlLoader.getController()).initializeGroupForAdd(matches, group);
+        else ((UsersFXML)fxmlLoader.getController()).initializeGroupForUnban(matches, group);
         rootDisplay.getChildren().add(root);
     }
 

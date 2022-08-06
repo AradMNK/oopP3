@@ -143,6 +143,7 @@ public class UserFXML {
 
         group.getParticipants().add(internalUser);
         Changer.addUserToGroup(internalUser.getUsername(), group.getGroupID().getHandle());
+        GroupStatsFXML.popup.close();
     }
 
     public void initializeGroupBehaviorUnban(Group group) {
@@ -153,16 +154,16 @@ public class UserFXML {
     private void unbanFromGroup(Group group) {
         if (group.getParticipants().stream().anyMatch(u->u.getUsername().equals(internalUser.getUsername()))){
             AppManager.alert(Alert.AlertType.ERROR, "User is already in your group!",
-                    "Try other people.", "Already added!");
+                    "Try other people.", "Already in!");
             return;
         }
-        if (Loader.isUserBanned(group.getGroupID().getHandle(), internalUser.getUsername())){
-            AppManager.alert(Alert.AlertType.ERROR, "User is banned!",
-                    "Try unbanning them first.", "BANNED!");
+        if (!Loader.isUserBanned(group.getGroupID().getHandle(), internalUser.getUsername())){
+            AppManager.alert(Alert.AlertType.ERROR, "User is not banned!",
+                    "Maybe you were looking for other users...", "NOT BANNED!");
             return;
         }
 
-        group.getParticipants().add(internalUser);
-        Changer.addUserToGroup(internalUser.getUsername(), group.getGroupID().getHandle());
+        Changer.removeFromBanList(group.getGroupID().getHandle(), internalUser.getUsername());
+        GroupStatsFXML.popup.close();
     }
 }
