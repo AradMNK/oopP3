@@ -25,14 +25,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChatFXML {
-    Message editingMessage;
+    Message editingMessage, forwardingMessage;
     Stage popupStage;
+    PopOver replyContainer;
     Parent replyNode;
     SaveHandle replyID = new SaveHandle(0);
     DirectMessenger dm;
@@ -47,7 +49,7 @@ public class ChatFXML {
     @FXML GridPane picturePane, masterPane;
     @FXML Button sendButton;
     @FXML TextArea message;
-    @FXML VBox display, replyContainer;
+    @FXML VBox display;
     @FXML Rectangle hbar, vbar;
 
     private void initContents(String name){
@@ -94,7 +96,6 @@ public class ChatFXML {
         }
         initContents(dm.getRecipient().getName());
     }
-
     public void initialize(Group group){
         this.group = group;
         isGroupType = true;
@@ -125,7 +126,6 @@ public class ChatFXML {
 
         initContents(group.getName());
     }
-
     private int indexOf(String username, List<User> participants) {
         for (int i = 0; i < participants.size(); i++)
             if (participants.get(i).getUsername().equals(username)) return i;
@@ -197,24 +197,20 @@ public class ChatFXML {
 
     @FXML void hoverSend(){new Pulse(sendButton).play();}
 
-    public void replyMode(SaveHandle id) {
-        if (replyNode != null) replyContainer.getChildren().remove(replyNode);
+    public void replyMode(Message toMessage) {
+        if (replyContainer != null) replyContainer.getRoot().getChildren().clear();
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.REPLYING_FXML_PATH));
         try {replyNode = fxmlLoader.load();} catch (IOException e)
         {AppManager.alert(Alert.AlertType.ERROR, "Exception occurred.", e.getCause().getMessage(),
                 "Exception"); e.printStackTrace(); return;}
-        ((ReplyingFXML)fxmlLoader.getController()).initialize(messages.get(indexOf(id, messages)));
-        replyContainer.getChildren().add(replyNode);
-        replyID = id;
-    }
-
-    private int indexOf(SaveHandle id, LinkedList<Message> messages) {
-        for (int i = 0; i < messages.size(); i++) if (messages.get(i).getID().equals(id)) return i;
-        return -1;
+        ((ReplyingFXML)fxmlLoader.getController()).initialize(toMessage);
+        replyContainer = new PopOver(sendButton);
+        replyContainer.show(message);
+        replyID = toMessage.getID();
     }
 
     public void removeReply() {
-        replyContainer.getChildren().remove(replyNode);
+        replyContainer.getRoot().getChildren().clear();
         replyID = new SaveHandle(0);
     }
 
@@ -222,7 +218,7 @@ public class ChatFXML {
         editingMessage = message;
         popupStage = new Stage(StageStyle.UTILITY);
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.EDIT_FXML_PATH));
-        try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.EDIT_PREF_WIDTH, Utility.EDIT_PREF_HEIGHT));}
+        try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.POPUP_PREF_WIDTH, Utility.POPUP_PREF_HEIGHT));}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                     "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((EditFXML)fxmlLoader.getController()).initialize(message.getContent());
@@ -242,6 +238,31 @@ public class ChatFXML {
         refresh();
     }
 
+    void initForward(Message message){
+        forwardingMessage = message;
+        popupStage = new Stage(StageStyle.UTILITY);
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.FORWARD_FXML_PATH));
+        try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.POPUP_PREF_WIDTH, Utility.POPUP_PREF_HEIGHT));}
+        catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        popupStage.getScene().getStylesheets().add(Theme.currentTheme.toString());
+        new SlideInUp(popupStage.getScene().getRoot()).play();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.showAndWait();
+    }
+    public void forward(Group group) {
+        Saver.addToGroupMessages(group.getGroupID().getHandle(), Loginner.loginnedUser.getUsername(),
+                forwardingMessage.getOriginalUsername(), LocalDateTime.now(), forwardingMessage.getContent(), 0);
+        popupStage.close();
+        refresh();
+    }
+    public void forward(DirectMessenger dm) {
+        Saver.addToMessages(Loginner.loginnedUser.getUsername(), dm.getRecipient().getUsername(),
+                forwardingMessage.getOriginalUsername(), LocalDateTime.now(), forwardingMessage.getContent(), 0);
+        popupStage.close();
+        refresh();
+    }
+
     void refresh() {
         display.getChildren().clear();
         if (isGroupType) initialize(group);
@@ -256,9 +277,5 @@ public class ChatFXML {
             dm.getShownMessages().remove(message);
             initialize(dm);
         }
-    }
-
-    public void forwarded() {
-        popupStage.close();
     }
 }

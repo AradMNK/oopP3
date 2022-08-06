@@ -1,6 +1,5 @@
 package graphics.app;
 
-import Login.Loginner;
 import animatefx.animation.Pulse;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -84,15 +83,9 @@ public class ChatPreviewFXML {
         else ((ChatFXML)fxmlLoader.getController()).initialize(dm);
     }
 
-    void changeChatPaneClickToForward(){
-        chatPane.setOnMouseClicked(e->clickChatPaneToForward());
-    }
-
+    void changeChatPaneClickToForward(){chatPane.setOnMouseClicked(e->clickChatPaneToForward());}
     private void clickChatPaneToForward() {
-        //FIXME
-        if (isGroupType) ;
-        else ;
-
-        ChatFXML.chatFXML.forwarded();
+        if (isGroupType) ChatFXML.chatFXML.forward(group);
+        else ChatFXML.chatFXML.forward(dm);
     }
 }

@@ -59,11 +59,7 @@
             </Circle>
          </children>
       </GridPane>
-      <VBox fx:id="replyContainer" GridPane.rowIndex="2">
-         <children>
-            <TextArea fx:id="message" prefHeight="200.0" prefWidth="200.0" promptText="Enter message..." />
-         </children>
-      </VBox>
+      <TextArea fx:id="message" prefHeight="200.0" prefWidth="200.0" promptText="Enter message..." GridPane.rowIndex="2" />
       <Button fx:id="sendButton" alignment="CENTER" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#send" onMouseEntered="#hoverSend" styleClass="icon-button" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
