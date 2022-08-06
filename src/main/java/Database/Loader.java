@@ -1541,17 +1541,23 @@ public class Loader {
         //declares an array of usernames not to be included
         String [] usernamesNotToBeIncluded = new String[usernameDontInclude.length + 1];
         usernamesNotToBeIncluded[0] = username;
-        System.arraycopy(usernameDontInclude,
-                0, usernamesNotToBeIncluded, 1, usernameDontInclude.length);
+        for (int i = 1; i < usernamesNotToBeIncluded.length; i++){
+            usernamesNotToBeIncluded[i] = usernameDontInclude[i-1];
+        }
 
         //declares the sql
-        StringBuilder query = new StringBuilder("SELECT username FROM users WHERE NOT (");
-        for (int i = 0; i < usernamesNotToBeIncluded.length - 1; i++){
-            if (i != usernameDontInclude.length - 1)
-                query.append("username = '").append(usernamesNotToBeIncluded[i]).append("' OR ");
-            else {
-                query.append("username = '").append(usernamesNotToBeIncluded[i]).append("') ORDER BY RAND() LIMIT 1;");
+        String query = "SELECT username FROM users WHERE NOT (";
+        if (usernameDontInclude.length != 0) {
+            for (int i = 0; i < usernamesNotToBeIncluded.length - 1; i++) {
+                if (i != usernameDontInclude.length - 1)
+                    query += ("username = '" + usernamesNotToBeIncluded[i] + "' OR ");
+                else {
+                    query += ("username = '" + usernamesNotToBeIncluded[i] + "') ORDER BY RAND() LIMIT 1;");
+                }
             }
+        }
+        else {
+            query += ("username = '" + username + "') ORDER BY RAND() LIMIT 1;");
         }
 
         //declares the username in the resultSet
@@ -1560,7 +1566,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement(query.toString()).executeQuery();
+            resultSet = connection.prepareStatement(query).executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
@@ -1657,14 +1663,19 @@ public class Loader {
 
     public static int getRandomAd (Integer[] postsNotToBeIncluded){
         //declares the sql
-        StringBuilder query = new StringBuilder("SELECT username FROM users WHERE NOT (");
-        for (int i = 0; i < postsNotToBeIncluded.length; i++){
-            if (i != postsNotToBeIncluded.length - 1)
-                query.append("postID = ").append(postsNotToBeIncluded[i]).append(" OR ");
-            else {
-                query.append("postID = ").append(postsNotToBeIncluded[i]).append(") AND type = 'business' "
-                            + "ORDER BY RAND() LIMIT 1;");
+        String query = "SELECT username FROM users ";
+        if (postsNotToBeIncluded.length != 0) {
+            query += "WHERE NOT (";
+            for (int i = 0; i < postsNotToBeIncluded.length; i++) {
+                if (i != postsNotToBeIncluded.length - 1)
+                    query += ("postID = " + postsNotToBeIncluded[i] + " OR ");
+                else {
+                    query += ("postID = " + postsNotToBeIncluded[i] + ") AND type = 'business' ORDER BY RAND() LIMIT 1;");
+                }
             }
+        }
+        else {
+            query += "ORDER BY RAND() LIMIT 1";
         }
 
         //declares the post ID in the resultSet
@@ -1673,7 +1684,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement(query.toString()).executeQuery();
+            resultSet = connection.prepareStatement(query).executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
