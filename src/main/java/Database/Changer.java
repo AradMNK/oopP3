@@ -20,7 +20,7 @@ public class Changer {
     }
 
     public static void addViewForUser(int postID, String username) {
-        Connector.queryWithoutResult("INSERT INTO views (username, postID) VALUES ('"
+        Connector.queryWithoutResult("INSERT INTO view (username, postID) VALUES ('"
                                             + username + "', " + postID + ");");
     }
     public static void addLikeStat(int postID, String username) {

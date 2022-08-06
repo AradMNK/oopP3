@@ -233,7 +233,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT COUNT(DISTINCT username) FROM views WHERE postID = " + postID
+            resultSet = connection.prepareStatement("SELECT COUNT(DISTINCT username) FROM view WHERE postID = " + postID
                                                         +";").executeQuery();
 
             //checks if the resultSet isn't empty
