@@ -158,7 +158,7 @@ public class ChatFXML {
         LocalDateTime now = LocalDateTime.now();
         GroupMessage newMessage = new GroupMessage();
         newMessage.setID(new SaveHandle(Saver.addToGroupMessages(group.getGroupID().getHandle(),
-                Loginner.loginnedUser.getUsername(), 0,
+                Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(), 0,
                 now, message.getText(), replyID.getHandle())));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
@@ -179,7 +179,7 @@ public class ChatFXML {
         LocalDateTime now = LocalDateTime.now();
         Message newMessage = new Message();
         newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
-                0, now, message.getText(), replyID.getHandle())));
+                Loginner.loginnedUser.getUsername(), 0, now, message.getText(), replyID.getHandle())));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
         newMessage.setOriginalMessage(newMessage.getID());
@@ -258,13 +258,15 @@ public class ChatFXML {
     }
     public void forward(Group group) {
         Saver.addToGroupMessages(group.getGroupID().getHandle(), Loginner.loginnedUser.getUsername(),
-                forwardingMessage.getOriginalMessage().getHandle(), LocalDateTime.now(), forwardingMessage.getContent(), 0);
+                forwardingMessage.getOriginalUsername(), forwardingMessage.getOriginalMessage().getHandle(),
+                LocalDateTime.now(), forwardingMessage.getContent(), 0);
         popupStage.close();
         refresh();
     }
     public void forward(DirectMessenger dm) {
         Saver.addToMessages(Loginner.loginnedUser.getUsername(), dm.getRecipient().getUsername(),
-                forwardingMessage.getOriginalMessage().getHandle(), LocalDateTime.now(), forwardingMessage.getContent(), 0);
+                forwardingMessage.getOriginalUsername(), forwardingMessage.getOriginalMessage().getHandle(),
+                LocalDateTime.now(), forwardingMessage.getContent(), 0);
         popupStage.close();
         refresh();
     }
