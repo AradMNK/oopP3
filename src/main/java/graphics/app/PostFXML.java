@@ -22,7 +22,7 @@ import java.util.Objects;
 public class PostFXML {
     User poster;
     Post post;
-    @FXML Button likeButton, commentButton, postsButton;
+    @FXML Button likeButton, commentButton;
     @FXML Circle pfp;
     @FXML Text name, bio, postContent, subtitle, date;
     @FXML ScrollPane postPane, bioPane;
