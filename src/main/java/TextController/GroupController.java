@@ -52,7 +52,7 @@ public class GroupController {
             if (line.equals("\\exit")) {TextController.println("You have exited the chat."); break;}
             else if (line.equals("\\leave")) {leave(); break;}
             else if (actOnCommand(line)) continue;
-            Database.Saver.addToGroupMessages(group.getGroupID().getHandle(),
+            Database.Saver.addToGroupMessages(group.getGroupID().getHandle(), Loginner.loginnedUser.getUsername(),
                     Loginner.loginnedUser.getUsername(), 0, LocalDateTime.now(), line, notReplyID);
         }
     }
@@ -188,8 +188,8 @@ public class GroupController {
             return;
         }
 
-        Database.Saver.addToGroupMessages(groupID, Loginner.loginnedUser.getUsername(), message.getOriginalMessage().getHandle(),
-                LocalDateTime.now(), message.getContent(), notReplyID);
+        Database.Saver.addToGroupMessages(groupID, Loginner.loginnedUser.getUsername(), message.getOriginalUsername(),
+                message.getOriginalMessage().getHandle(), LocalDateTime.now(), message.getContent(), notReplyID);
         TextController.println("Message forwarded to \"" + group.getName() + "\"");
     }
     private static void forwardToUser(String username, Message message) {
@@ -205,7 +205,7 @@ public class GroupController {
             return;
         }
 
-        Database.Saver.addToMessages(Loginner.loginnedUser.getUsername(), username,
+        Database.Saver.addToMessages(Loginner.loginnedUser.getUsername(), username, message.getOriginalUsername(),
                 message.getOriginalMessage().getHandle(), LocalDateTime.now(),
                 message.getContent(),notReplyID);
     }
@@ -219,7 +219,7 @@ public class GroupController {
 
         TextController.println("[" + getInReplyTo(num) + "]");
         Database.Saver.addToGroupMessages(group.getGroupID().getHandle(),
-                Loginner.loginnedUser.getUsername(), 0,
+                Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(), 0,
                 LocalDateTime.now(), TextController.getLine(), group.getShownMessages().get(num).getID().getHandle());
     }
     private static void edit(int num) {
