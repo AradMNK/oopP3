@@ -1702,7 +1702,7 @@ public class Loader {
             if (resultSet.next()){
                 membersString = resultSet.getString(1);
 
-                members = membersString.split("'");
+                members = membersString.split(",");
             }
         }
         catch (SQLException e) {e.printStackTrace();}

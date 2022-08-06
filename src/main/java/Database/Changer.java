@@ -110,11 +110,15 @@ public class Changer {
                 members = members.replaceAll(username, "");
 
                 //checks for ,
-                if (members.charAt(0) == ','){
-                    members = members.substring(1);
+                if (members.length() != 0) {
+                    if (members.charAt(0) == ',') {
+                        members = members.substring(1);
+                    }
                 }
-                if (members.charAt(members.length()-1) == ','){
-                    members = members.substring(members.length()-1);
+                if (members.length() != 0) {
+                    if (members.charAt(members.length() - 1) == ',') {
+                        members = members.substring(0, members.length() - 1);
+                    }
                 }
                 members = members.replaceAll(",,", ",");
 
@@ -136,7 +140,7 @@ public class Changer {
         ResultSet resultSet;
         try {
             resultSet = connection.prepareStatement("SELECT banList FROM group_chats WHERE groupID = "
-                                                        + handle + ";").executeQuery();
+                                                        + handle + " AND banList IS NOT NULL;").executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
@@ -145,6 +149,11 @@ public class Changer {
                 //adds the member to the ban list
                 banList = (banList + "," + username);
                 Connector.queryWithoutResult("UPDATE group_chats SET banList = '" + banList
+                        +"' WHERE groupID = " + handle + ";");
+            }
+
+            else {
+                Connector.queryWithoutResult("UPDATE group_chats SET banList = '" + username
                         +"' WHERE groupID = " + handle + ";");
             }
         }
@@ -170,11 +179,15 @@ public class Changer {
                 banned = banned.replaceAll(username, "");
 
                 //checks for ,
-                if (banned.charAt(0) == ','){
-                    banned = banned.substring(1);
+                if (banned.length() != 0) {
+                    if (banned.charAt(0) == ',') {
+                        banned = banned.substring(1);
+                    }
                 }
-                if (banned.charAt(banned.length()-1) == ','){
-                    banned = banned.substring(banned.length()-1);
+                if (banned.length() != 0) {
+                    if (banned.charAt(banned.length() - 1) == ',') {
+                        banned = banned.substring(0, banned.length() - 1);
+                    }
                 }
                 banned = banned.replaceAll(",,", ",");
 
