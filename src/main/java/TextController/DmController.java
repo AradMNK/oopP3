@@ -71,7 +71,7 @@ public class DmController {
             if (actOnCommand(line)) continue;
             else if (line.equals(DmCommand.LEAVE.toString())) {TextController.println("You have left the dm mode."); break;}
             if (uBlocked || uBlocker) {blockMessage(); continue;}
-            Database.Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
+            Database.Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(), dm.getUser().getUsername(),
                     0, LocalDateTime.now(), line, notReplyID);
         }
     }
@@ -141,8 +141,8 @@ public class DmController {
             return;
         }
 
-        Database.Saver.addToGroupMessages(groupID, Loginner.loginnedUser.getUsername(), message.getOriginalMessage().getHandle(),
-                LocalDateTime.now(), message.getContent(), notReplyID);
+        Database.Saver.addToGroupMessages(groupID, Loginner.loginnedUser.getUsername(), message.getOriginalUsername(),
+                message.getOriginalMessage().getHandle(), LocalDateTime.now(), message.getContent(), notReplyID);
         TextController.println("Message forwarded to \"" + group.getName() + "\"");
     }
     private static void forwardToUser(String username, Message message) {
@@ -158,7 +158,7 @@ public class DmController {
             return;
         }
 
-        Database.Saver.addToMessages(Loginner.loginnedUser.getUsername(), username,
+        Database.Saver.addToMessages(Loginner.loginnedUser.getUsername(), username, message.getOriginalUsername(),
                 message.getOriginalMessage().getHandle(), LocalDateTime.now(),
                 message.getContent(),notReplyID);
     }
@@ -173,7 +173,7 @@ public class DmController {
         }
 
         TextController.println("[" + getInReplyTo(num) + "]");
-        Database.Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
+        Database.Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(), dm.getUser().getUsername(),
                 0, LocalDateTime.now(), TextController.getLine(),
                 dm.getShownMessages().get(num).getID().getHandle());
     }
