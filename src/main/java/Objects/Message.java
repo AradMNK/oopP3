@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Message {
     private SaveHandle ID, replyToID, originalMessage;
-    private String content;
+    private String content, originalUsername;
     private String username;
     private LocalDateTime date;
 
@@ -19,6 +19,9 @@ public class Message {
 
     public SaveHandle getOriginalMessage() {return originalMessage;}
     public void setOriginalMessage(SaveHandle originalMessage) {this.originalMessage = originalMessage;}
+
+    public String getOriginalUsername() {return originalUsername;}
+    public void setOriginalUsername(String originalUsername) {this.originalUsername = originalUsername;}
 
     public LocalDateTime getDate() {return date;}
     public void setDate(LocalDateTime date) {this.date = date;}

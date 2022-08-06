@@ -4,7 +4,6 @@ import Database.Changer;
 import Login.Loginner;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import Objects.Post;
