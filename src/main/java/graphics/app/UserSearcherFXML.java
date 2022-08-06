@@ -13,7 +13,8 @@ public class UserSearcherFXML {
     @FXML GridPane rootDisplay;
 
     @FXML void search(){
-        Loader.searchForUsers(searchField.getText());
+        String[] matches = Loader.searchForUsers(searchField.getText());
+
     }
 
     @FXML void hoverSearchButton(){new Pulse(searchButton).play();}

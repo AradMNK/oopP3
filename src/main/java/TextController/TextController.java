@@ -232,6 +232,7 @@ public class TextController {
         group.setGroupID(new SaveHandle(Database.Saver.createGroup
                 (Loginner.loginnedUser.getUsername(), group.getName(), group.getGroupJoiner())));
         group.getParticipants().add(Loginner.loginnedUser);
+        group.setOwner(Loginner.loginnedUser);
 
         GroupController.attemptEntrance(group);
     }
