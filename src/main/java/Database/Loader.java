@@ -1685,7 +1685,7 @@ public class Loader {
         return result;
     }
 
-    public static String[] participantUsernames (int groupID){
+    public static String[] getParticipants (int groupID){
         //declares a string for members
         String membersString;
 
