@@ -22,7 +22,6 @@ public class MessageBuilder {
         message.setReplyToID(new SaveHandle(Integer.parseInt(details[i++])));
         message.setOriginalUsername(details[i]);
 
-
         return message;
     }
 }
