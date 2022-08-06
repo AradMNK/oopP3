@@ -31,6 +31,7 @@ public class Utility {
     CHATS_FXML_PATH = "Chats.fxml",
     MESSAGE_FXML_PATH = "Message.fxml",
     REPLYING_FXML_PATH = "Replying.fxml",
+    EDIT_FXML_PATH = "Edit.fxml",
 
     LIGHT_MODE_CSS_PATH = "Light.css",
     DARK_MODE_CSS_PATH = "Dark.css",
@@ -41,7 +42,8 @@ public class Utility {
 
     public static final int PREF_WIDTH = 900, PREF_HEIGHT = 600,
     POST_TEXT_MARGIN_FROM_RIGHT = 60, IMAGE_POST_FIT_WIDTH = 500,
-    MESSAGES_TO_LOAD = 10, MAX_PREVIEW_CHARS = 20;
+    MESSAGES_TO_LOAD = 10, MAX_PREVIEW_CHARS = 20,
+    EDIT_PREF_WIDTH = 500, EDIT_PREF_HEIGHT = 150;
     public static final int HIDE_WIDTH_VALUE = 300;
 
     public static void delay(long millis, Runnable continuation) {

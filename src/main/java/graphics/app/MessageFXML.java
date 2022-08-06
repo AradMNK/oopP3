@@ -32,14 +32,21 @@ public class MessageFXML {
         ChatFXML.chatFXML.replyMode(message.getID());
     }
     @FXML void edit(){
-        //FIXME
+        ChatFXML.chatFXML.applyEdit(message);
     }
     @FXML void forward(){
         //FIXME
     }
     @FXML void delete(){
-        Changer.deleteMessage(message.getID().getHandle());
-        ChatFXML.chatFXML.refreshForDelete(message);
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Delete message");
+        confirmation.setHeaderText("You are about to delete this message forever!");
+        confirmation.setContentText("Proceed?");
+        confirmation.showAndWait();
+        if (confirmation.getResult().getText().equals("OK")){
+            Changer.deleteMessage(message.getID().getHandle());
+            ChatFXML.chatFXML.refreshForDelete(message);
+        }
     }
 
     private void initContents(String name, String msg, LocalDateTime time){
