@@ -56,7 +56,14 @@ public class GroupStatsFXML {
         } else ((UsersFXML)fxmlLoader.getController()).initialize(group.getParticipants());
     }
     @FXML void add(){
-
+        popup = new Stage(StageStyle.UTILITY);
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_SEARCHER_FXML_PATH));
+        try {popup.setScene(new Scene(fxmlLoader.load()));}
+        catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((EditGroupFXML)fxmlLoader.getController()).initialize(this, group);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.showAndWait();
     }
     @FXML void unban(){
 

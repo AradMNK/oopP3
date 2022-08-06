@@ -26,8 +26,15 @@ public class UsersFXML {
         for (String user: users) addUser(UserBuilder.getUserFromDatabase(user));
     }
 
-    public void initialize(User[] users) {
-        for (User user: users) addUser(user);
+    public void initialize(String[] users){
+        for (String user: users) addUser(UserBuilder.getUserFromDatabase(user));
+    }
+
+    public void initializeGroupForAdd(String[] users, Group group) {
+        for (String user: users) addUserForAddGroup(UserBuilder.getUserFromDatabase(user), group);
+    }
+    public void initializeGroupForUnban(String[] users, Group group) {
+        for (String user: users) addUserForUnbanGroup(UserBuilder.getUserFromDatabase(user), group);
     }
 
     public void initializeOwnerMode(HashSet<User> users, Group group){
@@ -44,5 +51,21 @@ public class UsersFXML {
 
     public void initialize(HashSet<User> users) {
         for (User user: users) addUser(user);
+    }
+
+    private void addUserForAddGroup(User user, Group group){
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_FXML_PATH));
+        try {display.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((UserFXML)fxmlLoader.getController()).initialize(user);
+        ((UserFXML)fxmlLoader.getController()).initializeGroupBehaviorAdd(group);
+    }
+
+    private void addUserForUnbanGroup(User user, Group group){
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_FXML_PATH));
+        try {display.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((UserFXML)fxmlLoader.getController()).initialize(user);
+        ((UserFXML)fxmlLoader.getController()).initializeGroupBehaviorUnban(group);
     }
 }

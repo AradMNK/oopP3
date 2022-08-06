@@ -3,6 +3,7 @@ package graphics.app;
 import Builder.DirectMessengerBuilder;
 import Builder.UserBuilder;
 import Database.Changer;
+import Database.Loader;
 import Login.Loginner;
 import animatefx.animation.Pulse;
 import javafx.beans.binding.Bindings;
@@ -32,7 +33,7 @@ public class UserFXML {
     @FXML Circle picture;
     @FXML Text name, username, bio, subtitle, date;
     @FXML ScrollPane bioPane;
-    @FXML GridPane picturePane;
+    @FXML GridPane picturePane, masterPane;
 
     private void initContents(String name, String username, String bio, String subtitle, LocalDate time){
         this.name.setText(name);
@@ -122,4 +123,46 @@ public class UserFXML {
     @FXML void hoverBlock(){new Pulse(blockButton).play();}
     @FXML void hoverBan(){new Pulse(banButton).play();}
     @FXML void hoverPosts(){new Pulse(postsButton).play();}
+
+    public void initializeGroupBehaviorAdd(Group group) {
+        masterPane.setOnMouseClicked(e->addToGroup(group));
+        masterPane.setOnMouseEntered(e->new Pulse(masterPane).play());
+    }
+
+    private void addToGroup(Group group) {
+        if (group.getParticipants().stream().anyMatch(u->u.getUsername().equals(internalUser.getUsername()))){
+            AppManager.alert(Alert.AlertType.ERROR, "User is already in your group!",
+                    "Try other people.", "Already added!");
+            return;
+        }
+        if (Loader.isUserBanned(group.getGroupID().getHandle(), internalUser.getUsername())){
+            AppManager.alert(Alert.AlertType.ERROR, "User is banned!",
+                    "Try unbanning them first.", "BANNED!");
+            return;
+        }
+
+        group.getParticipants().add(internalUser);
+        Changer.addUserToGroup(internalUser.getUsername(), group.getGroupID().getHandle());
+    }
+
+    public void initializeGroupBehaviorUnban(Group group) {
+        masterPane.setOnMouseClicked(e->unbanFromGroup(group));
+        masterPane.setOnMouseEntered(e->new Pulse(masterPane).play());
+    }
+
+    private void unbanFromGroup(Group group) {
+        if (group.getParticipants().stream().anyMatch(u->u.getUsername().equals(internalUser.getUsername()))){
+            AppManager.alert(Alert.AlertType.ERROR, "User is already in your group!",
+                    "Try other people.", "Already added!");
+            return;
+        }
+        if (Loader.isUserBanned(group.getGroupID().getHandle(), internalUser.getUsername())){
+            AppManager.alert(Alert.AlertType.ERROR, "User is banned!",
+                    "Try unbanning them first.", "BANNED!");
+            return;
+        }
+
+        group.getParticipants().add(internalUser);
+        Changer.addUserToGroup(internalUser.getUsername(), group.getGroupID().getHandle());
+    }
 }

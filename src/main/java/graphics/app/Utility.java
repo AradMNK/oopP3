@@ -30,6 +30,8 @@ public class Utility {
     JOIN_GROUP_FXML_PATH = "Join Group.fxml",
     GROUP_STATS_FXML_PATH = "Group Stats.fxml",
     EDIT_GROUP_FXML_PATH = "Edit Group.fxml",
+    USER_SEARCHER_FXML_PATH = "User Searcher.fxml",
+    SEARCH_FXML_PATH = "Search.fxml",
 
     CHAT_FXML_PATH = "Chat.fxml",
     CHAT_PREVIEW_FXML_PATH = "Chat Preview.fxml",
