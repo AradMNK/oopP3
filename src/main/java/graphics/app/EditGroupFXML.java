@@ -1,6 +1,8 @@
 package graphics.app;
 
+import Database.Changer;
 import Database.Loader;
+import Objects.Group;
 import animatefx.animation.Pulse;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -17,15 +19,18 @@ import java.net.MalformedURLException;
 import java.util.Objects;
 
 public class EditGroupFXML {
-    ChatsFXML root;
-    String picturePath = "";
+    Group group;
+    GroupStatsFXML root;
+    String picturePath;
 
     @FXML TextField nameField, linkField;
     @FXML Button createButton, backButton, changeButton;
     @FXML Circle picture;
     @FXML GridPane picturePane;
 
-    public void initialize(ChatsFXML root){
+    public void initialize(GroupStatsFXML root, Group group){
+        this.group = group;
+        picturePath = group.getPfp().getHandle();
         this.root = root;
         picture.setFill(new ImagePattern(new Image
                 ((Objects.requireNonNull(Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));
@@ -51,7 +56,13 @@ public class EditGroupFXML {
                     "Please choose a new one and continue.", "Already exists!");
             return;
         }
-        root.createGroup(nameField.getText(), linkField.getText(), picturePath);
+
+        group.setName(nameField.getText());
+        group.setGroupJoiner(linkField.getText());
+        Changer.changeGroupJoiner(group.getGroupID().getHandle(), group.getGroupJoiner());
+        Changer.changeGroupName(group.getGroupID().getHandle(), group.getName());
+
+        root.update();
     }
     @FXML void back(){root.popup.close();}
 

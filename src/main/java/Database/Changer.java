@@ -240,4 +240,7 @@ public class Changer {
     }
 
 
+    public static void changeGroupName(int handle, String name) {
+        //FIXME
+    }
 }
