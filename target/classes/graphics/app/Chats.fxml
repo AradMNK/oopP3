@@ -19,6 +19,7 @@
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Groups" />
                   <Button fx:id="newGroupButton" alignment="CENTER" mnemonicParsing="false" onAction="#newGroup" style="-fx-font-size: 1em;" text="+NEW" />
+                  <Button fx:id="joinGroupButton" alignment="CENTER" mnemonicParsing="false" onAction="#joinGroup" style="-fx-font-size: 1em;" text="Join" />
                </children>
             </HBox>
          </children>

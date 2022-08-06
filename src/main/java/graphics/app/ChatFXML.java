@@ -8,6 +8,7 @@ import animatefx.animation.Pulse;
 import animatefx.animation.SlideInUp;
 import graphics.theme.Theme;
 import javafx.beans.binding.Bindings;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -207,9 +208,9 @@ public class ChatFXML {
         replyContainer = new PopOver(replyNode);
         replyContainer.show(name);
         replyContainer.autoHideProperty().setValue(false);
+        replyContainer.setOnCloseRequest(Event::consume);
         replyID = toMessage.getID();
     }
-
     public void removeReply() {
         if (replyContainer != null){
             replyContainer.getRoot().getChildren().clear();
