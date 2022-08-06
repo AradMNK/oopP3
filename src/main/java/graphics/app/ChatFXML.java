@@ -158,11 +158,11 @@ public class ChatFXML {
         LocalDateTime now = LocalDateTime.now();
         GroupMessage newMessage = new GroupMessage();
         newMessage.setID(new SaveHandle(Saver.addToGroupMessages(group.getGroupID().getHandle(),
-                Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(),
+                Loginner.loginnedUser.getUsername(), 0,
                 now, message.getText(), replyID.getHandle())));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
-        newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
+        newMessage.setOriginalMessage(newMessage.getID());
         newMessage.setUsername(Loginner.loginnedUser.getUsername());
         newMessage.setGroup(group);
         newMessage.setReplyToID(replyID);
@@ -179,10 +179,10 @@ public class ChatFXML {
         LocalDateTime now = LocalDateTime.now();
         Message newMessage = new Message();
         newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
-                dm.getUser().getUsername(), now, message.getText(), replyID.getHandle())));
+                0, now, message.getText(), replyID.getHandle())));
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
-        newMessage.setOriginalUsername(dm.getUser().getUsername());
+        newMessage.setOriginalMessage(newMessage.getID());
         newMessage.setUsername(dm.getUser().getUsername());
         newMessage.setReplyToID(replyID);
 
@@ -258,13 +258,13 @@ public class ChatFXML {
     }
     public void forward(Group group) {
         Saver.addToGroupMessages(group.getGroupID().getHandle(), Loginner.loginnedUser.getUsername(),
-                forwardingMessage.getOriginalUsername(), LocalDateTime.now(), forwardingMessage.getContent(), 0);
+                forwardingMessage.getOriginalMessage().getHandle(), LocalDateTime.now(), forwardingMessage.getContent(), 0);
         popupStage.close();
         refresh();
     }
     public void forward(DirectMessenger dm) {
         Saver.addToMessages(Loginner.loginnedUser.getUsername(), dm.getRecipient().getUsername(),
-                forwardingMessage.getOriginalUsername(), LocalDateTime.now(), forwardingMessage.getContent(), 0);
+                forwardingMessage.getOriginalMessage().getHandle(), LocalDateTime.now(), forwardingMessage.getContent(), 0);
         popupStage.close();
         refresh();
     }

@@ -75,7 +75,7 @@ public class MessageFXML {
         }
         initContents(user.getName(), message.getContent(), message.getDate());
 
-        if (message.getUsername().equals(message.getOriginalUsername())){
+        if (message.getID().equals(message.getOriginalMessage())){
             forwarded.setVisible(false);
             forwardedUser.setVisible(false);
         }
@@ -96,7 +96,7 @@ public class MessageFXML {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_FXML_PATH));
         try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
-        ((UserFXML)fxmlLoader.getController()).initialize(user);
+        ((UserFXML)fxmlLoader.getController()).initialize(UserBuilder.getUserFromDatabase(message.getOriginalUsername()));
     }
     @FXML void repliedMessageClick(){
         ChatFXML.chatFXML.replyMode(message);

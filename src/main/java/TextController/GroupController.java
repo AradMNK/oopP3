@@ -31,7 +31,7 @@ public class GroupController {
                 TextController.print("[" + getInReplyTo(repliedGroupMessage) + "] ");
                 TextController.println(getMessage(message));
             }
-            else if (message.getOriginalUsername().equals(message.getUsername())){ //it's normal message
+            else if (message.getOriginalMessage().equals(message.getID())){ //it's normal message
                 TextController.println(getMessage(message));
             } else { //it's a forwarded message
                 TextController.print("[Forwarded from @" + message.getOriginalUsername() + "] ");
@@ -52,11 +52,8 @@ public class GroupController {
             if (line.equals("\\exit")) {TextController.println("You have exited the chat."); break;}
             else if (line.equals("\\leave")) {leave(); break;}
             else if (actOnCommand(line)) continue;
-            else {
-                Database.Saver.addToGroupMessages(group.getGroupID().getHandle(),
-                        Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(),
-                        LocalDateTime.now(), line, notReplyID);
-            }
+            Database.Saver.addToGroupMessages(group.getGroupID().getHandle(),
+                    Loginner.loginnedUser.getUsername(), 0, LocalDateTime.now(), line, notReplyID);
         }
     }
 
@@ -191,7 +188,7 @@ public class GroupController {
             return;
         }
 
-        Database.Saver.addToGroupMessages(groupID, Loginner.loginnedUser.getUsername(), message.getOriginalUsername(),
+        Database.Saver.addToGroupMessages(groupID, Loginner.loginnedUser.getUsername(), message.getOriginalMessage().getHandle(),
                 LocalDateTime.now(), message.getContent(), notReplyID);
         TextController.println("Message forwarded to \"" + group.getName() + "\"");
     }
@@ -209,7 +206,7 @@ public class GroupController {
         }
 
         Database.Saver.addToMessages(Loginner.loginnedUser.getUsername(), username,
-                message.getOriginalUsername(), LocalDateTime.now(),
+                message.getOriginalMessage().getHandle(), LocalDateTime.now(),
                 message.getContent(),notReplyID);
     }
 
@@ -222,7 +219,7 @@ public class GroupController {
 
         TextController.println("[" + getInReplyTo(num) + "]");
         Database.Saver.addToGroupMessages(group.getGroupID().getHandle(),
-                Loginner.loginnedUser.getUsername(), Loginner.loginnedUser.getUsername(),
+                Loginner.loginnedUser.getUsername(), 0,
                 LocalDateTime.now(), TextController.getLine(), group.getShownMessages().get(num).getID().getHandle());
     }
     private static void edit(int num) {

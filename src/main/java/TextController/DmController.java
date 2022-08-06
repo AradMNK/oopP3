@@ -50,7 +50,7 @@ public class DmController {
                 TextController.print("[" + getInReplyTo(repliedMessage) + "] ");
                 TextController.println(getMessage(message));
             }
-            else if (message.getOriginalUsername().equals(message.getUsername())){ //it's normal message;
+            else if (message.getOriginalMessage().equals(message.getID())){ //it's normal message;
                 TextController.println(getMessage(message));
             } else { //it's a forwarded message
                 TextController.print("[Forwarded from @" + message.getOriginalUsername() + "] ");
@@ -72,7 +72,7 @@ public class DmController {
             else if (line.equals(DmCommand.LEAVE.toString())) {TextController.println("You have left the dm mode."); break;}
             if (uBlocked || uBlocker) {blockMessage(); continue;}
             Database.Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
-                    dm.getUser().getUsername(), LocalDateTime.now(), line, notReplyID);
+                    0, LocalDateTime.now(), line, notReplyID);
         }
     }
 
@@ -141,7 +141,7 @@ public class DmController {
             return;
         }
 
-        Database.Saver.addToGroupMessages(groupID, Loginner.loginnedUser.getUsername(), message.getOriginalUsername(),
+        Database.Saver.addToGroupMessages(groupID, Loginner.loginnedUser.getUsername(), message.getOriginalMessage().getHandle(),
                 LocalDateTime.now(), message.getContent(), notReplyID);
         TextController.println("Message forwarded to \"" + group.getName() + "\"");
     }
@@ -159,7 +159,7 @@ public class DmController {
         }
 
         Database.Saver.addToMessages(Loginner.loginnedUser.getUsername(), username,
-                message.getOriginalUsername(), LocalDateTime.now(),
+                message.getOriginalMessage().getHandle(), LocalDateTime.now(),
                 message.getContent(),notReplyID);
     }
 
@@ -174,7 +174,7 @@ public class DmController {
 
         TextController.println("[" + getInReplyTo(num) + "]");
         Database.Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
-                dm.getUser().getUsername(), LocalDateTime.now(), TextController.getLine(),
+                0, LocalDateTime.now(), TextController.getLine(),
                 dm.getShownMessages().get(num).getID().getHandle());
     }
     private static void edit(int num) {

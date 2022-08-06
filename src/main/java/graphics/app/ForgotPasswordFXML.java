@@ -6,11 +6,9 @@ import animatefx.animation.*;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 
 public class ForgotPasswordFXML {
     private String username;
-    ImageView imageView;
     @FXML TextField usernameField, answerField;
     @FXML PasswordField passwordField;
     @FXML Button changeButton, backButton, applyButton, checkButton;
