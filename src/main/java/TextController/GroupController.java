@@ -104,6 +104,7 @@ public class GroupController {
 
         Database.Changer.changeGroupJoiner(group.getGroupID().getHandle(), joiner);
         group.setGroupJoiner(joiner);
+        TextController.println("Joiner changed successfully.");
     }
 
     private static void add(String username) {
@@ -176,9 +177,7 @@ public class GroupController {
         if (where.startsWith("@"))
             forwardToUser(where.substring(1), group.getShownMessages().get(num));
         else
-            try {forwardToGroup(Integer.parseInt(where), group.getShownMessages().get(num));}
-            catch (NumberFormatException e){TextController.println
-                    ("Entered argument did not start with @ to send to a user and was also not a number to indicate groupID.");}
+            forwardToGroup(Database.Loader.getGroupID(where), group.getShownMessages().get(num));
     }
     private static void forwardToGroup(int groupID, Message message) {
         if (!Database.Loader.groupExists(groupID)){
