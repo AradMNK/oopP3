@@ -1724,7 +1724,7 @@ public class Loader {
             if (resultSet.next()){
                 banList = resultSet.getString(1);
 
-                //checks if the user is banned
+                //checks if the user is banned or not
                 if (banList.equals(username)){
                     return true;
                 }

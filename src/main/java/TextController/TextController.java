@@ -99,6 +99,7 @@ public class TextController {
                 return;
             }
 
+        //checks if user is banned
         if (!Database.Loader.isUserBanned(Database.Loader.getGroupID(joiner), Loginner.loginnedUser.getUsername())) {
             Loginner.loginnedUser.getGroups().add(GroupBuilder.getGroupFromDatabase(id));
             Database.Changer.addUserToGroup(Loginner.loginnedUser.getUsername(), id);

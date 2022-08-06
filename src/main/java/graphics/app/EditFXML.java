@@ -12,9 +12,9 @@ public class EditFXML {
         this.msg.setText(msg);
     }
     @FXML void cancel(){
-        ChatFXML.chatFXML.cancelEdit();
+        ChatFXML.chatFXML.cancelEdit(); //
     }
     @FXML void confirm(){
-        ChatFXML.chatFXML.confirmEdit(msg.getText());
+        ChatFXML.chatFXML.confirmEdit(msg.getText()); //
     }
 }
