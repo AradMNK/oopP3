@@ -170,7 +170,7 @@ public class ChatFXML {
         messages.addFirst(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
-        try {display.getChildren().add(fxmlLoader.load());}
+        try {display.getChildren().add(0, fxmlLoader.load());}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR, "Exception occurred.",
                 e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((MessageFXML)fxmlLoader.getController()).initialize(newMessage, Loginner.loginnedUser);
@@ -189,7 +189,7 @@ public class ChatFXML {
         messages.addFirst(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
-        try {display.getChildren().add(fxmlLoader.load());}
+        try {display.getChildren().add(0, fxmlLoader.load());}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR, "Exception occurred.",
                 e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((MessageFXML)fxmlLoader.getController()).initialize(newMessage, Loginner.loginnedUser);
