@@ -966,7 +966,8 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM groupmessage WHERE groupID = "
+            resultSet = connection.prepareStatement("SELECT COUNT(messageID) FROM groupmessage INNER JOIN group_chats "
+                                                        + "ON group_chats.groupID = groupmessage.groupID WHERE group_chats.groupID = "
                                                         + groupID + " AND (members LIKE '" + username
                                                         + ",%' OR members LIKE '%," + username + "' OR members LIKE '%,"
                                                         + username + ",%'" + "OR members LIKE '" + username
@@ -981,7 +982,8 @@ public class Loader {
                     messageIDs = new int[numberOfResults];
 
                     //adds the IDs to the array
-                    resultSet = connection.prepareStatement("SELECT messageID FROM groupmessage WHERE groupID = "
+                    resultSet = connection.prepareStatement("SELECT messageID FROM groupmessage INNER JOIN group_chats "
+                                                                + "ON group_chats.groupID = groupmessage.groupID WHERE group_chats.groupID = "
                                                                 + groupID + " AND (members LIKE '" + username
                                                                 + ",%' OR members LIKE '%," + username
                                                                 + "' OR members LIKE '%," + username + ",%'"
@@ -1548,7 +1550,7 @@ public class Loader {
         //declares the sql
         String query = "SELECT username FROM users WHERE NOT (";
         if (usernameDontInclude.length != 0) {
-            for (int i = 0; i < usernamesNotToBeIncluded.length - 1; i++) {
+            for (int i = 0; i < usernamesNotToBeIncluded.length; i++) {
                 if (i != usernameDontInclude.length - 1)
                     query += ("username = '" + usernamesNotToBeIncluded[i] + "' OR ");
                 else {
@@ -1663,7 +1665,7 @@ public class Loader {
 
     public static int getRandomAd (Integer[] postsNotToBeIncluded){
         //declares the sql
-        String query = "SELECT username FROM users ";
+        String query = "SELECT postID FROM posts ";
         if (postsNotToBeIncluded.length != 0) {
             query += "WHERE NOT (";
             for (int i = 0; i < postsNotToBeIncluded.length; i++) {
@@ -1744,6 +1746,26 @@ public class Loader {
         catch (SQLException e) {e.printStackTrace();}
         finally {Connector.connector.disconnect();}
         return false;
+    }
+
+    public static int getGroupOfTheMessage (int messageID){
+        //declares the groupID
+        int groupID = 0;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT groupID FROM groupmessage WHERE messageID = "
+                                                        + messageID + ";").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                groupID = resultSet.getInt(1);
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return groupID;
     }
 
 }
