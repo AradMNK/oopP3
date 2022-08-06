@@ -6,4 +6,10 @@ import javafx.scene.control.Button;
 public class EditFXML {
     @FXML Button cancelButton, editButton;
 
+    @FXML void cancel(){
+
+    }
+    @FXML void confirm(){
+
+    }
 }
