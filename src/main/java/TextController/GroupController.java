@@ -138,6 +138,7 @@ public class GroupController {
             if (participant.getUsername().equals(username)) {
                 group.getParticipants().remove(participant);
                 Database.Changer.removeParticipant(group.getGroupID().getHandle(), participant.getUsername());
+                TextController.println("User @" + username + " was banned successfully.");
             }
         }
     }
@@ -148,6 +149,7 @@ public class GroupController {
         }
 
         Database.Changer.removeFromBanList(group.getGroupID().getHandle(), username);
+        TextController.println("User @" + username + " was unbanned successfully.");
     }
 
     private static void leave() {
