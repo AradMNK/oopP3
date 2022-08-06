@@ -27,7 +27,7 @@ public class Utility {
     EXPLORE_FXML_PATH = "Explore.fxml",
 
     CHAT_FXML_PATH = "Chat.fxml",
-    CHAT_PREVIEW_FXML_PATH = "Chat Preview",
+    CHAT_PREVIEW_FXML_PATH = "Chat Preview.fxml",
     CHATS_FXML_PATH = "Chats.fxml",
     MESSAGE_FXML_PATH = "Message.fxml",
     REPLYING_FXML_PATH = "Replying.fxml",

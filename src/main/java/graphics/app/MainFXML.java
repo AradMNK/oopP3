@@ -48,7 +48,7 @@ public class MainFXML {
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
     }
     @FXML void chats(){
-        if (Database.Loader.doesUserHaveChat(Loginner.loginnedUser.getUsername())){
+        if (!Database.Loader.doesUserHaveChat(Loginner.loginnedUser.getUsername())){
             noResult("You have no chats yet! Find someone and message them!");
             return;
         }

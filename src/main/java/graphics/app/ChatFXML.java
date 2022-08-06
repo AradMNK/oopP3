@@ -74,9 +74,7 @@ public class ChatFXML {
                         (Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));}
         }
 
-        List<Message> messageList = dm.getShownMessages().stream().toList();
-        messages = new LinkedList<>(messageList);
-        messages.sort(Comparator.comparing(Message::getDate));
+        messages = dm.getShownMessages();
 
         for (Message message : messages){
             FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
@@ -168,7 +166,8 @@ public class ChatFXML {
         newMessage.setUsername(Loginner.loginnedUser.getUsername());
         newMessage.setGroup(group);
         newMessage.setReplyToID(replyID);
-        group.getShownMessages().addLast(newMessage);
+
+        messages.addFirst(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
         try {display.getChildren().add(fxmlLoader.load());}
@@ -186,7 +185,8 @@ public class ChatFXML {
         newMessage.setOriginalUsername(dm.getUser().getUsername());
         newMessage.setUsername(dm.getUser().getUsername());
         newMessage.setReplyToID(replyID);
-        dm.getShownMessages().addLast(newMessage);
+
+        messages.addFirst(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
         try {display.getChildren().add(fxmlLoader.load());}
