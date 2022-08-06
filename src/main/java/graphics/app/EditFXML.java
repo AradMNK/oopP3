@@ -6,7 +6,7 @@ import javafx.scene.control.TextArea;
 
 public class EditFXML {
     @FXML TextArea msg;
-    @FXML Button cancelButton, confirmButton;
+    @FXML Button cancelButton, editButton;
 
     void initialize(String msg){
         this.msg.setText(msg);

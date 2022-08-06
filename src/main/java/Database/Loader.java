@@ -1709,4 +1709,29 @@ public class Loader {
         finally {Connector.connector.disconnect();}
         return members;
     }
+
+    public static boolean isUserBanned (int groupID, String username){
+        //declares the banList
+        String banList;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT banList FROM group_chats WHERE groupID = "
+                                                        + groupID + ";").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                banList = resultSet.getString(1);
+
+                //checks if the user is banned
+                if (banList.equals(username)){
+                    return true;
+                }
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return false;
+    }
 }

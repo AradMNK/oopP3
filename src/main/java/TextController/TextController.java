@@ -14,7 +14,9 @@ import Objects.User;
 import Recommender.AdRecommender;
 import Recommender.UserRecommender;
 
+import java.sql.DatabaseMetaData;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class TextController {
     public static final Scanner scanner = new Scanner(System.in);
@@ -97,8 +99,14 @@ public class TextController {
                 return;
             }
 
-        Loginner.loginnedUser.getGroups().add(GroupBuilder.getGroupFromDatabase(id));
-        Database.Changer.addUserToGroup(Loginner.loginnedUser.getUsername(), id);
+        if (!Database.Loader.isUserBanned(Database.Loader.getGroupID(joiner), Loginner.loginnedUser.getUsername())) {
+            Loginner.loginnedUser.getGroups().add(GroupBuilder.getGroupFromDatabase(id));
+            Database.Changer.addUserToGroup(Loginner.loginnedUser.getUsername(), id);
+            TextController.println("Joined successfully.");
+        }
+        else {
+            TextController.println("Join failed, You have been banned from this group.");
+        }
     }
 
     private static void writeHelp() {
