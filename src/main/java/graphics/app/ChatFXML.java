@@ -1,13 +1,17 @@
 package graphics.app;
 
+import Database.Changer;
 import Database.Saver;
 import Login.Loginner;
 import Objects.*;
 import animatefx.animation.Pulse;
+import animatefx.animation.SlideInUp;
+import graphics.theme.Theme;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -18,12 +22,17 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class ChatFXML {
+    Message editingMessage;
+    Stage popupStage;
     Parent replyNode;
     SaveHandle replyID = new SaveHandle(0);
     DirectMessenger dm;
@@ -145,6 +154,7 @@ public class ChatFXML {
         if (isGroupType) sendGroupMessage();
         else sendMessage();
         message.clear();
+        removeReply();
     }
     private void sendGroupMessage() {
         LocalDateTime now = LocalDateTime.now();
@@ -187,17 +197,6 @@ public class ChatFXML {
 
     @FXML void hoverSend(){new Pulse(sendButton).play();}
 
-    public void refreshForDelete(Message message) {
-        display.getChildren().clear();
-        if (isGroupType){
-            group.getShownMessages().remove((GroupMessage) message);
-            initialize(group);
-        } else {
-            dm.getShownMessages().remove(message);
-            initialize(dm);
-        }
-    }
-
     public void replyMode(SaveHandle id) {
         if (replyNode != null) replyContainer.getChildren().remove(replyNode);
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.REPLYING_FXML_PATH));
@@ -217,5 +216,45 @@ public class ChatFXML {
     public void removeReply() {
         replyContainer.getChildren().remove(replyNode);
         replyID = new SaveHandle(0);
+    }
+
+    public void applyEdit(Message message){
+        editingMessage = message;
+        popupStage = new Stage(StageStyle.UTILITY);
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.EDIT_FXML_PATH));
+        try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.EDIT_PREF_WIDTH, Utility.EDIT_PREF_HEIGHT));}
+        catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                    "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((EditFXML)fxmlLoader.getController()).initialize(message.getContent());
+        popupStage.getScene().getStylesheets().add(Theme.currentTheme.toString());
+        new SlideInUp(popupStage.getScene().getRoot()).play();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.showAndWait();
+    }
+    public void cancelEdit() {
+        popupStage.close();
+        editingMessage = null;
+    }
+    public void confirmEdit(String newMsg) {
+        popupStage.close();
+        editingMessage.setContent(newMsg);
+        Changer.editMessage(editingMessage.getID().getHandle(), newMsg);
+        refresh();
+    }
+
+    void refresh() {
+        display.getChildren().clear();
+        if (isGroupType) initialize(group);
+        else initialize(dm);
+    }
+    void refreshForDelete(Message message) {
+        display.getChildren().clear();
+        if (isGroupType){
+            group.getShownMessages().remove((GroupMessage) message);
+            initialize(group);
+        } else {
+            dm.getShownMessages().remove(message);
+            initialize(dm);
+        }
     }
 }

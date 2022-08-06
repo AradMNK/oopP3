@@ -1,5 +1,6 @@
 package graphics.app;
 
+import graphics.theme.Theme;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,8 +17,7 @@ public class AppManager {
     public static void launchLogin(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.LOGIN_FXML_PATH));
         Scene scene = new Scene(fxmlLoader.load(), Utility.PREF_WIDTH, Utility.PREF_HEIGHT);
-        scene.getStylesheets().add(Objects.requireNonNull(Launcher.class.getResource
-                (Utility.LIGHT_MODE_CSS_PATH)).toString());
+        scene.getStylesheets().add(Theme.currentTheme.toString());
         stage.setTitle(Utility.APP_TITLE);
         stage.getIcons().add(new Image(Objects.requireNonNull(Launcher.class.getResource
                 (Utility.ICON_PATH)).toString()));
@@ -55,7 +55,7 @@ public class AppManager {
         ((ForgotPasswordFXML)fxmlLoader.getController()).initialize(loginStage.getScene().getRoot());
     }
 
-    public static void launchMain(String themePath){
+    public static void launchMain(){
         loginStage.close(); //closing login stage
         if (mainStage != null) mainStage.close();
 
@@ -64,8 +64,7 @@ public class AppManager {
         Scene scene;
         try {
             scene = new Scene(fxmlLoader.load(), Utility.PREF_WIDTH, Utility.PREF_HEIGHT);
-            scene.getStylesheets().add(Objects.requireNonNull(Launcher.class.getResource
-                    (themePath)).toString());
+            scene.getStylesheets().add(Theme.currentTheme.toString());
             mainStage.setTitle(Utility.APP_TITLE);
             mainStage.getIcons().add(new Image(Objects.requireNonNull(Launcher.class.getResource
                     (Utility.ICON_PATH)).toString()));

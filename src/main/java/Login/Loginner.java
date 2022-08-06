@@ -4,7 +4,6 @@ import Objects.User;
 import TextController.TextController;
 import Builder.UserBuilder;
 import graphics.app.AppManager;
-import graphics.app.Utility;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
@@ -69,7 +68,7 @@ public class Loginner {
         if (Database.Loader.loginMatch(user, Hasher.hash(pass))){ //login successful?
             loginState = LoginState.getLoginState(user);
             loginnedUser = UserBuilder.getUserFromDatabaseFull(user);
-            AppManager.launchMain(Utility.LIGHT_MODE_CSS_PATH);
+            AppManager.launchMain();
         } else
             graphics.app.AppManager.alert(Alert.AlertType.ERROR, "Incorrect password...", "Check for spelling errors " +
                     "because usernames are case-sensitive.", "Wrong password!");
