@@ -2,8 +2,7 @@ package graphics.app;
 
 import Builder.DirectMessengerBuilder;
 import Login.Loginner;
-import Objects.DirectMessenger;
-import Objects.Group;
+import Objects.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -30,7 +29,7 @@ public class ChatsFXML {
 
     private void addGroup(Group group){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_PREVIEW_FXML_PATH));
-        try {displayGroups.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+        try {displayGroups.getChildren().add(0, fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((ChatPreviewFXML)fxmlLoader.getController()).initialize(group, group.getShownMessages().get(0));
     }
@@ -74,7 +73,16 @@ public class ChatsFXML {
 
     }
 
-    public void createGroup() {
-        //FIXME
+    public void createGroup(String name, String joiner, String picturePath) {
+        Group group = new Group();
+        group.setGroupID(new SaveHandle(Database.Saver.createGroup(Loginner.loginnedUser.getUsername(),
+                name, joiner)));
+        group.setGroupJoiner(joiner);
+        group.setOwner(Loginner.loginnedUser);
+        group.setName(name);
+        group.setPfp(new Handle(picturePath));
+        Loginner.loginnedUser.getGroups().add(group);
+        addGroup(group);
+        popup.close();
     }
 }
