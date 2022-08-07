@@ -24,7 +24,7 @@ public class ChatsFXML {
 
     private void addChat(DirectMessenger directMessenger){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_PREVIEW_FXML_PATH));
-        try {displayDirects.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+        try {displayDirects.getChildren().add(0, fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((ChatPreviewFXML)fxmlLoader.getController()).initialize
                 (directMessenger.getRecipient(), directMessenger.getShownMessages().get(0), directMessenger);
