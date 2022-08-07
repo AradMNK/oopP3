@@ -1667,17 +1667,17 @@ public class Loader {
         //declares the sql
         String query = "SELECT postID FROM posts ";
         if (postsNotToBeIncluded.length != 0) {
-            query += "WHERE (NOT (";
+            query += "WHERE NOT (";
             for (int i = 0; i < postsNotToBeIncluded.length; i++) {
                 if (i != postsNotToBeIncluded.length - 1)
                     query += ("postID = " + postsNotToBeIncluded[i] + " OR ");
                 else {
-                    query += ("postID = " + postsNotToBeIncluded[i] + ")) AND type = 'business' ORDER BY RAND() LIMIT 1;");
+                    query += ("postID = " + postsNotToBeIncluded[i] + ") AND type = 'business' ORDER BY RAND() LIMIT 1;");
                 }
             }
         }
         else {
-            query += "ORDER BY RAND() LIMIT 1";
+            query += "WHERE type = 'business' ORDER BY RAND() LIMIT 1";
         }
 
         //declares the post ID in the resultSet
