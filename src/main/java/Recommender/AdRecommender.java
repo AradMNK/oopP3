@@ -43,7 +43,10 @@ public class AdRecommender {
         Integer[] result = new Integer[append.size() + algorithmic.length];
         int i;
         for (i = 0; i < algorithmic.length; i++) result[i] = algorithmic[i];
-        for (Integer s : appended) result[i++] = s;
+        for (Integer s : appended) {
+            result[i++] = s;
+            System.out.println("i am random");
+        }
         return result;
     }
 }

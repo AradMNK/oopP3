@@ -179,6 +179,7 @@ public class ChatFXML {
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
         newMessage.setOriginalMessage(newMessage.getID());
+        newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
         newMessage.setUsername(Loginner.loginnedUser.getUsername());
         newMessage.setGroup(group);
         newMessage.setReplyToID(replyID);
@@ -190,8 +191,6 @@ public class ChatFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR, "Exception occurred.",
                 e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((MessageFXML)fxmlLoader.getController()).initialize(newMessage, Loginner.loginnedUser);
-
-
     }
     private void sendMessage() {
         LocalDateTime now = LocalDateTime.now();
@@ -201,6 +200,7 @@ public class ChatFXML {
         newMessage.setDate(now);
         newMessage.setContent(message.getText());
         newMessage.setOriginalMessage(newMessage.getID());
+        newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
         newMessage.setUsername(dm.getUser().getUsername());
         newMessage.setReplyToID(replyID);
 
@@ -228,7 +228,6 @@ public class ChatFXML {
         replyContainer = new PopOver(replyNode);
         replyContainer.show(name);
         replyContainer.autoHideProperty().setValue(false);
-        replyContainer.setOnCloseRequest(Event::consume);
         replyID = toMessage.getID();
     }
     public void removeReply() {
@@ -278,18 +277,44 @@ public class ChatFXML {
         popupStage.showAndWait();
     }
     public void forward(Group group) {
-        Saver.addToGroupMessages(group.getGroupID().getHandle(), Loginner.loginnedUser.getUsername(),
-                forwardingMessage.getOriginalUsername(), forwardingMessage.getOriginalMessage().getHandle(),
-                LocalDateTime.now(), forwardingMessage.getContent(), 0);
+        LocalDateTime now = LocalDateTime.now();
+        GroupMessage newMessage = new GroupMessage();
+        newMessage.setID(new SaveHandle(Saver.addToGroupMessages(group.getGroupID().getHandle(),
+                Loginner.loginnedUser.getUsername(), forwardingMessage.getOriginalUsername(), forwardingMessage.getOriginalMessage().getHandle(),
+                now, forwardingMessage.getContent(), 0)));
+        if (group.getGroupID().equals(this.group.getGroupID())) {
+            newMessage.setDate(now);
+            newMessage.setContent(forwardingMessage.getContent());
+            newMessage.setOriginalMessage(forwardingMessage.getID());
+            newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
+            newMessage.setUsername(Loginner.loginnedUser.getUsername());
+            newMessage.setGroup(group);
+            newMessage.setReplyToID(new SaveHandle(0));
+
+            group.getShownMessages().addFirst(newMessage);
+            refresh();
+        }
+
         popupStage.close();
-        refresh();
     }
     public void forward(DirectMessenger dm) {
-        Saver.addToMessages(Loginner.loginnedUser.getUsername(), dm.getRecipient().getUsername(),
+        LocalDateTime now = LocalDateTime.now();
+        Message newMessage = new Message();
+        newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
                 forwardingMessage.getOriginalUsername(), forwardingMessage.getOriginalMessage().getHandle(),
-                LocalDateTime.now(), forwardingMessage.getContent(), 0);
+                now, forwardingMessage.getContent(), 0)));
+        if (dm.getRecipient().getUsername().equals(this.dm.getRecipient().getUsername())) {
+            newMessage.setDate(now);
+            newMessage.setContent(forwardingMessage.getContent());
+            newMessage.setOriginalMessage(forwardingMessage.getID());
+            newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
+            newMessage.setUsername(this.dm.getUser().getUsername());
+            newMessage.setReplyToID(new SaveHandle(0));
+
+            this.dm.getShownMessages().addFirst(newMessage);
+            refresh();
+        }
         popupStage.close();
-        refresh();
     }
 
     void refresh() {

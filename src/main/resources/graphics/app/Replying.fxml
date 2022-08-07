@@ -57,7 +57,7 @@
             </Text>
          </children>
       </GridPane>
-      <Button fx:id="closeButton" mnemonicParsing="false" onAction="#close" style="-fx-font-size: 0.7em;" styleClass="icon-button" text="Close" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <Button fx:id="closeButton" cancelButton="true" mnemonicParsing="false" onMouseClicked="#close" style="-fx-font-size: 0.7em;" styleClass="icon-button" text="Close" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -57,7 +57,6 @@ public class UserRecommender {
         int i;
         for (i = 0; i < algorithmic.length; i++) result[i] = algorithmic[i];
         for (String s : appended) {
-            System.out.println(s);
             result[i++] = UserBuilder.getUserFromDatabase(s);
         }
         return result;

@@ -63,7 +63,11 @@ public class UserFXML {
 
         followed = Database.Loader.userFollows(Loginner.loginnedUser.getUsername(), user.getUsername());
         blocked = Database.Loader.isUserBlocked(user.getUsername(), Loginner.loginnedUser.getUsername());
-        if (Loginner.loginnedUser.getUsername().equals(user.getUsername())) followButton.setDisable(true);
+        if (Loginner.loginnedUser.getUsername().equals(user.getUsername())){
+            followButton.setDisable(true);
+            blockButton.setDisable(true);
+            banButton.setDisable(true);
+        }
         if (followed) followButton.setText("Unfollow");
         if (blocked) blockButton.setText("UNBLOCK");
     }
