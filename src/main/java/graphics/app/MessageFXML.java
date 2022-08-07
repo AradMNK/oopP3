@@ -1,5 +1,7 @@
 package graphics.app;
 
+import Builder.GroupMessageBuilder;
+import Builder.MessageBuilder;
 import Builder.UserBuilder;
 import Database.Changer;
 import Login.Loginner;
@@ -12,6 +14,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import Objects.Message;
 import Objects.User;
+import Objects.GroupMessage;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -99,6 +102,8 @@ public class MessageFXML {
         ((UserFXML)fxmlLoader.getController()).initialize(UserBuilder.getUserFromDatabase(message.getOriginalUsername()));
     }
     @FXML void repliedMessageClick(){
-        ChatFXML.chatFXML.replyMode(message);
+        if (message.getClass().equals(GroupMessage.class))
+            ChatFXML.chatFXML.replyMode(GroupMessageBuilder.getGroupMessageFromDatabase(message.getReplyToID().getHandle()));
+        else ChatFXML.chatFXML.replyMode(MessageBuilder.getMessageFromDatabase(message.getReplyToID().getHandle()));
     }
 }
