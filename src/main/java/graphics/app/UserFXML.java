@@ -65,7 +65,7 @@ public class UserFXML {
         blocked = Database.Loader.isUserBlocked(user.getUsername(), Loginner.loginnedUser.getUsername());
         if (Loginner.loginnedUser.getUsername().equals(user.getUsername())) followButton.setDisable(true);
         if (followed) followButton.setText("Unfollow");
-        if (blocked) blockButton.setText("Unblock");
+        if (blocked) blockButton.setText("UNBLOCK");
     }
     public void initializeGroupOwnerMode(Group group){
         banButton.setVisible(true);
@@ -86,12 +86,12 @@ public class UserFXML {
     @FXML void block(){
         if (blocked){
             Loginner.loginnedUser.unblock(internalUser.getUsername());
-            blockButton.setText("Block");
+            blockButton.setText("BLOCK");
             blocked = false;
             return;
         }
         Loginner.loginnedUser.block(internalUser.getUsername());
-        blockButton.setText("Unblock");
+        blockButton.setText("UNBLOCK");
         blocked = true;
     }
     @FXML void ban(){

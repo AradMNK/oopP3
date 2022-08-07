@@ -243,7 +243,8 @@ public class TextController {
             return;
         }
 
-        Loginner.loginnedUser.unblock(username);
+        if (Loginner.loginnedUser.unblock(username))
+            TextController.println("User @" + username + " is removed from the blocklist.");;
     }
     private static void block(String username) {
         if (Loginner.loginnedUser.getBlocklist().contains(username)){
@@ -256,7 +257,8 @@ public class TextController {
             return;
         }
 
-        Loginner.loginnedUser.block(username);
+        if (Loginner.loginnedUser.block(username))
+            TextController.println("You have blocked the user @" + username + ".");;
     }
 
     private static void likers(String postIDasString) {

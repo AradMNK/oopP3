@@ -30,6 +30,10 @@ public class UsersFXML {
         for (String user: users) addUser(UserBuilder.getUserFromDatabase(user));
     }
 
+    public void initialize(User[] users){
+        for (User user: users) addUser(user);
+    }
+
     public void initializeGroupForAdd(String[] users, Group group) {
         for (String user: users) addUserForAddGroup(UserBuilder.getUserFromDatabase(user), group);
     }
