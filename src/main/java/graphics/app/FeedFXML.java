@@ -14,8 +14,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class FeedFXML {
-    @FXML
-    VBox displayPosts, displayComments, displayLikes;
+    @FXML VBox displayPosts, displayComments, displayLikes;
 
     public void initialize(HashSet<Post> posts, HashSet<Comment> comments, HashSet<Like> likes){
         List<Post> postList = posts.stream().toList();
