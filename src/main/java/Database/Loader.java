@@ -1551,7 +1551,7 @@ public class Loader {
         String query = "SELECT username FROM users WHERE NOT (";
         if (usernameDontInclude.length != 0) {
             for (int i = 0; i < usernamesNotToBeIncluded.length; i++) {
-                if (i != usernameDontInclude.length - 1)
+                if (i != usernamesNotToBeIncluded.length - 1)
                     query += ("username = '" + usernamesNotToBeIncluded[i] + "' OR ");
                 else {
                     query += ("username = '" + usernamesNotToBeIncluded[i] + "') ORDER BY RAND() LIMIT 1;");
