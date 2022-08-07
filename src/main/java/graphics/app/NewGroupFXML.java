@@ -37,7 +37,7 @@ public class NewGroupFXML {
         try {
             picturePath = fileChooser.showOpenDialog(AppManager.mainStage).toURI().toURL().toString();
             picture.setFill(new ImagePattern(new Image(picturePath)));
-        } catch (MalformedURLException e) {e.printStackTrace();}
+        } catch (Exception e) {e.printStackTrace();}
     }
     @FXML void create(){
         if (nameField.getText().equals("") || linkField.getText().equals("")){

@@ -3,6 +3,7 @@ package graphics.app;
 import Builder.DirectMessengerBuilder;
 import Login.Loginner;
 import Objects.*;
+import graphics.theme.Theme;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,17 +25,17 @@ public class ChatsFXML {
 
     private void addChat(DirectMessenger directMessenger){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_PREVIEW_FXML_PATH));
-        try {displayDirects.getChildren().add(0, fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+        try {displayDirects.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((ChatPreviewFXML)fxmlLoader.getController()).initialize
                 (directMessenger.getRecipient(), directMessenger.getShownMessages().get(0), directMessenger);
     }
-
     private void addGroup(Group group){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_PREVIEW_FXML_PATH));
         try {displayGroups.getChildren().add(0, fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
-        ((ChatPreviewFXML)fxmlLoader.getController()).initialize(group, group.getShownMessages().get(0));
+        if (group.getShownMessages().size() == 0) ((ChatPreviewFXML)fxmlLoader.getController()).initialize(group);
+        else ((ChatPreviewFXML)fxmlLoader.getController()).initialize(group, group.getShownMessages().get(0));
     }
 
     public void initialize(Set<String> chats, Set<Group> groups){
@@ -51,7 +52,11 @@ public class ChatsFXML {
         ArrayList<Group> sortedGroups = new ArrayList<>(groupsList);
         LocalDateTime[] dateTimesGroups = new LocalDateTime[groups.size()];
         int i = 0;
-        for (Group group: groupsList) {dateTimesGroups[i++] = group.getShownMessages().get(0).getDate();}
+        for (Group group: groupsList) {
+            if (group.getShownMessages().size() > 0)
+            dateTimesGroups[i++] = group.getShownMessages().get(0).getDate();
+            else dateTimesGroups[i++] = LocalDateTime.MIN;
+        }
         sortedGroups.sort(Comparator.comparing(group -> dateTimesGroups[groupsList.indexOf(group)]));
         for (Group group : sortedGroups) addGroup(group);
     }
@@ -68,7 +73,7 @@ public class ChatsFXML {
         i = 0;
         for (DirectMessenger direct: directs)
             dateTimes[i++] = direct.getShownMessages().get(0).getDate();
-        sortedDirects.sort(Comparator.comparing(dm -> dateTimes[directsList.indexOf(dm)]));
+        sortedDirects.sort(Comparator.comparing(dm -> dateTimes[directsList.indexOf(dm)]).reversed());
         for (DirectMessenger direct : sortedDirects) addChat(direct);
     }
 
@@ -79,6 +84,7 @@ public class ChatsFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                     "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((NewGroupFXML)fxmlLoader.getController()).initialize(this);
+        popup.getScene().getStylesheets().add(Theme.currentTheme.toString());
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
     }

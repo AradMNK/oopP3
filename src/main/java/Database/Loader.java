@@ -1767,4 +1767,8 @@ public class Loader {
         finally {Connector.connector.disconnect();}
         return groupID;
     }
+
+    public static String getGroupPfp(int groupID) {
+        return "";
+    }
 }

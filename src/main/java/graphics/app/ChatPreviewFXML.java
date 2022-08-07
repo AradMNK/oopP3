@@ -72,6 +72,21 @@ public class ChatPreviewFXML {
 
         initContents(group.getName(), Database.Loader.getUserName(message.getUsername()), message.getContent());
     }
+    public void initialize(Group group) {
+        isGroupType = true;
+        this.group = group;
+        if (group.getPfp().getHandle().equals(""))
+            picture.setFill(new ImagePattern(new Image
+                    ((Objects.requireNonNull(Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));
+        else{
+            try {picture.setFill(new ImagePattern(new Image(group.getPfp().getHandle())));}
+            catch (IllegalArgumentException e){AppManager.alert(Alert.AlertType.ERROR, "Unsupported image file!",
+                    "Please choose another image.", "Image could not load!");
+                picture.setFill(new ImagePattern(new Image((Objects.requireNonNull
+                        (Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));}
+        }
+        initContents(group.getName(), "", "(No one has messaged in this group yet...)");
+    }
 
     @FXML void hoverChatPane(){new Pulse(chatPane).play();}
 

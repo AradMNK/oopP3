@@ -3,6 +3,7 @@ package Builder;
 import Database.Loader;
 import Objects.Group;
 import Objects.GroupMessage;
+import Objects.Handle;
 import Objects.SaveHandle;
 
 public class GroupBuilder {
@@ -16,6 +17,9 @@ public class GroupBuilder {
         group.setName(Database.Loader.getGroupName(groupID));
         group.setGroupJoiner(Database.Loader.getGroupJoiner(groupID));
         group.setOwner(UserBuilder.getUserFromDatabase(Database.Loader.getGroupOwner(groupID)));
+        String nullable = Loader.getGroupPfp(groupID);
+        if (nullable == null) nullable = "";
+        group.setPfp(new Handle(nullable));
         return group;
     }
 
