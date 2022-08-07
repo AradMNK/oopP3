@@ -30,13 +30,14 @@ public class AdRecommender {
         Integer[] algorithmic = recommendAdAlgorithmic();
         ArrayList<Integer> append = new ArrayList<>();
         if (algorithmic.length < NUMBER_OF_RECOMMENDED_ADS){
-            Integer username;
+            Integer ID;
             int i = 0;
             while (append.size() < NUMBER_OF_RECOMMENDED_ADS - algorithmic.length && i < NUMBER_OF_TRIES){
-                username = Database.Loader.getRandomAd(Database.Loader.getLikedAds
+                ID = Database.Loader.getRandomAd(Database.Loader.getLikedAds
                         (Loginner.loginnedUser.getUsername()).toArray(new Integer[0]));
-                if (!append.contains(username)) append.add(username);
                 i++;
+                if (ID.equals(0)) continue;
+                if (!append.contains(ID)) append.add(ID);
             }
         }
         Integer[] appended = append.toArray(new Integer[0]);

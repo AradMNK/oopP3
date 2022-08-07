@@ -20,7 +20,7 @@ public class FeedFXML {
     public void initialize(HashSet<Post> posts, HashSet<Comment> comments, HashSet<Like> likes){
         List<Post> postList = posts.stream().toList();
         ArrayList<Post> sortedPost = new ArrayList<>(postList);
-        sortedPost.sort(Comparator.comparing(Post::getDatePosted));
+        sortedPost.sort(Comparator.comparing(Post::getDatePosted).reversed());
 
         if (sortedPost.size() == 0){
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
@@ -35,7 +35,7 @@ public class FeedFXML {
 
         List<Comment> commentList = comments.stream().toList();
         ArrayList<Comment> sortedComments = new ArrayList<>(commentList);
-        sortedComments.sort(Comparator.comparing(Comment::getDate));
+        sortedComments.sort(Comparator.comparing(Comment::getDate).reversed());
 
         if (sortedComments.size() == 0){
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
@@ -62,7 +62,7 @@ public class FeedFXML {
 
     private void addLike(Like like) {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.LIKE_FXML_PATH));
-        try {displayPosts.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+        try {displayLikes.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((LikeFXML)fxmlLoader.getController()).initialize(like);
     }
@@ -73,13 +73,10 @@ public class FeedFXML {
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((PostFXML)fxmlLoader.getController()).initialize(post);
     }
-
     private void addComment(Comment comment) {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POST_FXML_PATH));
-        try {displayPosts.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+        try {displayComments.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((PostFXML)fxmlLoader.getController()).initialize(comment);
     }
-
-
 }

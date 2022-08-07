@@ -28,7 +28,16 @@ public class MainFXML {
 
 
     @FXML void search(){
+        if (searchField.getText().equals("")){
+            AppManager.alert(Alert.AlertType.WARNING,
+                    "Empty search...", "Cannot search for empty string.", "Empty search");
+            return;
+        }
 
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.SEARCH_FXML_PATH));
+        try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
+        ((SearchFXML)fxmlLoader.getController()).initialize(searchField.getText());
     }
     @FXML void home(){
         Feed feed = Loginner.loginnedUser.getFeed();

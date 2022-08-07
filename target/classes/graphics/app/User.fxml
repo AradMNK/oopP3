@@ -91,7 +91,7 @@
       <Text fx:id="username" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="\@username" underline="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
       <Text fx:id="date" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="date" textAlignment="CENTER" underline="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
       <Separator prefWidth="200.0" GridPane.columnSpan="6" GridPane.rowIndex="5" />
-      <Button fx:id="followButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#follow" onMouseEntered="#hoverFollow" style="-fx-font-size: 1.5em;" styleClass="post-button" text="Follow" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <Button fx:id="followButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#follow" onMouseEntered="#hoverFollow" style="-fx-font-size: 1.2em;" styleClass="post-button" text="Follow" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -103,7 +103,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="messageButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#message" onMouseEntered="#hoverMessage" style="-fx-font-size: 1.5em;" styleClass="icon-button" text="Message" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="4" GridPane.rowIndex="4">
+      <Button fx:id="messageButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#message" onMouseEntered="#hoverMessage" style="-fx-font-size: 1.2em;" styleClass="icon-button" text="Message" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="4" GridPane.rowIndex="4">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -115,7 +115,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="postsButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#posts" onMouseEntered="#hoverPosts" style="-fx-font-size: 1.5em;" styleClass="icon-button" text="Posts" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="4">
+      <Button fx:id="postsButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#posts" onMouseEntered="#hoverPosts" style="-fx-font-size: 1.2em;" styleClass="icon-button" text="Posts" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="4">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -127,7 +127,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="blockButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#block" onMouseEntered="#hoverBlock" style="-fx-font-size: 1.5em;" styleClass="icon-button" text="BLOCK" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="4">
+      <Button fx:id="blockButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#block" onMouseEntered="#hoverBlock" style="-fx-font-size: 1.2em;" styleClass="icon-button" text="BLOCK" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -139,7 +139,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="banButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ban" onMouseEntered="#hoverBan" style="-fx-font-size: 1.5em;" styleClass="icon-button" text="BAN" textAlignment="RIGHT" textFill="RED" textOverrun="CLIP" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <Button fx:id="banButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ban" onMouseEntered="#hoverBan" style="-fx-font-size: 1.2em;" styleClass="icon-button" text="BAN" textAlignment="RIGHT" textFill="RED" textOverrun="CLIP" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>

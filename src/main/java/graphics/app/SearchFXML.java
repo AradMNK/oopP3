@@ -16,55 +16,66 @@ import java.io.IOException;
 import java.util.*;
 
 public class SearchFXML {
-    @FXML
-    VBox displayUsers, displayDirects, displayGroups;
+    @FXML VBox displayUsers, displayDirects, displayGroups;
 
     public void initialize(String pattern){
         String[] usernames = Loader.searchForUsers(pattern);
         if (usernames.length == 0){
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
-            try {
-                displayUsers.getChildren().add(loader.load());}
+            try {displayUsers.getChildren().add(loader.load());}
             catch (IOException e) {e.printStackTrace();}
-            ((NoResultsFXML)loader.getController()).initialize("No new posts from your followers yet...");
+            ((NoResultsFXML)loader.getController()).initialize("No users found with \"" + pattern + "\"...");
         }
         else{
             FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH));
-            try {
-                displayUsers.getChildren().add(loader.load());}
+            try {displayUsers.getChildren().add(loader.load());}
             catch (IOException e) {e.printStackTrace();}
             ((UsersFXML)loader.getController()).initialize(usernames);
         }
 
         int[] directs = Loader.searchDirects(Loginner.loginnedUser.getUsername(), pattern);
-        Message[] messages = new Message[directs.length];
-        int i = 0;
-        for (int direct : directs) messages[i++] = MessageBuilder.getMessageFromDatabase(direct);
+        if (directs.length == 0){
+            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
+            try {displayDirects.getChildren().add(loader.load());}
+            catch (IOException e) {e.printStackTrace();}
+            ((NoResultsFXML)loader.getController()).initialize("No messages found with \"" + pattern + "\" in your directs...");
+        } else {
+            Message[] messages = new Message[directs.length];
+            int i = 0;
+            for (int direct : directs) messages[i++] = MessageBuilder.getMessageFromDatabase(direct);
 
-        List<Message> directsList = Arrays.stream(messages).toList();
-        ArrayList<Message> sortedDirects = new ArrayList<>(directsList);
-        sortedDirects.sort(Comparator.comparing(Message::getDate));
-        for (Message message : sortedDirects) addMessageDirect(message);
+            List<Message> directsList = Arrays.stream(messages).toList();
+            ArrayList<Message> sortedDirects = new ArrayList<>(directsList);
+            sortedDirects.sort(Comparator.comparing(Message::getDate).reversed());
+            for (Message message : sortedDirects) addMessageDirect(message);
+        }
+
 
         int[] groups = Loader.searchGroups(Loginner.loginnedUser.getUsername(), pattern);
-        GroupMessage[] groupMessages = new GroupMessage[groups.length];
-        i = 0;
-        for (int group_message: groups) groupMessages[i++] = GroupMessageBuilder.getGroupMessageFromDatabase(group_message);
+        if (groups.length == 0){
+            FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(Utility.NO_RESULTS_FXML_PATH));
+            try {displayGroups.getChildren().add(loader.load());}
+            catch (IOException e) {e.printStackTrace();}
+            ((NoResultsFXML)loader.getController()).initialize("No messages found with \"" + pattern + "\" in your groups...");
+        } else {
+            GroupMessage[] groupMessages = new GroupMessage[groups.length];
+            int i = 0;
+            for (int group_message: groups) groupMessages[i++] = GroupMessageBuilder.getGroupMessageFromDatabase(group_message);
 
-        List<GroupMessage> groupMessageList = Arrays.stream(groupMessages).toList();
-        ArrayList<GroupMessage> sortedGroups = new ArrayList<>(groupMessageList);
-        sortedGroups.sort(Comparator.comparing(GroupMessage::getDate));
-        for (GroupMessage message : sortedGroups) addMessageGroup(message);
+            List<GroupMessage> groupMessageList = Arrays.stream(groupMessages).toList();
+            ArrayList<GroupMessage> sortedGroups = new ArrayList<>(groupMessageList);
+            sortedGroups.sort(Comparator.comparing(GroupMessage::getDate).reversed());
+            for (GroupMessage message : sortedGroups) addMessageGroup(message);
+        }
     }
 
     private void addMessageGroup(GroupMessage message) {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
         try {
-            displayDirects.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+            displayGroups.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((MessageFXML)fxmlLoader.getController()).initialize(message, UserBuilder.getUserFromDatabase(message.getUsername()));
     }
-
     private void addMessageDirect(Message message) {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
         try {
@@ -72,6 +83,4 @@ public class SearchFXML {
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((MessageFXML)fxmlLoader.getController()).initialize(message, UserBuilder.getUserFromDatabase(message.getUsername()));
     }
-
-
 }

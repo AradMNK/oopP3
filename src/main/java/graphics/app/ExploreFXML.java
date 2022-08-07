@@ -36,7 +36,9 @@ public class ExploreFXML {
         Integer[] postIDs = AdRecommender.recommendAd();
         Post[] posts = new Post[postIDs.length];
         int i = 0;
-        for (Integer postID: postIDs) posts[i++] = PostBuilder.getPostFromDatabase(postID);
+        for (Integer postID: postIDs) {
+            posts[i++] = PostBuilder.getPostFromDatabase(postID);
+        }
         if (postIDs.length == 0){
             displayL.getChildren().add(MainFXML.root.noResultRoot
                     ("We cannot recommend any new ads for now :(.\nPlease try again later."));
