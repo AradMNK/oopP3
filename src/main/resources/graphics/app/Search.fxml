@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.SearchFXML">
+   <content>
+      <SplitPane dividerPositions="0.33, 0.66" orientation="VERTICAL">
+         <items>
+            <VBox fx:id="displayUsers" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Users" VBox.vgrow="SOMETIMES" />
+               </children>
+            </VBox>
+            <VBox fx:id="displayDirects" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="In directs" VBox.vgrow="SOMETIMES" />
+               </children>
+            </VBox>
+            <VBox fx:id="displayGroups" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="In groups" VBox.vgrow="SOMETIMES" />
+               </children>
+            </VBox>
+         </items>
+      </SplitPane>
+   </content>
+</ScrollPane>

@@ -117,7 +117,6 @@ public class User {
 
         blocklist.add(username);
         Database.Saver.addToBlocklist(this.username, username);
-        TextController.println("You have blocked the user @" + username + ".");
         return true;
     }
     public boolean unblock(String username) {
@@ -125,7 +124,6 @@ public class User {
 
         blocklist.remove(username);
         Database.Changer.removeFromBlockList(this.username, username);
-        TextController.println("User @" + username + " is removed from the blocklist.");
         return true;
     }
 

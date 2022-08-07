@@ -3,6 +3,7 @@ package graphics.app;
 import Builder.DirectMessengerBuilder;
 import Builder.UserBuilder;
 import Database.Changer;
+import Database.Loader;
 import Login.Loginner;
 import animatefx.animation.Pulse;
 import javafx.beans.binding.Bindings;
@@ -32,7 +33,7 @@ public class UserFXML {
     @FXML Circle picture;
     @FXML Text name, username, bio, subtitle, date;
     @FXML ScrollPane bioPane;
-    @FXML GridPane picturePane;
+    @FXML GridPane picturePane, masterPane;
 
     private void initContents(String name, String username, String bio, String subtitle, LocalDate time){
         this.name.setText(name);
@@ -64,7 +65,7 @@ public class UserFXML {
         blocked = Database.Loader.isUserBlocked(user.getUsername(), Loginner.loginnedUser.getUsername());
         if (Loginner.loginnedUser.getUsername().equals(user.getUsername())) followButton.setDisable(true);
         if (followed) followButton.setText("Unfollow");
-        if (blocked) blockButton.setText("Unblock");
+        if (blocked) blockButton.setText("UNBLOCK");
     }
     public void initializeGroupOwnerMode(Group group){
         banButton.setVisible(true);
@@ -85,12 +86,12 @@ public class UserFXML {
     @FXML void block(){
         if (blocked){
             Loginner.loginnedUser.unblock(internalUser.getUsername());
-            blockButton.setText("Block");
+            blockButton.setText("BLOCK");
             blocked = false;
             return;
         }
         Loginner.loginnedUser.block(internalUser.getUsername());
-        blockButton.setText("Unblock");
+        blockButton.setText("UNBLOCK");
         blocked = true;
     }
     @FXML void ban(){
@@ -122,4 +123,47 @@ public class UserFXML {
     @FXML void hoverBlock(){new Pulse(blockButton).play();}
     @FXML void hoverBan(){new Pulse(banButton).play();}
     @FXML void hoverPosts(){new Pulse(postsButton).play();}
+
+    public void initializeGroupBehaviorAdd(Group group) {
+        masterPane.setOnMouseClicked(e->addToGroup(group));
+        masterPane.setOnMouseEntered(e->new Pulse(masterPane).play());
+    }
+
+    private void addToGroup(Group group) {
+        if (group.getParticipants().stream().anyMatch(u->u.getUsername().equals(internalUser.getUsername()))){
+            AppManager.alert(Alert.AlertType.ERROR, "User is already in your group!",
+                    "Try other people.", "Already added!");
+            return;
+        }
+        if (Loader.isUserBanned(group.getGroupID().getHandle(), internalUser.getUsername())){
+            AppManager.alert(Alert.AlertType.ERROR, "User is banned!",
+                    "Try unbanning them first.", "BANNED!");
+            return;
+        }
+
+        group.getParticipants().add(internalUser);
+        Changer.addUserToGroup(internalUser.getUsername(), group.getGroupID().getHandle());
+        GroupStatsFXML.popup.close();
+    }
+
+    public void initializeGroupBehaviorUnban(Group group) {
+        masterPane.setOnMouseClicked(e->unbanFromGroup(group));
+        masterPane.setOnMouseEntered(e->new Pulse(masterPane).play());
+    }
+
+    private void unbanFromGroup(Group group) {
+        if (group.getParticipants().stream().anyMatch(u->u.getUsername().equals(internalUser.getUsername()))){
+            AppManager.alert(Alert.AlertType.ERROR, "User is already in your group!",
+                    "Try other people.", "Already in!");
+            return;
+        }
+        if (!Loader.isUserBanned(group.getGroupID().getHandle(), internalUser.getUsername())){
+            AppManager.alert(Alert.AlertType.ERROR, "User is not banned!",
+                    "Maybe you were looking for other users...", "NOT BANNED!");
+            return;
+        }
+
+        Changer.removeFromBanList(group.getGroupID().getHandle(), internalUser.getUsername());
+        GroupStatsFXML.popup.close();
+    }
 }

@@ -190,6 +190,8 @@ public class ChatFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR, "Exception occurred.",
                 e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((MessageFXML)fxmlLoader.getController()).initialize(newMessage, Loginner.loginnedUser);
+
+
     }
     private void sendMessage() {
         LocalDateTime now = LocalDateTime.now();
@@ -209,6 +211,9 @@ public class ChatFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR, "Exception occurred.",
                 e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((MessageFXML)fxmlLoader.getController()).initialize(newMessage, Loginner.loginnedUser);
+
+        if (Loginner.loginnedUser.getChats().stream().noneMatch(username -> username.equals(dm.getRecipient().getUsername())))
+            Loginner.loginnedUser.getChats().add(dm.getRecipient().getUsername());
     }
 
     @FXML void hoverSend(){new Pulse(sendButton).play();}
