@@ -1769,6 +1769,22 @@ public class Loader {
     }
 
     public static String getGroupPfp(int groupID) {
-        return "";
+        //declares the groupID
+        String pfp = null;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            resultSet = connection.prepareStatement("SELECT pfp FROM group_chats WHERE groupID = "
+                                                        + groupID + ";").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()){
+                pfp = resultSet.getString(1);
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return pfp;
     }
 }
