@@ -284,7 +284,7 @@ public class ChatFXML {
         newMessage.setID(new SaveHandle(Saver.addToGroupMessages(group.getGroupID().getHandle(),
                 Loginner.loginnedUser.getUsername(), forwardingMessage.getOriginalUsername(), forwardingMessage.getOriginalMessage().getHandle(),
                 now, forwardingMessage.getContent(), 0)));
-        if (group.getGroupID().equals(this.group.getGroupID())) {
+        if (this.group != null && group.getGroupID().equals(this.group.getGroupID())) {
             newMessage.setDate(now);
             newMessage.setContent(forwardingMessage.getContent());
             newMessage.setOriginalMessage(forwardingMessage.getID());
@@ -305,7 +305,7 @@ public class ChatFXML {
         newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
                 forwardingMessage.getOriginalUsername(), forwardingMessage.getOriginalMessage().getHandle(),
                 now, forwardingMessage.getContent(), 0)));
-        if (dm.getRecipient().getUsername().equals(this.dm.getRecipient().getUsername())) {
+        if (this.dm != null && dm.getRecipient().getUsername().equals(this.dm.getRecipient().getUsername())) {
             newMessage.setDate(now);
             newMessage.setContent(forwardingMessage.getContent());
             newMessage.setOriginalMessage(forwardingMessage.getID());
