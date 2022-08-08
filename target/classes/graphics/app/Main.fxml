@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="150.0" prefHeight="546.0" prefWidth="893.0" snapToPixel="false" vgap="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.MainFXML">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="150.0" prefHeight="676.0" prefWidth="919.0" snapToPixel="false" vgap="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.MainFXML">
    <columnConstraints>
       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="200.0" percentWidth="30.0" />
       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="448.477025587094" prefWidth="458.58460660494336" />
@@ -86,6 +86,18 @@
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Icons/Home.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="logoutButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" onMouseEntered="#hoverLogout" styleClass="icon-button" text="Logout" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/Logout.png" />
                      </image>
                      <viewport>
                         <Rectangle2D />

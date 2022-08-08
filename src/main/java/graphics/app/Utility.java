@@ -44,8 +44,8 @@ public class Utility {
     LIGHT_MODE_CSS_PATH = "Light.css",
     DARK_MODE_CSS_PATH = "Dark.css",
 
-    UNKNOWN_USER_PICTURE = "unknown user.jpg",
-    GROUP_PICTURE_PATH = "Icons/Group.png",
+    UNKNOWN_USER_PICTURE = "Default/Default User.jpg",
+    GROUP_PICTURE_PATH = "Default/Default Group.png",
     ICON_PATH = "instakilogram.png";
 
     public static final int PREF_WIDTH = 900, PREF_HEIGHT = 600,

@@ -66,9 +66,10 @@ public class GroupStatsFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((EditGroupFXML)fxmlLoader.getController()).initialize(this, group);
-        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.getScene().getStylesheets().add(Theme.currentTheme.toString());
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
+        updateContent();
     }
 
     @FXML void hoverUnban(){new Pulse(unbanButton).play();}

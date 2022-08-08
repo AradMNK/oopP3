@@ -3,6 +3,7 @@ package graphics.app;
 import Database.Changer;
 import Database.Loader;
 import Objects.Group;
+import Objects.Handle;
 import animatefx.animation.Pulse;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -32,8 +33,18 @@ public class EditGroupFXML {
         this.group = group;
         picturePath = group.getPfp().getHandle();
         this.root = root;
-        picture.setFill(new ImagePattern(new Image
-                ((Objects.requireNonNull(Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));
+        if (group.getPfp().getHandle().equals(""))
+            picture.setFill(new ImagePattern(new Image
+                    ((Objects.requireNonNull(Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));
+        else{
+            try {picture.setFill(new ImagePattern(new Image(group.getPfp().getHandle())));}
+            catch (IllegalArgumentException e){AppManager.alert(Alert.AlertType.ERROR, "Unsupported image file!",
+                    "Please choose another image.", "Image could not load!");
+                picture.setFill(new ImagePattern(new Image((Objects.requireNonNull
+                        (Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));}
+        }
+        linkField.setText(group.getGroupJoiner());
+        nameField.setText(group.getName());
         picture.radiusProperty().bind(Bindings.min(picturePane.heightProperty(), picturePane.widthProperty()).divide(2));
     }
 
@@ -51,7 +62,7 @@ public class EditGroupFXML {
             return;
         }
 
-        if (Loader.groupJoinerExists(linkField.getText())){
+        if (!linkField.getText().equals(group.getGroupJoiner()) && Loader.groupJoinerExists(linkField.getText())){
             AppManager.alert(Alert.AlertType.ERROR, "This link already exists! [@" + linkField.getText() + "]",
                     "Please choose a new one and continue.", "Already exists!");
             return;
@@ -59,13 +70,15 @@ public class EditGroupFXML {
 
         group.setName(nameField.getText());
         group.setGroupJoiner(linkField.getText());
+        group.setPfp(new Handle(picturePath));
         Changer.changeGroupJoiner(group.getGroupID().getHandle(), group.getGroupJoiner());
         Changer.changeGroupName(group.getGroupID().getHandle(), group.getName());
+        Changer.changeGroupPfp(group.getGroupID().getHandle(), picturePath);
 
+        GroupStatsFXML.popup.close();
         root.updateContent();
     }
-    @FXML void back(){
-        GroupStatsFXML.popup.close();}
+    @FXML void back(){GroupStatsFXML.popup.close();}
 
     @FXML void hoverCreate(){new Pulse(createButton).play();}
     @FXML void hoverBack(){new Pulse(backButton).play();}

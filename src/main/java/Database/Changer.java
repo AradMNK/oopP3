@@ -243,4 +243,8 @@ public class Changer {
     public static void changeGroupName(int handle, String name) {
         //FIXME
     }
+
+    public static void changeGroupPfp(int handle, String picturePath) {
+
+    }
 }
