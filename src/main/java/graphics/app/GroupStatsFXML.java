@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -44,6 +45,8 @@ public class GroupStatsFXML {
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((UserSearcherFXML)fxmlLoader.getController()).initializeAdd(group);
         popup.getScene().getStylesheets().add(Theme.currentTheme.toString());
+        if (Theme.currentTheme == Theme.DARK) popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
+        else popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
         updateContent();
@@ -56,6 +59,8 @@ public class GroupStatsFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((UserSearcherFXML)fxmlLoader.getController()).initializeUnban(group);
+        if (Theme.currentTheme == Theme.DARK) popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
+        else popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
         updateContent();
@@ -69,6 +74,8 @@ public class GroupStatsFXML {
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((EditGroupFXML)fxmlLoader.getController()).initialize(this, group);
         popup.getScene().getStylesheets().add(Theme.currentTheme.toString());
+        if (Theme.currentTheme == Theme.DARK) popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
+        else popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
         updateContent();

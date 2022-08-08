@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -84,6 +85,8 @@ public class ChatsFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                     "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((NewGroupFXML)fxmlLoader.getController()).initialize(this);
+        if (Theme.currentTheme == Theme.DARK) popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
+        else popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
         popup.getScene().getStylesheets().add(Theme.currentTheme.toString());
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
@@ -108,6 +111,8 @@ public class ChatsFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((JoinGroupFXML)fxmlLoader.getController()).initialize(this);
+        if (Theme.currentTheme == Theme.DARK) popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
+        else popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
     }
