@@ -1670,13 +1670,12 @@ public class Loader {
                 if (i != postsNotToBeIncluded.length - 1)
                     query.append("postID = ").append(postsNotToBeIncluded[i]).append(" OR ");
                 else {
-                    query.append("postID = ").append(postsNotToBeIncluded[i]).append(" OR username = '"
-                            + username + "') AND type = 'business' ORDER BY RAND() LIMIT 1;");
+                    query.append("postID = ").append(postsNotToBeIncluded[i]).append(" OR username = '").append(username).append("') AND type = 'business' ORDER BY RAND() LIMIT 1;");
                 }
             }
         }
         else {
-            query.append("WHERE NOT username = '" + username + "' AND type = 'business' ORDER BY RAND() LIMIT 1");
+            query.append("WHERE NOT username = '").append(username).append("' AND type = 'business' ORDER BY RAND() LIMIT 1");
         }
 
         //declares the post ID in the resultSet
