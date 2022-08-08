@@ -38,7 +38,7 @@ public class Launcher extends Application {
     }
 
     private static void tryToConnect(){
-        TextController.println("Enter your database password: System.Recreate1");
+        TextController.println("Enter your database password:");
         Connector.setPass(TextController.getLine());
         if (!Connector.checkConnection()){
             TextController.println("Unable to make connection to database.");

@@ -236,10 +236,10 @@
 	-fx-background-color: #655d69;
 }
 .post-button:focused:hover {
-	-fx-background-color: #b1a8b5;
+	-fx-background-color: #252426;
 }
 .post-button:hover {
-    -fx-background-color: #a095a6;
+    -fx-background-color: #1b1a1c;
 	-fx-border-radius: 10;
 }
 .post-button:default {
