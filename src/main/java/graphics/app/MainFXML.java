@@ -154,7 +154,7 @@ public class MainFXML {
         setDisplayTo(root);
     }
     @FXML void stats(){
-        if (Loginner.loginnedUser.getPosts().size() != 0){
+        if (Loginner.loginnedUser.getPosts().size() == 0){
             noResult("You have no posts yet to record views...");
             return;
         }
@@ -162,6 +162,7 @@ public class MainFXML {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.STATS_FXML_PATH));
         try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
+        ((StatsFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getPosts());
     }
 
     @FXML void hoverSearchButton(){new Pulse(searchButton).play();}

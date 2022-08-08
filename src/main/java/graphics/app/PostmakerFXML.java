@@ -5,7 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import org.controlsfx.control.Notifications;
 
@@ -16,16 +20,21 @@ public class PostmakerFXML {
 
     @FXML TextArea inputMessage;
     @FXML Button attachButton, cancelButton, postButton;
-    @FXML ImageView picture;
+    @FXML Rectangle picture;
+    @FXML GridPane picturePane;
+
+    public void initialize(){
+        picture.widthProperty().bind(picturePane.widthProperty());
+        picture.heightProperty().bind(picturePane.heightProperty());
+    }
 
     @FXML void attach(){
         FileChooser fileChooser = new FileChooser();
         try {
             picturePath = fileChooser.showOpenDialog(AppManager.mainStage).toURI().toURL().toString();
-            picture = new ImageView(picturePath);
-            picture.setPreserveRatio(true);
-            picture.setFitWidth(50);
-        } catch (MalformedURLException e) {e.printStackTrace();}
+            picture.setVisible(true);
+            picture.setFill(new ImagePattern(new Image(picturePath)));
+        } catch (Exception e) {e.printStackTrace();}
     }
     @FXML void cancel(){
         MainFXML.root.removeDisplay();
