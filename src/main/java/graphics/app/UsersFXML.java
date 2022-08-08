@@ -41,16 +41,16 @@ public class UsersFXML {
         for (String user: users) addUserForUnbanGroup(UserBuilder.getUserFromDatabase(user), group);
     }
 
-    public void initializeOwnerMode(HashSet<User> users, Group group){
-        for (User user: users) addUserOwnerMode(user, group);
+    public void initializeOwnerMode(HashSet<User> users, Group group, GroupStatsFXML groupStatsFXML){
+        for (User user: users) addUserOwnerMode(user, group, groupStatsFXML);
     }
 
-    private void addUserOwnerMode(User user, Group group) {
+    private void addUserOwnerMode(User user, Group group, GroupStatsFXML groupStatsFXML) {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USER_FXML_PATH));
         try {display.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((UserFXML)fxmlLoader.getController()).initialize(user);
-        ((UserFXML)fxmlLoader.getController()).initializeGroupOwnerMode(group);
+        ((UserFXML)fxmlLoader.getController()).initializeGroupOwnerMode(group, groupStatsFXML);
     }
 
     public void initialize(HashSet<User> users) {

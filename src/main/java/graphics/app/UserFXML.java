@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class UserFXML {
+    GroupStatsFXML groupEditController;
     Group internalGroup;
     User internalUser;
     boolean followed, blocked;
@@ -71,7 +72,8 @@ public class UserFXML {
         if (followed) followButton.setText("Unfollow");
         if (blocked) blockButton.setText("UNBLOCK");
     }
-    public void initializeGroupOwnerMode(Group group){
+    public void initializeGroupOwnerMode(Group group, GroupStatsFXML groupStatsFXML){
+        groupEditController = groupStatsFXML;
         banButton.setVisible(true);
         internalGroup = group;
     }
@@ -101,6 +103,7 @@ public class UserFXML {
     @FXML void ban(){
         Changer.removeParticipant(internalGroup.getGroupID().getHandle(), internalUser.getUsername());
         internalGroup.getParticipants().remove(internalUser);
+        groupEditController.updateParticipants();
     }
     @FXML void posts(){
         User userWithPosts = UserBuilder.getUserFromDatabaseWithPosts(internalUser.getUsername());

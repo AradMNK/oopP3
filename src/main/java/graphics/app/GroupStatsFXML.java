@@ -47,6 +47,7 @@ public class GroupStatsFXML {
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
         updateContent();
+        updateParticipants();
     }
     @FXML void unban(){
         popup = new Stage(StageStyle.UTILITY);
@@ -58,6 +59,7 @@ public class GroupStatsFXML {
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
         updateContent();
+        updateParticipants();
     }
     @FXML void edit(){
         popup = new Stage(StageStyle.UTILITY);
@@ -90,7 +92,7 @@ public class GroupStatsFXML {
         name.setText(group.getName());
         link.setText(group.getGroupJoiner());
     }
-    private void updateParticipants() {
+    public void updateParticipants() {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH));
         try {participants.getChildren().add(fxmlLoader.load());}
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
@@ -98,7 +100,7 @@ public class GroupStatsFXML {
 
         if (Loginner.loginnedUser.getUsername().equals(group.getOwner().getUsername())) {
             unbanButton.setVisible(true);
-            ((UsersFXML)fxmlLoader.getController()).initializeOwnerMode(group.getParticipants(), group);
+            ((UsersFXML)fxmlLoader.getController()).initializeOwnerMode(group.getParticipants(), group, this);
         } else ((UsersFXML)fxmlLoader.getController()).initialize(group.getParticipants());
     }
 }
