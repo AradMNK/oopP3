@@ -1729,7 +1729,7 @@ public class Loader {
         ResultSet resultSet;
         try {
             resultSet = connection.prepareStatement("SELECT banList FROM group_chats WHERE groupID = "
-                                                        + groupID + ";").executeQuery();
+                                                        + groupID + " AND banList IS NOT NULL;").executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){

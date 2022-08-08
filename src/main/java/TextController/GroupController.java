@@ -118,6 +118,7 @@ public class GroupController {
         }
 
         Database.Changer.addUserToGroup(username, group.getGroupID().getHandle());
+        Database.Changer.removeFromBanList(group.getGroupID().getHandle(), username);
         group.getParticipants().add(UserBuilder.getUserFromDatabase(username));
         TextController.println("User @" + username + " was added successfully.");
     }
