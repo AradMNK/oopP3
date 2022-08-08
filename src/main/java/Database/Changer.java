@@ -245,6 +245,6 @@ public class Changer {
     }
 
     public static void changeGroupPfp(int handle, String picturePath) {
-
+        //FIXME
     }
 }
