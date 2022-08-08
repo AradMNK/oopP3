@@ -5,19 +5,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <ScrollPane fitToWidth="true" prefWidth="280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.ExploreFXML">
    <content>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL">
          <items>
             <VBox fx:id="displayL" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ads" VBox.vgrow="SOMETIMES" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Ads" VBox.vgrow="SOMETIMES" />
                </children>
             </VBox>
             <VBox fx:id="displayR" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="People you may know:" VBox.vgrow="SOMETIMES" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="People you may know:" VBox.vgrow="SOMETIMES" />
                </children>
             </VBox>
          </items>

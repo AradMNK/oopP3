@@ -11,17 +11,17 @@
          <items>
             <VBox fx:id="displayUsers" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Users" VBox.vgrow="SOMETIMES" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Users" VBox.vgrow="SOMETIMES" />
                </children>
             </VBox>
             <VBox fx:id="displayDirects" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="In directs" VBox.vgrow="SOMETIMES" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="In directs" VBox.vgrow="SOMETIMES" />
                </children>
             </VBox>
             <VBox fx:id="displayGroups" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="In groups" VBox.vgrow="SOMETIMES" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="In groups" VBox.vgrow="SOMETIMES" />
                </children>
             </VBox>
          </items>

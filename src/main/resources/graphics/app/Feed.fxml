@@ -5,24 +5,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.FeedFXML">
    <content>
       <SplitPane dividerPositions="0.33, 0.66" orientation="VERTICAL">
          <items>
             <VBox fx:id="displayPosts" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New posts" VBox.vgrow="SOMETIMES" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="New posts" VBox.vgrow="SOMETIMES" />
                </children>
             </VBox>
             <VBox fx:id="displayComments" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Comments" VBox.vgrow="SOMETIMES" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="New Comments" VBox.vgrow="SOMETIMES" />
                </children>
             </VBox>
             <VBox fx:id="displayLikes" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Likes" VBox.vgrow="SOMETIMES" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="New Likes" VBox.vgrow="SOMETIMES" />
                </children>
             </VBox>
          </items>

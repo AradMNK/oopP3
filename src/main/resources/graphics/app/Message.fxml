@@ -74,7 +74,10 @@
          <font>
             <Font name="System Bold" size="11.815384864807129" />
          </font></Text>
-      <Text fx:id="date" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="date" textAlignment="CENTER" underline="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Text fx:id="date" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="date" textAlignment="CENTER" underline="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets bottom="5.0" />
+         </GridPane.margin></Text>
       <GridPane fx:id="messagePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="112.0" prefWidth="449.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
@@ -128,7 +131,10 @@
             </ImageView>
          </graphic>
       </Button>
-      <Separator maxWidth="1.7976931348623157E308" prefWidth="200.0" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
+      <Separator maxWidth="1.7976931348623157E308" prefWidth="200.0" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets top="15.0" />
+         </GridPane.margin></Separator>
       <Text fx:id="forwarded" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Forwarded from" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
          <font>
             <Font name="System Italic" size="11.815384864807129" />

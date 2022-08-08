@@ -7,21 +7,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <ScrollPane fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.ChatsFXML">
    <content>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefWidth="237.0">
          <items>
             <VBox fx:id="displayDirects" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Directs" VBox.vgrow="SOMETIMES" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Directs" VBox.vgrow="SOMETIMES" />
                </children>
             </VBox>
             <VBox fx:id="displayGroups" alignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="200.0" spacing="10.0">
                <children>
                   <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Groups" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Groups" />
                         <Button fx:id="newGroupButton" alignment="CENTER" mnemonicParsing="false" onAction="#newGroup" style="-fx-font-size: 1em;" text="+NEW" />
                         <Button fx:id="joinGroupButton" alignment="CENTER" mnemonicParsing="false" onAction="#joinGroup" style="-fx-font-size: 1em;" text="Join" />
                      </children>

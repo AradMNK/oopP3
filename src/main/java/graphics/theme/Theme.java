@@ -38,7 +38,9 @@ public enum Theme {
             throw new ThemeException();
         }
         String read;
-        try {read = Objects.requireNonNull(bufferedReader).readLine();
+        try {read = bufferedReader.readLine();
+            fileReader.close();
+            bufferedReader.close();
         } catch (IOException e) {
             TextController.println("Could not read.");
             e.printStackTrace();
@@ -67,6 +69,7 @@ public enum Theme {
         try {
             if (this == Theme.LIGHT) fileWriter.write(Utility.THEME_SAVED_LIGHT);
             else fileWriter.write(Utility.THEME_SAVED_DARK);
+            fileWriter.close();
         } catch (IOException e) {
             TextController.println("Could not write!");
             e.printStackTrace();

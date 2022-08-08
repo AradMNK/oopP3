@@ -81,7 +81,7 @@ public class ChatPreviewFXML {
                         (Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));}
         }
         initContents(group.getName(), Database.Loader.getUserName(message.getUsername()), message.getContent());
-        int unread = Loader.getUnreadCountForGroupID(dm.getUser().getUsername(), group.getGroupID().getHandle());
+        int unread = Loader.getUnreadCountForGroupID(Loginner.loginnedUser.getUsername(), group.getGroupID().getHandle());
         if (unread == 0) unreadLabel.setVisible(false);
         else unreadLabel.setText(Integer.toString(unread));
     }
@@ -99,7 +99,7 @@ public class ChatPreviewFXML {
                         (Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));}
         }
         initContents(group.getName(), "", "(No one has messaged in this group yet...)");
-        int unread = Loader.getUnreadCountForGroupID(dm.getUser().getUsername(), group.getGroupID().getHandle());
+        int unread = Loader.getUnreadCountForGroupID(Loginner.loginnedUser.getUsername(), group.getGroupID().getHandle());
         if (unread == 0) unreadLabel.setVisible(false);
         else unreadLabel.setText(Integer.toString(unread));
     }

@@ -239,7 +239,7 @@
 	-fx-background-color: #252426;
 }
 .post-button:hover {
-    -fx-background-color: #a095a6;
+    -fx-background-color: #1b1a1c;
 	-fx-border-radius: 10;
 }
 .post-button:default {
@@ -433,11 +433,11 @@
     -fx-border-width: 1;
 }
 .separator:horizontal .line {    
-    -fx-background-color: rgb(238,239,242),linear-gradient(to right,#2c2b33 0%,#7b7882 15%,#7b7882 85%,#2c2b33 100%);
+    -fx-background-color: #3c404d, linear-gradient(to right,#2c2b33 0%,#1a1a1c 15%,#1a1a1c 85%,#2c2b33 100%);
     -fx-background-insets: 1 1 0 1,1;
 }
 .separator:vertical .line {    
-    -fx-background-color: rgb(238,239,242), linear-gradient(to bottom,#2c2b33 0%,#7b7882 15%,#7b7882 85%,#2c2b33 100%);
+    -fx-background-color: #3c404d, linear-gradient(to right,#2c2b33 0%,#1a1a1c 15%,#1a1a1c 85%,#2c2b33 100%);
     -fx-background-insets: 1 0 1 1,1;
 }
 /*******************************************************************************
@@ -1867,10 +1867,10 @@
  *                                                                             *
  ******************************************************************************/
 .vbar{
-	-fx-fill: #090117;
-	-fx-stroke: #1d1b21;
+	-fx-fill: #171717;
+	-fx-stroke: #0d0d0d;
 }
 .hbar{
-	-fx-fill: #040a26;
+	-fx-fill: #030617;
 	-fx-stroke: transparent;
 }
