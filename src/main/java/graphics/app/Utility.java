@@ -52,7 +52,7 @@ public class Utility {
     SCENE_FILL_LIGHT = "ffffff",
 
     UNKNOWN_USER_PICTURE = "Default/Default User.jpg",
-    GROUP_PICTURE_PATH = "Default/Default Group.png",
+    GROUP_PICTURE_PATH = "Default/Default Group.jpg",
     ICON_PATH = "instakilogram.png",
 
     SAVED_MESSAGES = "Saved messages";
