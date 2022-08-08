@@ -1676,7 +1676,7 @@ public class Loader {
             }
         }
         else {
-            query.append("WHERE NOT username = '" + username + "' type = 'business' ORDER BY RAND() LIMIT 1");
+            query.append("WHERE NOT username = '" + username + "' AND type = 'business' ORDER BY RAND() LIMIT 1");
         }
 
         //declares the post ID in the resultSet
