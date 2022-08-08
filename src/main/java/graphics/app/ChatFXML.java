@@ -95,7 +95,9 @@ public class ChatFXML {
             }
             ((MessageFXML)fxmlLoader.getController()).initialize(message, messenger);
         }
-        initContents(dm.getRecipient().getName());
+        if (dm.getRecipient().getUsername().equals(Loginner.loginnedUser.getUsername()))
+            initContents(Utility.SAVED_MESSAGES);
+        else initContents(dm.getRecipient().getName());
     }
     public void initialize(Group group){
         this.group = group;
