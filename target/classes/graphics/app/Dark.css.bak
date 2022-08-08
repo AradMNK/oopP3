@@ -176,35 +176,35 @@
  *                                                                             *
  ******************************************************************************/
 .icon-button {   
-    -fx-background-color: #7d7a85;
+    -fx-background-color: #4a484f;
 	-fx-font-size: 200%;
 }
 .icon-button:focused {	
-	-fx-background-color: rgba(71, 68, 79, 0.4);
+	-fx-background-color: rgba(101, 99, 105, 0.4);
 }
 .icon-button:focused:hover {
-	-fx-background-color: rgba(71, 68, 79, 0.2);
+	-fx-background-color: rgba(101, 99, 105, 0.2);
 }
 .icon-button:hover {
     -fx-background-color: rgba(255,255,255, 0.5);
 	-fx-border-radius: 10;
 }
 .icon-button:default {
-	-fx-background-color: rgba(71, 68, 79, 0.4);
+	-fx-background-color: rgba(101, 99, 105, 0.4);
 }
 .icon-button:default:hover {
 	-fx-background-color: rgba(255,255,255, 0.5);
 }
 .icon-button:default:focused {
-	-fx-background-color: rgba(71, 68, 79, 0.4);
+	-fx-background-color: rgba(101, 99, 105, 0.4);
 }
 .icon-button:default:focused:hover {
-    -fx-background-color: rgba(71, 68, 79, 0.3);
+    -fx-background-color: rgba(101, 99, 105, 0.3);
 	-fx-border-radius: 10;
 }
 .icon-button:focused:hover:pressed, .icon-button:armed,
 .icon-button:default:focused:hover:pressed, .icon-button:default:armed {
-    -fx-background-color: rgba(71, 68, 79, 0.5);
+    -fx-background-color: rgba(101, 99, 105, 0.5);
 	-fx-border-radius: 10;
     -fx-background-insets: -0.4,1,2,3;   
 }

@@ -177,6 +177,7 @@
  ******************************************************************************/
 .icon-button {   
     -fx-background-color: #4a484f;
+	-fx-text-fill:#ccdaed;
 	-fx-font-size: 200%;
 }
 .icon-button:focused {	

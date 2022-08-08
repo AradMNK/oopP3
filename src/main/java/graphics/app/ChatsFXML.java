@@ -32,7 +32,7 @@ public class ChatsFXML {
     }
     private void addGroup(Group group){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_PREVIEW_FXML_PATH));
-        try {displayGroups.getChildren().add(0, fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+        try {displayGroups.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         if (group.getShownMessages().size() == 0) ((ChatPreviewFXML)fxmlLoader.getController()).initialize(group);
         else ((ChatPreviewFXML)fxmlLoader.getController()).initialize(group, group.getShownMessages().get(0));
@@ -57,7 +57,7 @@ public class ChatsFXML {
             dateTimesGroups[i++] = group.getShownMessages().get(0).getDate();
             else dateTimesGroups[i++] = LocalDateTime.MIN;
         }
-        sortedGroups.sort(Comparator.comparing(group -> dateTimesGroups[groupsList.indexOf(group)]));
+        sortedGroups.sort(Comparator.comparing(group -> dateTimesGroups[groupsList.indexOf(group)]).reversed());
         for (Group group : sortedGroups) addGroup(group);
     }
 
