@@ -2,6 +2,8 @@ package Database;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Changer {
     public static void removePostFromFeed(String username, int postID) {
@@ -248,5 +250,27 @@ public class Changer {
     public static void changeGroupPfp(int handle, String picturePath) {
         Connector.queryWithoutResult
                 ("UPDATE group_chats SET pfp = '" + picturePath + "' WHERE groupID = " + handle + ";");
+    }
+
+    public static void truncate (LocalDateTime date){
+        //formats date and time
+        DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = date.format(formatObj);
+
+        Connector.queryWithoutResult("CREATE EVENT e_likestat\n" +
+                                                "    ON SCHEDULE\n" +
+                                                "        EVERY 1 DAY\n" +
+                                                "        STARTS '" + formattedDate + "' -- Time to start\n" +
+                                                "    COMMENT 'Descriptive comment'\n" +
+                                                "    DO\n" +
+                                                "        TRUNCATE likestat;");
+
+        Connector.queryWithoutResult("CREATE EVENT e_view\n" +
+                                                "    ON SCHEDULE\n" +
+                                                "        EVERY 1 DAY\n" +
+                                                "        STARTS '" + formattedDate + "' -- Time to start\n" +
+                                                "    COMMENT 'Descriptive comment'\n" +
+                                                "    DO\n" +
+                                                "        TRUNCATE view;");
     }
 }

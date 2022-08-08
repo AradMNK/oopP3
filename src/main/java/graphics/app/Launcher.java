@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Launcher extends Application {
     @Override
@@ -15,7 +16,7 @@ public class Launcher extends Application {
 
     public static void main(String[] args) {
         if (connectAndSelectMode()) launch();
-        else TextController.inputCommand();
+        else Database.Changer.truncate(LocalDateTime.now());
     }
 
     public static boolean connectAndSelectMode() {

@@ -82,9 +82,28 @@ public class Saver {
                         + usernameFollowed + "');");
     }
 
-    public static void addToLikes(int postID, String username) {
+    public static int addToLikes(int postID, String username) {
         Connector.queryWithoutResult
                 ("INSERT INTO likes (postID, username) VALUES (" + postID + ", '" + username + "');");
+
+        //declares the likeID
+        int likeID = 0;
+
+        Connection connection = Connector.connector.connect();
+        ResultSet resultSet;
+        try {
+            //adds to new messages
+            resultSet = connection.prepareStatement("SELECT likeID FROM likes"
+                                                        + " ORDER BY likeID DESC LIMIT 1;").executeQuery();
+
+            //checks if the resultSet isn't empty
+            if (resultSet.next()) {
+                likeID = resultSet.getInt(1);
+            }
+        }
+        catch (SQLException e) {e.printStackTrace();}
+        finally {Connector.connector.disconnect();}
+        return likeID;
     }
 
     public static void updateFeedsFromLike(String username, int ID) {
