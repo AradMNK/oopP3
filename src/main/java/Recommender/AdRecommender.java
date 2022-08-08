@@ -33,7 +33,7 @@ public class AdRecommender {
             Integer ID;
             int i = 0;
             while (append.size() < NUMBER_OF_RECOMMENDED_ADS - algorithmic.length && i < NUMBER_OF_TRIES){
-                ID = Database.Loader.getRandomAd(Database.Loader.getLikedAds
+                ID = Database.Loader.getRandomAd(Loginner.loginnedUser.getUsername(), Database.Loader.getLikedAds
                         (Loginner.loginnedUser.getUsername()).toArray(new Integer[0]));
                 i++;
                 if (ID.equals(0)) continue;
