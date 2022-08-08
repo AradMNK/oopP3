@@ -1661,7 +1661,7 @@ public class Loader {
         return chats;
     }
 
-    public static int getRandomAd (Integer[] postsNotToBeIncluded){
+    public static int getRandomAd (int username, Integer[] postsNotToBeIncluded){
         //declares the sql
         StringBuilder query = new StringBuilder("SELECT postID FROM posts ");
         if (postsNotToBeIncluded.length != 0) {
@@ -1670,12 +1670,13 @@ public class Loader {
                 if (i != postsNotToBeIncluded.length - 1)
                     query.append("postID = ").append(postsNotToBeIncluded[i]).append(" OR ");
                 else {
-                    query.append("postID = ").append(postsNotToBeIncluded[i]).append(") AND type = 'business' ORDER BY RAND() LIMIT 1;");
+                    query.append("postID = ").append(postsNotToBeIncluded[i]).append(" OR username = '"
+                            + username + "') AND type = 'business' ORDER BY RAND() LIMIT 1;");
                 }
             }
         }
         else {
-            query.append("WHERE type = 'business' ORDER BY RAND() LIMIT 1");
+            query.append("WHERE NOT username = '" + username + "' type = 'business' ORDER BY RAND() LIMIT 1");
         }
 
         //declares the post ID in the resultSet
