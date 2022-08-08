@@ -54,7 +54,11 @@ public class CommentsFXML {
     }
 
     @FXML void cancel(){
-        MainFXML.root.removeDisplay(); //FIXME
+        MainFXML.root.removeDisplay();
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTS_FXML_PATH));
+        try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
+        ((PostsFXML)fxmlLoader.getController()).initialize(post.getPoster().getPosts());
     }
     @FXML void comment(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.COMMENTMAKER_FXML_PATH));
