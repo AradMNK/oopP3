@@ -241,10 +241,12 @@ public class Changer {
 
 
     public static void changeGroupName(int handle, String name) {
-        //FIXME
+        Connector.queryWithoutResult
+                ("UPDATE group_chats SET name = '" + name + "' WHERE groupID = " + handle + ";");
     }
 
     public static void changeGroupPfp(int handle, String picturePath) {
-        //FIXME
+        Connector.queryWithoutResult
+                ("UPDATE group_chats SET pfp = '" + picturePath + "' WHERE groupID = " + handle + ";");
     }
 }
