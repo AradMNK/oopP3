@@ -1005,12 +1005,12 @@
     -fx-background-radius: 5;
 }
 .combo-box-base:editable:hover .text-field {
-    -fx-background-color: transparent,#15151f,#e0dff2;
+    -fx-background-color: transparent,#15151f,#3a3a3d;
     -fx-background-insets: 0,1,2;
     -fx-background-radius: 5;
 }
 .combo-box-base:editable .text-field:focused {
-    -fx-background-color: #15151f,#15151f,#e0dff2; 
+    -fx-background-color: #15151f,#15151f,#3a3a3d; 
     -fx-background-insets: -0.4, 1, 2;
     -fx-background-radius: 5;
 }
@@ -1199,7 +1199,7 @@
  *                                                                             *
  ******************************************************************************/
 .text-field {    
-    -fx-background-color: transparent,#15151f,rgb(236,238,241);
+    -fx-background-color: transparent,#15151f,#2a2e33;
     -fx-background-insets: 0, 1, 2;
 	-fx-font-size: 200%;
     -fx-padding: 3 5 3 5;    
@@ -1207,12 +1207,12 @@
     -fx-prompt-text-fill: #c6bad4;
 }
 .text-field:hover {
-    -fx-background-color: transparent,#15151f,#e0dff2;
+    -fx-background-color: transparent,#15151f,#3a3a3d;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0;
 }
 .text-field:focused {
-    -fx-background-color: #15151f,#15151f,#e0dff2;
+    -fx-background-color: #15151f,#15151f,#3a3a3d;
     -fx-background-insets: -0.4, 1, 2;
     -fx-background-radius: 0;    
 }
@@ -1230,19 +1230,19 @@
  *                                                                             *
  ******************************************************************************/
 .text-area {   
-    -fx-background-color: transparent,#15151f,rgb(236,238,241);
+    -fx-background-color: transparent,#15151f,#2a2e33;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0;
     -fx-padding: -10;
     -fx-prompt-text-fill: derive(white,-30%);
 }
 .text-area:hover {
-    -fx-background-color: transparent,#15151f,rgb(236,238,241);
+    -fx-background-color: transparent,#15151f,#2a2e33;
     -fx-background-insets: 0,1,2;
     -fx-background-radius: 0;
 }
 .text-area:focused {
-    -fx-background-color: #15151f,#15151f,rgb(236,238,241);
+    -fx-background-color: #15151f,#15151f,#2a2e33;
     -fx-background-insets: -0.4, 1, 2;
     -fx-background-radius: 0;    
 }
@@ -1251,7 +1251,7 @@
 	-fx-background-radius: 0; 
 }
 .text-area .content{
-    -fx-background-color: rgb(236,238,241);
+    -fx-background-color: #2a2e33;
 	-fx-background-radius: 0; 
 }
 /*******************************************************************************

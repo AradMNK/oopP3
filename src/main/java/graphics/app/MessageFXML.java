@@ -75,6 +75,7 @@ public class MessageFXML {
             editButton.setDisable(true);
             deleteButton.setDisable(true);
         }
+        if (!message.getOriginalMessage().equals(message.getID())) editButton.setDisable(true);
         initContents(user.getName(), message.getContent(), message.getDate());
 
         if (message.getID().equals(message.getOriginalMessage())){
