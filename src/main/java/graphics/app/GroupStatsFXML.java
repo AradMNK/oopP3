@@ -59,6 +59,7 @@ public class GroupStatsFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((UserSearcherFXML)fxmlLoader.getController()).initializeUnban(group);
+        popup.getScene().getStylesheets().add(Theme.currentTheme.toString());
         if (Theme.currentTheme == Theme.DARK) popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
         else popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
         popup.initModality(Modality.APPLICATION_MODAL);
