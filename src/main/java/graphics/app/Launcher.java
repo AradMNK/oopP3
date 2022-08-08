@@ -16,7 +16,7 @@ public class Launcher extends Application {
 
     public static void main(String[] args) {
         if (connectAndSelectMode()) launch();
-        else Database.Changer.truncate(LocalDateTime.now());
+        else TextController.inputCommand();
     }
 
     public static boolean connectAndSelectMode() {
