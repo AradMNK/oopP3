@@ -46,7 +46,7 @@ public class MessageFXML {
         confirmation.showAndWait();
         if (confirmation.getResult().getText().equals("OK")){
             Changer.deleteMessage(message.getID().getHandle());
-            ChatFXML.chatFXML.refreshForDelete(message);
+            if (ChatFXML.chatFXML != null) ChatFXML.chatFXML.refreshForDelete(message);
         }
     }
 
