@@ -29,7 +29,6 @@ public class UserFXML {
     GroupStatsFXML groupEditController;
     Group internalGroup;
     User internalUser;
-    boolean followed, blocked;
     @FXML Button followButton, messageButton, blockButton, banButton, postsButton;
     @FXML Circle picture;
     @FXML Text name, username, bio, subtitle, date;
@@ -61,16 +60,15 @@ public class UserFXML {
 
         initContents(user.getName(), user.getUsername(), user.getBio(), user.getSubtitle(), user.getDateJoined());
         internalUser = user;
-
-        followed = Database.Loader.userFollows(Loginner.loginnedUser.getUsername(), user.getUsername());
-        blocked = Database.Loader.isUserBlocked(user.getUsername(), Loginner.loginnedUser.getUsername());
         if (Loginner.loginnedUser.getUsername().equals(user.getUsername())){
             followButton.setDisable(true);
             blockButton.setDisable(true);
             banButton.setDisable(true);
         }
-        if (followed) followButton.setText("Unfollow");
-        if (blocked) blockButton.setText("UNBLOCK");
+        if (Database.Loader.userFollows(Loginner.loginnedUser.getUsername(), user.getUsername()))
+            followButton.setText("Unfollow");
+        if (Database.Loader.isUserBlocked(internalUser.getUsername(), Loginner.loginnedUser.getUsername()))
+            blockButton.setText("UNBLOCK");
     }
     public void initializeGroupOwnerMode(Group group, GroupStatsFXML groupStatsFXML){
         groupEditController = groupStatsFXML;
@@ -79,26 +77,22 @@ public class UserFXML {
     }
 
     @FXML void follow(){
-        if (followed){
+        if (Database.Loader.userFollows(Loginner.loginnedUser.getUsername(), internalUser.getUsername())){
             Loginner.loginnedUser.unfollow(internalUser.getUsername());
             followButton.setText("Follow");
-            followed = false;
             return;
         }
         Loginner.loginnedUser.follow(internalUser.getUsername());
         followButton.setText("Unfollow");
-        followed = true;
     }
     @FXML void block(){
-        if (blocked){
+        if (Database.Loader.isUserBlocked(internalUser.getUsername(), Loginner.loginnedUser.getUsername())){
             Loginner.loginnedUser.unblock(internalUser.getUsername());
             blockButton.setText("BLOCK");
-            blocked = false;
             return;
         }
         Loginner.loginnedUser.block(internalUser.getUsername());
         blockButton.setText("UNBLOCK");
-        blocked = true;
     }
     @FXML void ban(){
         Changer.removeParticipant(internalGroup.getGroupID().getHandle(), internalUser.getUsername());
