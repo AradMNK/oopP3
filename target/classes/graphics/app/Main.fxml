@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="150.0" prefHeight="676.0" prefWidth="919.0" snapToPixel="false" vgap="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphics.app.MainFXML">
@@ -22,21 +23,9 @@
    <children>
       <ToolBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="676.0" prefWidth="353.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
         <items>
-            <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-background-color: rgba(183, 211, 223, 0.5); -fx-background-radius: 15;">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="90.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="50.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+            <HBox maxWidth="1.7976931348623157E308" spacing="4.0">
                <children>
-                  <TextField fx:id="searchField" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#search" onMouseEntered="#hoverSearchField" promptText="Search a user..." GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Button fx:id="searchButton" contentDisplay="CENTER" maxHeight="32.0" maxWidth="32.0" mnemonicParsing="false" onAction="#search" onMouseEntered="#hoverSearchButton" prefHeight="32.0" prefWidth="30.0" styleClass="icon-button" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <Button fx:id="searchButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#search" onMouseEntered="#hoverSearchButton" prefHeight="32.0" prefWidth="30.0" styleClass="icon-button">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -44,15 +33,13 @@
                            </image>
                         </ImageView>
                      </graphic>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
                   </Button>
+                  <TextField fx:id="searchField" alignment="CENTER" maxHeight="1.7976931348623157E308" onAction="#search" onMouseEntered="#hoverSearchField" promptText="Search a user..." HBox.hgrow="SOMETIMES" />
                </children>
                <padding>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets top="20.0" />
                </padding>
-            </GridPane>
+            </HBox>
             <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -61,7 +48,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="postButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#post" onMouseEntered="#hoverPost" styleClass="post-button" text="New Post" textAlignment="RIGHT" textOverrun="CLIP" GridPane.hgrow="ALWAYS">
+                  <Button fx:id="postButton" alignment="TOP_LEFT" graphicTextGap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#post" onMouseEntered="#hoverPost" styleClass="post-button" text="New Post" textAlignment="RIGHT" textFill="#b74545" textOverrun="CLIP" GridPane.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>

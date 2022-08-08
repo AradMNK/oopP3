@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class AppManager {
         stage.getIcons().add(new Image(Objects.requireNonNull(Launcher.class.getResource
                 (Utility.ICON_PATH)).toString()));
         stage.setScene(scene);
+        if (Theme.currentTheme == Theme.DARK) scene.setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
+        else scene.setFill(Paint.valueOf(Utility.THEME_SAVED_LIGHT));
         stage.setMaximized(true);
         loginStage = stage;
 

@@ -31,7 +31,7 @@
                   <Image url="@Icons/Unread.png" />
                </image>
             </ImageView>
-            <Text fx:id="text" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+            <Text fx:id="text" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Text" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="22.0" />
                </font>

@@ -28,7 +28,6 @@ public class MainFXML {
         root = this;
     }
 
-
     @FXML void search(){
         if (searchField.getText().equals("")){
             AppManager.alert(Alert.AlertType.WARNING,
@@ -116,12 +115,14 @@ public class MainFXML {
             AppManager.mainStage.getScene().getStylesheets().clear();
             AppManager.mainStage.getScene().getStylesheets().add(Objects.requireNonNull
                     (Launcher.class.getResource(Utility.DARK_MODE_CSS_PATH)).toString());
+            Theme.currentTheme.saveTheme();
             return;
         }
         Theme.currentTheme = Theme.LIGHT;
         AppManager.mainStage.getScene().getStylesheets().clear();
         AppManager.mainStage.getScene().getStylesheets().add(Objects.requireNonNull
                 (Launcher.class.getResource(Utility.LIGHT_MODE_CSS_PATH)).toString());
+        Theme.currentTheme.saveTheme();
     }
     @FXML void followers(){
         FXMLLoader fxmlLoader_r = new FXMLLoader(Launcher.class.getResource(Utility.USERS_FXML_PATH)),
