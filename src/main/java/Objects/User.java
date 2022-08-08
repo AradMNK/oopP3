@@ -3,8 +3,6 @@ package Objects;
 import Builder.PostBuilder;
 import Database.Loader;
 import Login.Loginner;
-import TextController.TextController;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;

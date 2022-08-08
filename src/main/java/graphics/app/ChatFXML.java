@@ -37,7 +37,7 @@ public class ChatFXML {
     Stage popupStage;
     PopOver replyContainer;
     Parent replyNode;
-    SaveHandle replyID = new SaveHandle(0);
+    SaveHandle replyID = Utility.SAVE_HANDLE_0;
     DirectMessenger dm;
     Group group;
     boolean isGroupType = false;
@@ -235,7 +235,7 @@ public class ChatFXML {
             replyContainer.getRoot().getChildren().clear();
             replyContainer.hide();
         }
-        replyID = new SaveHandle(0);
+        replyID = Utility.SAVE_HANDLE_0;
     }
 
     public void applyEdit(Message message){
@@ -289,7 +289,7 @@ public class ChatFXML {
             newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
             newMessage.setUsername(Loginner.loginnedUser.getUsername());
             newMessage.setGroup(group);
-            newMessage.setReplyToID(new SaveHandle(0));
+            newMessage.setReplyToID(Utility.SAVE_HANDLE_0);
 
             group.getShownMessages().addFirst(newMessage);
             refresh();
@@ -309,7 +309,7 @@ public class ChatFXML {
             newMessage.setOriginalMessage(forwardingMessage.getID());
             newMessage.setOriginalUsername(Loginner.loginnedUser.getUsername());
             newMessage.setUsername(this.dm.getUser().getUsername());
-            newMessage.setReplyToID(new SaveHandle(0));
+            newMessage.setReplyToID(Utility.SAVE_HANDLE_0);
 
             this.dm.getShownMessages().addFirst(newMessage);
             refresh();

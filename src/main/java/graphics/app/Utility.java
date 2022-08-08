@@ -1,5 +1,6 @@
 package graphics.app;
 
+import Objects.SaveHandle;
 import javafx.concurrent.Task;
 
 public class Utility {
@@ -54,6 +55,7 @@ public class Utility {
     EDIT_PREF_WIDTH = 500, EDIT_PREF_HEIGHT = 150,
     FORWARD_PREF_WIDTH = 600, FORWARD_PREF_HEIGHT = 400;
     public static final int HIDE_WIDTH_VALUE = 300;
+    public static final SaveHandle SAVE_HANDLE_0 = new SaveHandle(0);
 
     public static void delay(long millis, Runnable continuation) {
         Task<Void> sleeper = new Task<>() {

@@ -1,5 +1,6 @@
 package graphics.app;
 
+import Database.Changer;
 import Login.Loginner;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -73,6 +74,9 @@ public class PostFXML {
 
     public void initialize(Post post){
         this.post = post;
+        if (!post.getPoster().getUsername().equals(Loginner.loginnedUser.getUsername())
+                && post.getPoster().getUserType() == UserType.BUSINESS)
+        Changer.addViewForUser(post.getPostID().getHandle(), Loginner.loginnedUser.getUsername());
         if (post.getPoster().getPfp().getHandle().equals(""))
             pfp.setFill(new ImagePattern(new Image
                     ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
