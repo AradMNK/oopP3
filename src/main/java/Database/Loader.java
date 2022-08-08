@@ -1506,8 +1506,8 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT postID FROM likes WHERE likeID = '" + likeID
-                                                        + "';").executeQuery();
+            resultSet = connection.prepareStatement("SELECT postID FROM likes WHERE likeID = " + likeID
+                                                        + ";").executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
