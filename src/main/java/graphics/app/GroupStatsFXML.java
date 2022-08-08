@@ -3,6 +3,7 @@ package graphics.app;
 import Login.Loginner;
 import Objects.Group;
 import animatefx.animation.Pulse;
+import graphics.theme.Theme;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -42,6 +43,7 @@ public class GroupStatsFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((UserSearcherFXML)fxmlLoader.getController()).initializeAdd(group);
+        popup.getScene().getStylesheets().add(Theme.currentTheme.toString());
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
         updateContent();
@@ -64,6 +66,7 @@ public class GroupStatsFXML {
         catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((EditGroupFXML)fxmlLoader.getController()).initialize(this, group);
+        popup.initModality(Modality.APPLICATION_MODAL);
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
     }

@@ -4,6 +4,7 @@ import Objects.BusinessUser;
 import Objects.Handle;
 import Objects.User;
 import Objects.UserType;
+import graphics.app.Utility;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -69,6 +70,6 @@ public class UserBuilder {
 
     private static void addGroups(User user) {
         int[] groupIDs = Database.Loader.getGroupsOfUser(user.getUsername());
-        for (int groupID : groupIDs) user.getGroups().add(GroupBuilder.getGroupFromDatabase(groupID));
+        for (int groupID : groupIDs) user.getGroups().add(GroupBuilder.getGroupFromDatabaseFull(groupID, Utility.MESSAGES_TO_LOAD));
     }
 }

@@ -9,7 +9,6 @@ import animatefx.animation.Pulse;
 import animatefx.animation.SlideInUp;
 import graphics.theme.Theme;
 import javafx.beans.binding.Bindings;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -149,17 +148,6 @@ public class ChatFXML {
     }
 
     @FXML void send(){
-        if (Loader.isUserBlocked(dm.getRecipient().getUsername(), Loginner.loginnedUser.getUsername())){
-            AppManager.alert(Alert.AlertType.ERROR, "You have been blocked :(",
-                    "You cannot send messages to this user anymore.", "BLOCKED!");
-            return;
-        }
-        if (Loginner.loginnedUser.getBlocklist().stream().anyMatch(u-> u.equals(dm.getRecipient().getUsername()))){
-            AppManager.alert(Alert.AlertType.ERROR, "You have blocked this user!",
-                    "You cannot send messages to users whom you have blocked.", "BLOCK!");
-            return;
-        }
-
         if (message.getText().equals("")) {
             AppManager.alert(Alert.AlertType.WARNING, "WARNING!",
                     "You cannot send an empty message.", "Empty message!");
@@ -193,6 +181,18 @@ public class ChatFXML {
         ((MessageFXML)fxmlLoader.getController()).initialize(newMessage, Loginner.loginnedUser);
     }
     private void sendMessage() {
+        if (Loader.isUserBlocked(dm.getRecipient().getUsername(), Loginner.loginnedUser.getUsername())){
+            AppManager.alert(Alert.AlertType.ERROR, "You have been blocked :(",
+                    "You cannot send messages to this user anymore.", "BLOCKED!");
+            return;
+        }
+        if (Loginner.loginnedUser.getBlocklist().stream().anyMatch(u-> u.equals(dm.getRecipient().getUsername()))){
+            AppManager.alert(Alert.AlertType.ERROR, "You have blocked this user!",
+                    "You cannot send messages to users whom you have blocked.", "BLOCK!");
+            return;
+        }
+
+
         LocalDateTime now = LocalDateTime.now();
         Message newMessage = new Message();
         newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),

@@ -1,5 +1,6 @@
 package graphics.app;
 
+import Login.LoginState;
 import Login.Loginner;
 import animatefx.animation.Pulse;
 import graphics.theme.Theme;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import Objects.Feed;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -18,8 +20,8 @@ import java.util.Objects;
 public class MainFXML {
     public static MainFXML root;
     @FXML GridPane rootDisplay;
-    @FXML Button homeButton, myAccountButton, chatsButton, exploreButton,
-            blocklistButton, postButton, searchButton, themeButton, followersButton, myPostsButton;
+    @FXML Button homeButton, myAccountButton, chatsButton, exploreButton, blocklistButton,
+            postButton, searchButton, themeButton, followersButton, myPostsButton, logoutButton;
     @FXML TextField searchField;
 
     public void initialize(){
@@ -85,7 +87,14 @@ public class MainFXML {
         ((UsersFXML)fxmlLoader.getController()).initialize(Loginner.loginnedUser.getBlocklist());
         setDisplayTo(root);
     }
+    @FXML void logout(){
+        Loginner.loginnedUser = null;
+        Loginner.loginState = LoginState.SIGN_OUT;
 
+        AppManager.mainStage.close();
+        try {AppManager.launchLogin(new Stage());
+        } catch (IOException e) {e.printStackTrace();}
+    }
     @FXML void post(){
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.POSTMAKER_FXML_PATH));
         try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
@@ -153,6 +162,7 @@ public class MainFXML {
     @FXML void hoverTheme(){new Pulse(themeButton).play();}
     @FXML void hoverFollowers(){new Pulse(followersButton).play();}
     @FXML void hoverMyPosts(){new Pulse(myPostsButton).play();}
+    @FXML void hoverLogout(){new Pulse(logoutButton).play();}
 
     void setDisplayTo(Parent root){
         rootDisplay.getChildren().clear();

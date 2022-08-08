@@ -1543,23 +1543,21 @@ public class Loader {
         //declares an array of usernames not to be included
         String [] usernamesNotToBeIncluded = new String[usernameDontInclude.length + 1];
         usernamesNotToBeIncluded[0] = username;
-        for (int i = 1; i < usernamesNotToBeIncluded.length; i++){
-            usernamesNotToBeIncluded[i] = usernameDontInclude[i-1];
-        }
+        System.arraycopy(usernameDontInclude, 0, usernamesNotToBeIncluded, 1, usernamesNotToBeIncluded.length - 1);
 
         //declares the sql
-        String query = "SELECT username FROM users WHERE NOT (";
+        StringBuilder query = new StringBuilder("SELECT username FROM users WHERE NOT (");
         if (usernameDontInclude.length != 0) {
             for (int i = 0; i < usernamesNotToBeIncluded.length; i++) {
                 if (i != usernamesNotToBeIncluded.length - 1)
-                    query += ("username = '" + usernamesNotToBeIncluded[i] + "' OR ");
+                    query.append("username = '").append(usernamesNotToBeIncluded[i]).append("' OR ");
                 else {
-                    query += ("username = '" + usernamesNotToBeIncluded[i] + "') ORDER BY RAND() LIMIT 1;");
+                    query.append("username = '").append(usernamesNotToBeIncluded[i]).append("') ORDER BY RAND() LIMIT 1;");
                 }
             }
         }
         else {
-            query += ("username = '" + username + "') ORDER BY RAND() LIMIT 1;");
+            query.append("username = '").append(username).append("') ORDER BY RAND() LIMIT 1;");
         }
 
         //declares the username in the resultSet
@@ -1568,7 +1566,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement(query).executeQuery();
+            resultSet = connection.prepareStatement(query.toString()).executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){
@@ -1665,19 +1663,19 @@ public class Loader {
 
     public static int getRandomAd (Integer[] postsNotToBeIncluded){
         //declares the sql
-        String query = "SELECT postID FROM posts ";
+        StringBuilder query = new StringBuilder("SELECT postID FROM posts ");
         if (postsNotToBeIncluded.length != 0) {
-            query += "WHERE NOT (";
+            query.append("WHERE NOT (");
             for (int i = 0; i < postsNotToBeIncluded.length; i++) {
                 if (i != postsNotToBeIncluded.length - 1)
-                    query += ("postID = " + postsNotToBeIncluded[i] + " OR ");
+                    query.append("postID = ").append(postsNotToBeIncluded[i]).append(" OR ");
                 else {
-                    query += ("postID = " + postsNotToBeIncluded[i] + ") AND type = 'business' ORDER BY RAND() LIMIT 1;");
+                    query.append("postID = ").append(postsNotToBeIncluded[i]).append(") AND type = 'business' ORDER BY RAND() LIMIT 1;");
                 }
             }
         }
         else {
-            query += "WHERE type = 'business' ORDER BY RAND() LIMIT 1";
+            query.append("WHERE type = 'business' ORDER BY RAND() LIMIT 1");
         }
 
         //declares the post ID in the resultSet
@@ -1686,7 +1684,7 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement(query).executeQuery();
+            resultSet = connection.prepareStatement(query.toString()).executeQuery();
 
             //checks if the resultSet isn't empty
             if (resultSet.next()){

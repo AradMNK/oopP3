@@ -73,7 +73,6 @@ public class MessageFXML {
         }
         if (!user.getUsername().equals(Loginner.loginnedUser.getUsername())){
             editButton.setDisable(true);
-            forwardButton.setDisable(true);
             deleteButton.setDisable(true);
         }
         initContents(user.getName(), message.getContent(), message.getDate());
