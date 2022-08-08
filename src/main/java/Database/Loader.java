@@ -364,8 +364,8 @@ public class Loader {
         Connection connection = Connector.connector.connect();
         ResultSet resultSet;
         try {
-            resultSet = connection.prepareStatement("SELECT COUNT(DISTINCT view.username) FROM posts INNER JOIN views"
-                                                        + " ON posts.postID = views.postID AND"
+            resultSet = connection.prepareStatement("SELECT COUNT(DISTINCT view.username) FROM posts INNER JOIN view"
+                                                        + " ON posts.postID = view.postID AND"
                                                         + " posts.username = '" + username + "';").executeQuery();
 
             //checks if the resultSet isn't empty
