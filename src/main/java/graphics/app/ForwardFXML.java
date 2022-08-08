@@ -49,7 +49,10 @@ public class ForwardFXML {
         ArrayList<Group> sortedGroups = new ArrayList<>(groupsList);
         LocalDateTime[] dateTimesGroups = new LocalDateTime[groups.size()];
         int i = 0;
-        for (Group group: groupsList) {dateTimesGroups[i++] = group.getShownMessages().get(0).getDate();}
+        for (Group group: groupsList) {
+            if (group.getShownMessages().size() == 0) dateTimesGroups[i++] = LocalDateTime.MIN;
+            else dateTimesGroups[i++] = group.getShownMessages().get(0).getDate();
+        }
         sortedGroups.sort(Comparator.comparing(group -> dateTimesGroups[groupsList.indexOf(group)]));
         for (Group group : sortedGroups) addGroup(group);
     }
