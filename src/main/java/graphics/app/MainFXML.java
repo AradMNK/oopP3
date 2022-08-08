@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import Objects.Feed;
+import Objects.UserType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class MainFXML {
     @FXML TextField searchField;
 
     public void initialize(){
+        if (Loginner.loginnedUser.getUserType() == UserType.BUSINESS) statsButton.setVisible(true);
         root = this;
     }
 
