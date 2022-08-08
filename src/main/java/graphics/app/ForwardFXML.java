@@ -29,7 +29,8 @@ public class ForwardFXML {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_PREVIEW_FXML_PATH));
         try {displayGroups.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
-        ((ChatPreviewFXML)fxmlLoader.getController()).initialize(group, group.getShownMessages().get(0));
+        if (group.getShownMessages().size() == 0) ((ChatPreviewFXML)fxmlLoader.getController()).initialize(group);
+        else ((ChatPreviewFXML)fxmlLoader.getController()).initialize(group, group.getShownMessages().get(0));
         ((ChatPreviewFXML)fxmlLoader.getController()).changeChatPaneClickToForward();
     }
 
