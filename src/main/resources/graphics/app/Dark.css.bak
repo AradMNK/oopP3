@@ -11,14 +11,14 @@
     src: url('Fonts/AgeoPersonalUse.otf') format('opentype');
 }
 .root {       
-    -fx-text-background-color: black;
+    -fx-text-background-color: #1B2430;
     -fx-text-fill: #1B2430;
     -fx-text-base-color: #1B2430;
     -fx-text-inner-color: #1B2430;
     -fx-selection-bar-text: #1B2430;
 	-fx-font-family: 'Ageo Personal Use';
 	-fx-font-size: 1em;
-	-fx-background-color: #E9E2ED;
+	-fx-background-color: #e3e1e6;
 }
 /*******************************************************************************
  *                                                                             *
@@ -889,19 +889,21 @@
 *                                                                              *
 *******************************************************************************/
 .scroll-pane {    
-    -fx-background-color: transparent, #403f5c, #5e5985;
+    -fx-background-color: transparent, #5e5985, linear-gradient(to bottom,#c1c5d4 0%,#9a9ead 100%);
     -fx-background-insets: 0,0,1;
-    -fx-padding: 2;    
+    -fx-padding: 20;    
 }
 .scroll-pane:focused {
-    -fx-background-color:  #403f5c,  #403f5c, #5e5985;    
+    -fx-background-color:  #403f5c,  #5e5985, linear-gradient(to bottom,#c1c5d4 0%,#9a9ead 100%);
     -fx-background-insets: -1.4, 0, 1;
 }
 .scroll-pane .corner {
     -fx-background-color: #403f5c, #7b728f;
     -fx-background-insets: 0, 1 1 1 1;
 }
-.scroll-pane .viewport {    -fx-background-color: #c1c5d4;}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
 /*******************************************************************************
 *                                                                              *
 * ComboBoxBase                                                                 *
@@ -1187,18 +1189,18 @@
     -fx-background-insets: 0, 1, 2;
 	-fx-font-size: 200%;
     -fx-padding: 3 5 3 5;    
-	-fx-background-radius: 15;
+	-fx-background-radius: 0;
     -fx-prompt-text-fill: #c6bad4;
 }
 .text-field:hover {
     -fx-background-color: transparent,#403f5c,#e0dff2;
     -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 15;
+    -fx-background-radius: 0;
 }
 .text-field:focused {
     -fx-background-color: #403f5c,#403f5c,#e0dff2;
     -fx-background-insets: -0.4, 1, 2;
-    -fx-background-radius: 15;    
+    -fx-background-radius: 0;    
 }
 /*******************************************************************************
  *                                                                             *
@@ -1217,21 +1219,26 @@
     -fx-background-color: transparent,#403f5c,rgb(236,238,241);
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0;
-    -fx-padding: 1;
+    -fx-padding: -10;
     -fx-prompt-text-fill: derive(white,-30%);
 }
 .text-area:hover {
-    -fx-background-color: transparent,#403f5c,#e0dff2;
+    -fx-background-color: transparent,#403f5c,rgb(236,238,241);
     -fx-background-insets: 0,1,2;
     -fx-background-radius: 0;
 }
 .text-area:focused {
-    -fx-background-color: #403f5c,#403f5c,#e0dff2;
+    -fx-background-color: #403f5c,#403f5c,rgb(236,238,241);
     -fx-background-insets: -0.4, 1, 2;
     -fx-background-radius: 0;    
 }
 .text-area .scroll-pane {
     -fx-background-color: transparent;
+	-fx-background-radius: 0; 
+}
+.text-area .content{
+    -fx-background-color: rgb(236,238,241);
+	-fx-background-radius: 0; 
 }
 /*******************************************************************************
  *                                                                             *
@@ -1694,7 +1701,7 @@
     -fx-background-insets: 0,1,2;
 }
 .tool-bar:vertical {
-    -fx-background-color: #403f5c, linear-gradient(to bottom, #bec0d1, #cccad9);
+    -fx-background-color: #403f5c, #bec0d1;
     -fx-background-insets: 0, 0 1 0 1;    
 }
 .tool-bar .separator:vertical .line {
@@ -1708,7 +1715,7 @@
     -fx-border-color:  transparent transparent #7b7882 transparent;
 }
 .tool-bar:horizontal {
-    -fx-background-color: #403f5c, linear-gradient(to bottom, #bec0d1, #cccad9);    
+    -fx-background-color: #403f5c, #bec0d1;
     -fx-background-insets: 0, 1 0 1 0;    
 }
 .tool-bar:horizontal .tool-bar-overflow-button .arrow {
@@ -1815,9 +1822,11 @@
  ******************************************************************************/
  .label{
 	 -fx-text-fill: #354259;
-	 -fx-background-radius: 15;
+	 -fx-background-radius: 3;
 	 -fx-background-insets: 1, 2;
-	 -fx-background-color: #23212b, #D6EFED;
+	 -fx-background-color: #23212b, #d3dceb;
+	 -fx-padding: 10;
+	 -fx-font-size:1em;
  }
  /*******************************************************************************
  *                                                                             *
@@ -1827,5 +1836,28 @@
  .text{
 	 -fx-fill: #2a2c38;
 	 -fx-padding: 2;
-	 -fx-font-family: 'System';
+	 -fx-font-family: 'AgeoPersonalUse';
  }
+ 
+  /*******************************************************************************
+ *                                                                             *
+ * VBox                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+ .vbox{
+	-fx-background-color: #d3d6e3;
+	-fx-border-color: black;
+ }
+  /*******************************************************************************
+ *                                                                             *
+ * Rect                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+.vbar{
+	-fx-fill: #56535c;
+	-fx-stroke: #35303d;
+}
+.hbar{
+	-fx-fill: #6f748c;
+	-fx-stroke: transparent;
+}
