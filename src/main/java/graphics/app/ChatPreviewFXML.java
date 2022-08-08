@@ -1,5 +1,6 @@
 package graphics.app;
 
+import Login.Loginner;
 import animatefx.animation.Pulse;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -53,7 +54,9 @@ public class ChatPreviewFXML {
                 picture.setFill(new ImagePattern(new Image((Objects.requireNonNull
                         (Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));}
         }
-        initContents(user.getName(), "", message.getContent());
+        if (dm.getRecipient().getUsername().equals(Loginner.loginnedUser.getUsername()))
+            initContents(Utility.SAVED_MESSAGES, "", message.getContent());
+        else initContents(user.getName(), "", message.getContent());
     }
 
     public void initialize(Group group, GroupMessage message){
@@ -69,7 +72,6 @@ public class ChatPreviewFXML {
                 picture.setFill(new ImagePattern(new Image((Objects.requireNonNull
                         (Launcher.class.getResource(Utility.GROUP_PICTURE_PATH))).toString())));}
         }
-
         initContents(group.getName(), Database.Loader.getUserName(message.getUsername()), message.getContent());
     }
     public void initialize(Group group) {

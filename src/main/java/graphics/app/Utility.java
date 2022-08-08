@@ -47,7 +47,9 @@ public class Utility {
 
     UNKNOWN_USER_PICTURE = "Default/Default User.jpg",
     GROUP_PICTURE_PATH = "Default/Default Group.png",
-    ICON_PATH = "instakilogram.png";
+    ICON_PATH = "instakilogram.png",
+
+    SAVED_MESSAGES = "Saved messages";
 
     public static final int PREF_WIDTH = 900, PREF_HEIGHT = 600,
     POST_TEXT_MARGIN_FROM_RIGHT = 60, IMAGE_POST_FIT_WIDTH = 500,
