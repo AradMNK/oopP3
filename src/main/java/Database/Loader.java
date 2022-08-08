@@ -1661,7 +1661,7 @@ public class Loader {
         return chats;
     }
 
-    public static int getRandomAd (int username, Integer[] postsNotToBeIncluded){
+    public static int getRandomAd (String username, Integer[] postsNotToBeIncluded){
         //declares the sql
         StringBuilder query = new StringBuilder("SELECT postID FROM posts ");
         if (postsNotToBeIncluded.length != 0) {
