@@ -44,6 +44,11 @@ public class Utility {
 
     LIGHT_MODE_CSS_PATH = "Light.css",
     DARK_MODE_CSS_PATH = "Dark.css",
+    THEME_SAVER = "Theme saver.txt",
+    THEME_SAVED_LIGHT = "light",
+    THEME_SAVED_DARK = "dark",
+    SCENE_FILL_DARK = "000000",
+    SCENE_FILL_LIGHT = "FFFFFF",
 
     UNKNOWN_USER_PICTURE = "Default/Default User.jpg",
     GROUP_PICTURE_PATH = "Default/Default Group.png",
