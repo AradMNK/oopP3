@@ -23,7 +23,7 @@ public class AppManager {
                 (Utility.ICON_PATH)).toString()));
         stage.setScene(scene);
         if (Theme.currentTheme == Theme.DARK) scene.setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
-        else scene.setFill(Paint.valueOf(Utility.THEME_SAVED_LIGHT));
+        else scene.setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
         stage.setMaximized(true);
         loginStage = stage;
 
@@ -67,6 +67,8 @@ public class AppManager {
         try {
             scene = new Scene(fxmlLoader.load(), Utility.PREF_WIDTH, Utility.PREF_HEIGHT);
             scene.getStylesheets().add(Theme.currentTheme.toString());
+            if (Theme.currentTheme == Theme.DARK) scene.setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
+            else scene.setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
             mainStage.setTitle(Utility.APP_TITLE);
             mainStage.getIcons().add(new Image(Objects.requireNonNull(Launcher.class.getResource
                     (Utility.ICON_PATH)).toString()));

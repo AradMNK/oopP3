@@ -20,7 +20,7 @@ import java.util.Objects;
 public class MainFXML {
     public static MainFXML root;
     @FXML GridPane rootDisplay;
-    @FXML Button homeButton, myAccountButton, chatsButton, exploreButton, blocklistButton,
+    @FXML Button homeButton, myAccountButton, chatsButton, exploreButton, blocklistButton, statsButton,
             postButton, searchButton, themeButton, followersButton, myPostsButton, logoutButton;
     @FXML TextField searchField;
 
@@ -151,6 +151,16 @@ public class MainFXML {
 
         setDisplayTo(root);
     }
+    @FXML void stats(){
+        if (Loginner.loginnedUser.getPosts().size() != 0){
+            noResult("You have no posts yet to record views...");
+            return;
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.STATS_FXML_PATH));
+        try {setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace();}
+    }
 
     @FXML void hoverSearchButton(){new Pulse(searchButton).play();}
     @FXML void hoverSearchField(){new Pulse(searchField).play();}
@@ -164,6 +174,7 @@ public class MainFXML {
     @FXML void hoverFollowers(){new Pulse(followersButton).play();}
     @FXML void hoverMyPosts(){new Pulse(myPostsButton).play();}
     @FXML void hoverLogout(){new Pulse(logoutButton).play();}
+    @FXML void hoverStats(){new Pulse(statsButton).play();}
 
     void setDisplayTo(Parent root){
         rootDisplay.getChildren().clear();

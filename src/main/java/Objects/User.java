@@ -82,9 +82,8 @@ public class User {
 
     public boolean like(int postID){
         if (Database.Loader.isPostLiked(postID, this.username)) return false;
-
-        Database.Saver.addToLikes(postID, this.username);
-        Database.Saver.updateFeedsFromLike(Loader.getPostPoster(postID), postID);
+        int handle = Database.Saver.addToLikes(postID, this.username);
+        Database.Saver.updateFeedsFromLike(Loader.getPostPoster(postID), handle);
         if (Database.Loader.postIsAd(postID)) Database.Changer.addLikeStat(postID, Loginner.loginnedUser.getUsername());
         return true;
     }

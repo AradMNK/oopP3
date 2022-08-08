@@ -12,7 +12,9 @@ public class FeedBuilder {
 
         for (int feedPostID: feedPostIDs) feed.getPosts().add(PostBuilder.getPostFromDatabase(feedPostID));
         for (int feedCommentID: feedCommentIDs) feed.getComments().add(CommentBuilder.getCommentFromDatabase(feedCommentID));
-        for (int feedLikeID: feedLikeIDs) feed.getLikes().add(LikeBuilder.getLikeFromDatabase(feedLikeID));
+        for (int feedLikeID: feedLikeIDs) {
+            feed.getLikes().add(LikeBuilder.getLikeFromDatabase(feedLikeID));
+        }
 
         return feed;
     }

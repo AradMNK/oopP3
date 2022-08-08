@@ -26,6 +26,7 @@ public class Utility {
 
     FEED_FXML_PATH = "Feed.fxml",
     EXPLORE_FXML_PATH = "Explore.fxml",
+    STATS_FXML_PATH = "Stats.fxml",
 
     NEW_GROUP_FXML_PATH = "New Group.fxml",
     JOIN_GROUP_FXML_PATH = "Join Group.fxml",
@@ -48,7 +49,7 @@ public class Utility {
     THEME_SAVED_LIGHT = "light",
     THEME_SAVED_DARK = "dark",
     SCENE_FILL_DARK = "000000",
-    SCENE_FILL_LIGHT = "FFFFFF",
+    SCENE_FILL_LIGHT = "ffffff",
 
     UNKNOWN_USER_PICTURE = "Default/Default User.jpg",
     GROUP_PICTURE_PATH = "Default/Default Group.png",
