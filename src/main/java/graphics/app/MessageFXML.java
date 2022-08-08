@@ -106,4 +106,35 @@ public class MessageFXML {
             ChatFXML.chatFXML.replyMode(GroupMessageBuilder.getGroupMessageFromDatabase(message.getReplyToID().getHandle()));
         else ChatFXML.chatFXML.replyMode(MessageBuilder.getMessageFromDatabase(message.getReplyToID().getHandle()));
     }
+
+    public void initializeSearch(Message message, User user) {
+        this.user = user;
+        this.message = message;
+        if (user.getPfp().getHandle().equals(""))
+            pfp.setFill(new ImagePattern(new Image
+                    ((Objects.requireNonNull(Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));
+        else{
+            try {
+                pfp.setFill(new ImagePattern(new Image(user.getPfp().getHandle())));}
+            catch (IllegalArgumentException e){AppManager.alert(Alert.AlertType.ERROR, "Unsupported image file!",
+                    "Please choose another image.", "Image could not load!");
+                pfp.setFill(new ImagePattern(new Image((Objects.requireNonNull
+                        (Launcher.class.getResource(Utility.UNKNOWN_USER_PICTURE))).toString())));}
+        }
+        editButton.setVisible(false);
+        replyButton.setVisible(false);
+        deleteButton.setVisible(false);
+        forwardButton.setVisible(false);
+        initContents(user.getName(), message.getContent(), message.getDate());
+
+        if (message.getID().equals(message.getOriginalMessage())){
+            forwarded.setVisible(false);
+            forwardedUser.setVisible(false);
+        }
+        else forwardedUser.setText("@" + message.getOriginalUsername());
+        if (message.getReplyToID().getHandle() == 0){
+            replied.setVisible(false);
+            repliedMessage.setVisible(false);
+        }
+    }
 }
