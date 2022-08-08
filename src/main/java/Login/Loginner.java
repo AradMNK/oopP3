@@ -87,6 +87,7 @@ public class Loginner {
         }
 
         loginnedUser = UserBuilder.getUserFromDatabaseFull(loginnedUser.getUsername());
+        TextController.println("Reloaded.");
     }
 
     public static void forgotPassword(String username) {

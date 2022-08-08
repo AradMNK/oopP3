@@ -71,6 +71,7 @@ public class GroupController {
                 case UNBAN -> unban(split[1]);
                 case ADD -> add(split[1]);
                 case REVOKE -> revoke(split[1]);
+                case RENAME -> rename(split[1]);
                 case JOINER -> showJoiner();
 
                 case REFRESH -> refresh();
@@ -86,6 +87,17 @@ public class GroupController {
 
     private static void showJoiner() {
         TextController.println("Group joiner is: " + group.getGroupJoiner());
+    }
+
+    private static void rename(String name) {
+        if (!group.getOwner().getUsername().equals(Loginner.loginnedUser.getUsername())){
+            TextController.println("You are not the group owner to be allowed to do this.");
+            return;
+        }
+
+        Database.Changer.changeGroupName(group.getGroupID().getHandle(), name);
+        group.setName(name);
+        TextController.println("Name changed successfully.");
     }
 
     private static void revoke(String joiner) {
@@ -321,6 +333,7 @@ enum GroupCommand{
     BAN("\\ban"),
     UNBAN("\\unban"),
     ADD("\\add"),
+    RENAME("\\rename"),
     REVOKE("\\revoke"),
     JOINER("\\joiner"),
 
