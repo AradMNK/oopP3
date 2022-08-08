@@ -61,6 +61,7 @@ public class Changer {
     public static void removeLike(int postID, String username) {
         Connector.queryWithoutResult("DELETE FROM likes WHERE username = '"
                                             + username + "' AND postID = " + postID + ";");
+        removeLikeFromFeed(username, postID);
     }
 
     public static void removeGroup(int groupID) {
