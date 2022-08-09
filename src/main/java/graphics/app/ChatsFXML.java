@@ -113,6 +113,7 @@ public class ChatsFXML {
         ((JoinGroupFXML)fxmlLoader.getController()).initialize(this);
         if (Theme.currentTheme == Theme.DARK) popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
         else popup.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
+        popup.getScene().getStylesheets().add(Theme.currentTheme.toString());
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.showAndWait();
     }

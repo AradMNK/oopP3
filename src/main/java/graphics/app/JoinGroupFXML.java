@@ -25,7 +25,7 @@ public class JoinGroupFXML {
 
         int id = Database.Loader.getGroupID(link.getText());
 
-        if (Loginner.loginnedUser.getGroups().stream().noneMatch(g-> g.getGroupID().getHandle() == id)){
+        if (Loginner.loginnedUser.getGroups().stream().anyMatch(g-> g.getGroupID().getHandle() == id)){
             AppManager.alert(Alert.AlertType.ERROR, "You are already in this group!", "What are you doing?",
                     "Already in group");
             return;

@@ -90,7 +90,7 @@ public class TextController {
 
         int id = Database.Loader.getGroupID(joiner);
 
-        if (Loginner.loginnedUser.getGroups().stream().noneMatch(g-> g.getGroupID().getHandle() == id)){
+        if (Loginner.loginnedUser.getGroups().stream().anyMatch(g-> g.getGroupID().getHandle() == id)){
             TextController.println("You have already joined this group!");
             return;
         }
