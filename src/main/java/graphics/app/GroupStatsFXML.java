@@ -95,6 +95,13 @@ public class GroupStatsFXML {
         notification.showInformation();
         MainFXML.root.removeDisplay();
     }
+    @FXML void exit(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.CHAT_FXML_PATH));
+        try {MainFXML.root.setDisplayTo(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
+                "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
+        ((ChatFXML)fxmlLoader.getController()).initialize(group);
+        Changer.userSees(Loginner.loginnedUser.getUsername(), group.getGroupID().getHandle());
+    }
 
     @FXML void hoverUnban(){new Pulse(unbanButton).play();}
     @FXML void hoverAdd(){new Pulse(addButton).play();}
