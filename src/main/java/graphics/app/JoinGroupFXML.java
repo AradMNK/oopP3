@@ -39,7 +39,11 @@ public class JoinGroupFXML {
         Loginner.loginnedUser.getGroups().add(GroupBuilder.getGroupFromDatabase(id));
         Database.Changer.addUserToGroup(Loginner.loginnedUser.getUsername(), id);
 
+        root.displayDirects.getChildren().clear();
+        root.displayGroups.getChildren().clear();
         root.initialize(Loginner.loginnedUser.getChats(), Loginner.loginnedUser.getGroups());
+
+        root.popup.close();
     }
     @FXML void cancel(){root.popup.close();}
 }
