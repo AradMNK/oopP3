@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -174,7 +175,7 @@ public class ChatFXML {
         newMessage.setGroup(group);
         newMessage.setReplyToID(replyID);
 
-        messages.addFirst(newMessage);
+        group.getShownMessages().addFirst(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
         try {display.getChildren().add(0, fxmlLoader.load());}
@@ -194,7 +195,6 @@ public class ChatFXML {
             return;
         }
 
-
         LocalDateTime now = LocalDateTime.now();
         Message newMessage = new Message();
         newMessage.setID(new SaveHandle(Saver.addToMessages(dm.getUser().getUsername(), dm.getRecipient().getUsername(),
@@ -206,7 +206,7 @@ public class ChatFXML {
         newMessage.setUsername(dm.getUser().getUsername());
         newMessage.setReplyToID(replyID);
 
-        messages.addFirst(newMessage);
+        dm.getShownMessages().addFirst(newMessage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.MESSAGE_FXML_PATH));
         try {display.getChildren().add(0, fxmlLoader.load());}
@@ -242,6 +242,7 @@ public class ChatFXML {
 
     public void applyEdit(Message message){
         editingMessage = message;
+        System.out.println(message.getContent());
         popupStage = new Stage(StageStyle.UTILITY);
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource(Utility.EDIT_FXML_PATH));
         try {popupStage.setScene(new Scene(fxmlLoader.load(), Utility.EDIT_PREF_WIDTH, Utility.EDIT_PREF_HEIGHT));}
@@ -249,6 +250,8 @@ public class ChatFXML {
                     "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
         ((EditFXML)fxmlLoader.getController()).initialize(message.getContent());
         popupStage.getScene().getStylesheets().add(Theme.currentTheme.toString());
+        if (Theme.currentTheme == Theme.DARK) popupStage.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_DARK));
+        else popupStage.getScene().setFill(Paint.valueOf(Utility.SCENE_FILL_LIGHT));
         new SlideInUp(popupStage.getScene().getRoot()).play();
         popupStage.initModality(Modality.APPLICATION_MODAL);
         popupStage.showAndWait();
