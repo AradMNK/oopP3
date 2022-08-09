@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CommentBuilder {
+    //
     public static Comment getCommentFromDatabase(int commentID){
         Comment comment = new Comment();
         String[] details = Database.Loader.getCommentDetails(commentID); //username, postID, comment, date
