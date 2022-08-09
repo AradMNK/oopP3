@@ -1,5 +1,6 @@
 package graphics.app;
 
+import Database.Changer;
 import Login.Loginner;
 import Objects.Group;
 import animatefx.animation.Pulse;
@@ -18,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -27,7 +29,7 @@ public class GroupStatsFXML {
     Group group;
     @FXML Circle picture;
     @FXML Text name, link;
-    @FXML Button addButton, unbanButton, editButton;
+    @FXML Button addButton, unbanButton, editButton, leaveButton;
     @FXML GridPane participants, picturePane;
 
     void initialize(Group group){
@@ -81,10 +83,23 @@ public class GroupStatsFXML {
         popup.showAndWait();
         updateContent();
     }
+    @FXML void leave(){
+        Loginner.loginnedUser.getGroups().remove(group);
+        if (group.getOwner().getUsername().equals(Loginner.loginnedUser.getUsername()))
+            Changer.removeGroup(group.getGroupID().getHandle());
+        else Changer.removeParticipant(group.getGroupID().getHandle(), Loginner.loginnedUser.getUsername());
+
+        Notifications notification = Notifications.create();
+        notification.title("You have left the group!");
+        notification.text("Successfully left the group.");
+        notification.showInformation();
+        MainFXML.root.removeDisplay();
+    }
 
     @FXML void hoverUnban(){new Pulse(unbanButton).play();}
     @FXML void hoverAdd(){new Pulse(addButton).play();}
     @FXML void hoverEdit(){new Pulse(editButton).play();}
+    @FXML void hoverLeave(){new Pulse(leaveButton).play();}
 
     public void updateContent() {
         if (group.getPfp().getHandle().equals(""))
