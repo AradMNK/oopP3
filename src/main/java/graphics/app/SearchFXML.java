@@ -81,6 +81,6 @@ public class SearchFXML {
         try {
             displayDirects.getChildren().add(fxmlLoader.load());} catch (IOException e) {AppManager.alert(Alert.AlertType.ERROR,
                 "Exception occurred.", e.getCause().getMessage(), "Exception"); e.printStackTrace(); return;}
-        ((MessageFXML)fxmlLoader.getController()).initialize(message, UserBuilder.getUserFromDatabase(message.getUsername()));
+        ((MessageFXML)fxmlLoader.getController()).initializeSearch(message, UserBuilder.getUserFromDatabase(message.getUsername()));
     }
 }
