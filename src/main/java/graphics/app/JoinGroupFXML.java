@@ -38,6 +38,8 @@ public class JoinGroupFXML {
 
         Loginner.loginnedUser.getGroups().add(GroupBuilder.getGroupFromDatabase(id));
         Database.Changer.addUserToGroup(Loginner.loginnedUser.getUsername(), id);
+
+        root.initialize(Loginner.loginnedUser.getChats(), Loginner.loginnedUser.getGroups());
     }
     @FXML void cancel(){root.popup.close();}
 }
