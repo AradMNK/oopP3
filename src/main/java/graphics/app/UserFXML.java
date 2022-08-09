@@ -86,7 +86,7 @@ public class UserFXML {
         followButton.setText("Unfollow");
     }
     @FXML void block(){
-        if (Database.Loader.isUserBlocked(internalUser.getUsername(), Loginner.loginnedUser.getUsername())){
+        if (Database.Loader.isUserBlocked(Loginner.loginnedUser.getUsername(), internalUser.getUsername())){
             Loginner.loginnedUser.unblock(internalUser.getUsername());
             blockButton.setText("BLOCK");
             return;
