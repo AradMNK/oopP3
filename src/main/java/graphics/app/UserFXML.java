@@ -67,7 +67,7 @@ public class UserFXML {
         }
         if (Database.Loader.userFollows(Loginner.loginnedUser.getUsername(), user.getUsername()))
             followButton.setText("Unfollow");
-        if (Database.Loader.isUserBlocked(internalUser.getUsername(), Loginner.loginnedUser.getUsername()))
+        if (Database.Loader.isUserBlocked(Loginner.loginnedUser.getUsername(), internalUser.getUsername()))
             blockButton.setText("UNBLOCK");
     }
     public void initializeGroupOwnerMode(Group group, GroupStatsFXML groupStatsFXML){
